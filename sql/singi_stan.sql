@@ -49,31 +49,34 @@ CREATE TABLE kupac (
 );
 
 CREATE TABLE gledanje_nekretnine (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT,
     vreme DATETIME NOT NULL,
     fk_agent INT NOT NULL,
     fk_kupac INT NOT NULL,
     fk_nekretnina INT NOT NULL,
     CONSTRAINT fk_gledanje_nekretnine_agent FOREIGN KEY (fk_agent) REFERENCES agent (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_gledanje_nekretnine_kupac FOREIGN KEY (fk_kupac) REFERENCES kupac (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_geldanje_nekretnine_nekretnina FOREIGN KEY (fk_nekretnina) REFERENCES nekretnina (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    CONSTRAINT fk_geldanje_nekretnine_nekretnina FOREIGN KEY (fk_nekretnina) REFERENCES nekretnina (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    PRIMARY KEY (id, fk_agent, fk_kupac, fk_nekretnina)
 );
 
 CREATE TABLE ugovor (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT,
     datum DATE NOT NULL,
     fk_agent INT NOT NULL,
     fk_kupac INT NOT NULL,
     fk_nekretnina INT NOT NULL,
     CONSTRAINT fk_ugovor_agent FOREIGN KEY (fk_agent) REFERENCES agent (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_ugovor_kupac FOREIGN KEY (fk_kupac) REFERENCES kupac (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_ugovor_nekretnina FOREIGN KEY (fk_nekretnina) REFERENCES nekretnina (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    CONSTRAINT fk_ugovor_nekretnina FOREIGN KEY (fk_nekretnina) REFERENCES nekretnina (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    PRIMARY KEY (id, fk_agent, fk_kupac, fk_nekretnina)
 );
 
 CREATE TABLE lista_zelja (
-    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT,
     fk_kupac INT NOT NULL,
     fk_nekretnina INT NOT NULL,
     CONSTRAINT fk_lista_zelja_kupac FOREIGN KEY (fk_kupac) REFERENCES kupac (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
-    CONSTRAINT fk_lista_zelja_nekretnina FOREIGN KEY (fk_nekretnina) REFERENCES nekretnina (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+    CONSTRAINT fk_lista_zelja_nekretnina FOREIGN KEY (fk_nekretnina) REFERENCES nekretnina (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    PRIMARY KEY (id, fk_kupac, fk_nekretnina)
 );
