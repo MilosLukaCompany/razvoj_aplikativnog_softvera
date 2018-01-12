@@ -69,3 +69,11 @@ CREATE TABLE ugovor (
     CONSTRAINT fk_ugovor_kupac FOREIGN KEY (fk_kupac) REFERENCES kupac (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_ugovor_nekretnina FOREIGN KEY (fk_nekretnina) REFERENCES nekretnina (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
+
+CREATE TABLE lista_zelja (
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    fk_kupac INT NOT NULL,
+    fk_nekretnina INT NOT NULL,
+    CONSTRAINT fk_lista_zelja_kupac FOREIGN KEY (fk_kupac) REFERENCES kupac (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
+    CONSTRAINT fk_lista_zelja_nekretnina FOREIGN KEY (fk_nekretnina) REFERENCES nekretnina (id) ON DELETE NO ACTION ON UPDATE NO ACTION
+);
