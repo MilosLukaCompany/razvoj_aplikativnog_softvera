@@ -311,7 +311,7 @@ input[type="search"]::-webkit-search-decoration {
     font-weight: 600;
 }
 .search-form {
-    background-color: #fff;
+    
     border-radius: 5px;
     padding: 20px 0;
     border: 1px solid #E6E6E6;

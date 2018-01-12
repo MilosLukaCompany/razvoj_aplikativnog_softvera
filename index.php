@@ -7,14 +7,14 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>SINGI STAN | Početna</title>
-        <meta name="description" content="GARO is a real-estate template">
-        <meta name="author" content="Kimarotec">
-        <meta name="keyword" content="html5, css, bootstrap, property, real-estate theme , bootstrap template">
+        <meta name="description" content="Singi Stan je agencija koja se bavi prometom nekretnina u Beogradu.">
+        <meta name="author" content="Luka Kovacevic & Milos Ratkovic">
+        <meta name="keyword" content="nekretnine, beograd">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
 
-        <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        
         <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
 
@@ -43,7 +43,7 @@
         <!-- Body content -->
 
        
-        <!--End top header -->
+        <!--Nav bar -->
 
         <nav class="navbar navbar-default ">
             <div class="container">
@@ -55,20 +55,20 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.html"><img src="assets/img/logo.png" alt=""></a>
+                    <a class="navbar-brand" href="index.php"><img src="assets/img/logo.png" alt=""></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse yamm" id="navigation">
                     <div class="button navbar-right">
-                        <button class="navbar-btn nav-button wow bounceInRight login" onclick=" window.open('login.html')" data-wow-delay="0.45s">Uloguj se</button>
-                        <button class="navbar-btn nav-button wow fadeInRight" onclick=" window.open('register.html')" data-wow-delay="0.48s">Registruj se</button>
+                        <button class="navbar-btn nav-button wow bounceInRight login" onclick="window.open('login.php', '_self');" data-wow-delay="0.45s">Uloguj se</button>
+                        <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('register.php', '_self');" data-wow-delay="0.48s">Registruj se</button>
                     </div>
                     <ul class="main-nav nav navbar-nav navbar-right">
                         
                             
-                        <li class="wow fadeInDown" data-wow-delay="0.2s"><a class="" href="index.html">Početna</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="" href="properties.html">Nekretnine</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="" href="index.html">Početna</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="" href="properties.html">Nekretnine</a></li>
                         <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="" href="contact.html">Kontakt</a></li>
                         
                          
@@ -81,21 +81,20 @@
         <!-- End of nav bar -->
 
         <div class="slider-area">
-            <div class="slider">
-                <div id="bg-slider" class="owl-carousel owl-theme">
+            
+               
 
-                    <div class="item"><img src="assets/img/slide1/slider-image-1.jpg" alt="GTA V"></div>
-                    <div class="item"><img src="assets/img/slide1/slider-image-2.jpg" alt="The Last of us"></div>
-                    <div class="item"><img src="assets/img/slide1/slider-image-1.jpg" alt="GTA V"></div>
+          <div class="banner" ><img src="assets/img/awesome-livingroom.jpg" alt="livingroom">
+                   
 
-                </div>
-            </div>
+                    
+           
             <div class="slider-content">
                 <div class="row">
                     <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
-                        <h2>trazenje vašeg novog doma je upravo postalo lakše uz Singi Stan</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eligendi deserunt deleniti, ullam commodi sit ipsam laboriosam velit adipisci quibusdam aliquam teneturo!</p>
-                        <div class="search-form wow pulse" data-wow-delay="0.8s">
+                        <h2>traženje vašeg novog doma je upravo postalo lakše uz Singi Stan</h2>
+                        
+                        <div id="trazi" class="search-form wow pulse" data-wow-delay="0.8s">
 
                             <form action="" class=" form-inline">
                                 <button class="btn  toggle-btn" type="button"><i class="fa fa-bars"></i></button>
@@ -130,55 +129,33 @@
 
                                         <div class="form-group mar-r-20">
                                             <label for="price-range">Cena od - do (EUR):</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[0,450]" id="price-range" ><br />
-                                            <b class="pull-left color">2000$</b> 
-                                            <b class="pull-right color">100000$</b>
+                                            <input type="text" class="span2" value="" data-slider-min="5000" 
+                                                   data-slider-max="900000" data-slider-step="10000" 
+                                                   data-slider-value="[100000,500000]" id="price-range" ><br />
+                                            <b class="pull-left color">5000€</b> 
+                                            <b class="pull-right color">900000€</b>
                                         </div>
                                         <!-- End of  -->  
 
                                         <div class="form-group mar-l-20">
-                                            <label for="property-geo">Property geo (m2) :</label>
+                                            <label for="property-geo">Kvadratura (m2) :</label>
                                             <input type="text" class="span2" value="" data-slider-min="0" 
                                                    data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[50,450]" id="property-geo" ><br />
-                                            <b class="pull-left color">40m</b> 
-                                            <b class="pull-right color">12000m</b>
+                                                   data-slider-value="[50,250]" id="property-geo" ><br />
+                                            <b class="pull-left color">0m2</b> 
+                                            <b class="pull-right color">600m2</b>
                                         </div>
                                         <!-- End of  --> 
                                     </div>
 
-                                    <div class="search-row">
-
-                                        <div class="form-group mar-r-20">
-                                            <label for="price-range">Min baths :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[250,450]" id="min-baths" ><br />
-                                            <b class="pull-left color">1</b> 
-                                            <b class="pull-right color">120</b>
-                                        </div>
-                                        <!-- End of  --> 
-
-                                        <div class="form-group mar-l-20">
-                                            <label for="property-geo">Min bed :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[250,450]" id="min-bed" ><br />
-                                            <b class="pull-left color">1</b> 
-                                            <b class="pull-right color">120</b>
-                                        </div>
-                                        <!-- End of  --> 
-
-                                    </div>
+                                   
                                     <br>
                                     <div class="search-row">  
 
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Fire Place(3100)
+                                                    <input type="checkbox"> Namesten
                                                 </label>
                                             </div>
                                         </div>
@@ -187,7 +164,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Dual Sinks(500)
+                                                    <input type="checkbox"> Nenamesten
                                                 </label>
                                             </div>
                                         </div>
@@ -196,7 +173,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Hurricane Shutters(99)
+                                                    <input type="checkbox"> Polunamesten
                                                 </label>
                                             </div>
                                         </div>
@@ -208,7 +185,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Swimming Pool(1190)
+                                                    <input type="checkbox"> Jednosoban
                                                 </label>
                                             </div>
                                         </div>
@@ -217,7 +194,7 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> 2 Stories(4600)
+                                                    <input type="checkbox"> Dvosoban
                                                 </label>
                                             </div>
                                         </div>
@@ -226,45 +203,18 @@
                                         <div class="form-group">
                                             <div class="checkbox">
                                                 <label>
-                                                    <input type="checkbox"> Emergency Exit(200)
+                                                    <input type="checkbox"> Trosoban
                                                 </label>
                                             </div>
                                         </div>
                                         <!-- End of  --> 
                                     </div>                                    
 
-                                    <div class="search-row">  
-
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Laundry Room(10073)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->  
-
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Jog Path(1503)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  --> 
-
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> 26' Ceilings(1200)
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  --> 
+                                   
                                         <br>
                                         <hr>
                                     </div>                             
-                                    <button class="btn search-btn prop-btm-sheaerch" type="submit"><i class="fa fa-search"></i></button>  
+                                     
                                 </div>                    
 
                             </form>
@@ -272,139 +222,12 @@
                     </div>
                 </div>
             </div>
+          </div>
+        
+        <div class="prostor">
+             
         </div>
-
-        <!-- property area -->
-        <div class="content-area home-area-1 recent-property" style="background-color: #FCFCFC; padding-bottom: 55px;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
-                        <!-- /.feature title -->
-                        <h2>Top submitted property</h2>
-                        <p>Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies . </p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="proerty-th">
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-1.html" ><img src="assets/img/demo/property-1.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-2.html" ><img src="assets/img/demo/property-2.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-2.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-3.html" ><img src="assets/img/demo/property-3.jpg"></a>
-
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-3.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-1.html" ><img src="assets/img/demo/property-4.jpg"></a>
-
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-3.html" ><img src="assets/img/demo/property-2.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-3.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-2.html" ><img src="assets/img/demo/property-4.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-2.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-two proerty-item">
-                                <div class="item-thumb">
-                                    <a href="property-1.html" ><img src="assets/img/demo/property-3.jpg"></a>
-                                </div>
-                                <div class="item-entry overflow">
-                                    <h5><a href="property-1.html" >Super nice villa </a></h5>
-                                    <div class="dot-hr"></div>
-                                    <span class="pull-left"><b>Area :</b> 120m </span>
-                                    <span class="proerty-price pull-right">$ 300,000</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-md-3 p0">
-                            <div class="box-tree more-proerty text-center">
-                                <div class="item-tree-icon">
-                                    <i class="fa fa-th"></i>
-                                </div>
-                                <div class="more-entry overflow">
-                                    <h5><a href="property-1.html" >CAN'T DECIDE ? </a></h5>
-                                    <h5 class="tree-sub-ttl">Show all properties</h5>
-                                    <button class="btn border-btn more-black" value="All properties">All properties</button>
-                                </div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-        </div>
+        
 
         <!--Welcome area -->
         <div class="Welcome-area">
@@ -416,7 +239,7 @@
                                 <div class="row">
                                     <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
                                         <!-- /.feature title -->
-                                        <h2>GARO ESTATE </h2>
+                                        <h2>Singi Stan </h2>
                                     </div>
                                 </div>
                             </div>
@@ -429,7 +252,7 @@
                                             <div class="welcome-icon">
                                                 <i class="pe-7s-home pe-4x"></i>
                                             </div>
-                                            <h3>Any property</h3>
+                                            <h3>Izaberi stan</h3>
                                         </div>
                                     </div>
                                     <div class="col-xs-6 m-padding">
@@ -437,7 +260,7 @@
                                             <div class="welcome-icon">
                                                 <i class="pe-7s-users pe-4x"></i>
                                             </div>
-                                            <h3>More Clients</h3>
+                                            <h3>Pomoć agenta</h3>
                                         </div>
                                     </div>
 
@@ -451,15 +274,15 @@
                                             <div class="welcome-icon">
                                                 <i class="pe-7s-notebook pe-4x"></i>
                                             </div>
-                                            <h3>Easy to use</h3>
+                                            <h3>Instan potpisivanje ugovora</h3>
                                         </div>
                                     </div>
                                     <div class="col-xs-6 m-padding">
                                         <div class="welcome-estate">
                                             <div class="welcome-icon">
-                                                <i class="pe-7s-help2 pe-4x"></i>
+                                                <i class="pe-7s-like2 pe-4x"></i>
                                             </div>
-                                            <h3>Any help </h3>
+                                            <h3>Uživaj u novom prostoru </h3>
                                         </div>
                                     </div>
 
