@@ -17,7 +17,6 @@
         
         <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
-
         <link rel="stylesheet" href="assets/css/normalize.css">
         <link rel="stylesheet" href="assets/css/font-awesome.min.css">
         <link rel="stylesheet" href="assets/css/fontello.css">
@@ -34,6 +33,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/responsive.css">
         <link rel="stylesheet" href="assets/css/nas_stil.css">
+       
     </head>
     <body>
 
@@ -44,7 +44,8 @@
 
        
         <!--Nav bar -->
-
+      
+      
         <nav class="navbar navbar-default ">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
@@ -65,19 +66,15 @@
                         <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('register.php', '_self');" data-wow-delay="0.48s">Registruj se</button>
                     </div>
                     <ul class="main-nav nav navbar-nav navbar-right">
-                        
-                            
-                        <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="" href="index.html">Početna</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="" href="properties.html">Nekretnine</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="" href="contact.html">Kontakt</a></li>
-                        
-                         
-
-                       
+                        <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="" href="index.php">Početna</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="" href="properties.php">Nekretnine</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="" href="contact.php">Kontakt</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
+              
+      
         <!-- End of nav bar -->
 
         <div class="slider-area">
@@ -322,7 +319,7 @@
                                         <p>Sve je proteklo bez problema i brzo i lako smo došli do svog doma.</p>
                                         <h4><strong>Milosava Milovanović </strong><i>Menadžer</i></h4>
                                     </div>
-                                    <div class="client-face">
+                                    <div class="client-face wow fadeInRight" data-wow-delay=".9s">
                                         <img src="assets/img/client-face4.jpg" alt="">
                                     </div>
                                 </div>
@@ -331,7 +328,7 @@
                                         <p>Bilo je zabavno i lako tražiti stan iz snova!</p>
                                         <h4><strong>Senad Bajić </strong><i>Modni bloger</i></h4>
                                     </div>
-                                    <div class="client-face">
+                                    <div class="client-face wow fadeInRight" data-wow-delay=".9s">
                                         <img src="assets/img/client-face3.jpg" alt="">
                                     </div>
                                 </div>
@@ -340,7 +337,7 @@
                                         <p>Iznenađen sam lakoćom procesa pronalaska novog stana.</p>
                                         <h4><strong>Petar Jovanović, </strong><i>Mašinski inženjer</i></h4>
                                     </div>
-                                    <div class="client-face">
+                                    <div class="client-face wow fadeInRight" data-wow-delay=".9s"> 
                                         <img src="assets/img/client-face2.png" alt="">
                                     </div>
                                 </div>
@@ -521,13 +518,7 @@
                         </div> 
                         <div class="bottom-menu pull-right"> 
                            <!-- Return to Top -->
-                            <a href="javascript:" id="return-to-top"><i class="icon-chevron-up"></i></a>
-                            <script>$('#return-to-top').click(function() {      // When arrow is clicked
-                                        $('body,html').animate({
-                                            scrollTop : 0                       // Scroll to top of body
-                                             }, 500);
-                                                    });</script>
-
+                           <a href="javascript:" id="return-to-top"><p class="i">/\</p></a>
                            
                         </div>
                     </div>
@@ -537,7 +528,7 @@
         </div>
 
         <script src="assets/js/modernizr-2.6.2.min.js"></script>
-
+    
         <script src="assets/js/jquery-1.10.2.min.js"></script> 
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/bootstrap-select.min.js"></script>
@@ -553,6 +544,7 @@
         <script src="assets/js/price-range.js"></script>
 
         <script src="assets/js/main.js"></script>
+        <script src="assets/js/scroll_up.js"></script>
 
     </body>
 </html>

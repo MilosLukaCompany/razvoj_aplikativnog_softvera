@@ -2976,7 +2976,7 @@ ul.footer-blog li {
 }
 .social  ul li a:hover {
     color: #FDC600;
-order-color: #868686;
+border-color: #868686;
 background-color: #868686;
 }
 .social  ul li a:hover i{
