@@ -293,14 +293,14 @@
                 </div>
             </div>
         </div>
-
+        
         <!--TESTIMONIALS -->
         <div class="testimonial-area recent-property" style="background-color: #FCFCFC; padding-bottom: 15px;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
                         <!-- /.feature title -->
-                        <h2>Our Customers Said  </h2> 
+                        <h2>Klijenti o nama</h2> 
                     </div>
                 </div>
 
@@ -358,7 +358,7 @@
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
                         <!-- /.feature title -->
-                        <h2>You can trust Us </h2> 
+                        <h2>Imajte poverenja u nas</h2> 
                     </div>
                 </div>
                 <div class="row">
@@ -369,9 +369,9 @@
                                     <div class="count-item-circle">
                                         <span class="pe-7s-users"></span>
                                     </div>
-                                    <div class="chart" data-percent="5000">
+                                    <div class="chart" data-percent="700">
                                         <h2 class="percent" id="counter">0</h2>
-                                        <h5>HAPPY CUSTOMER </h5>
+                                        <h5>Zadovoljnih kupaca</h5>
                                     </div>
                                 </div>
                             </div>
@@ -382,7 +382,7 @@
                                     </div>
                                     <div class="chart" data-percent="12000">
                                         <h2 class="percent" id="counter1">0</h2>
-                                        <h5>Properties in stock</h5>
+                                        <h5>Nekretnina u bazi</h5>
                                     </div>
                                 </div> 
                             </div> 
@@ -393,18 +393,18 @@
                                     </div>
                                     <div class="chart" data-percent="120">
                                         <h2 class="percent" id="counter2">0</h2>
-                                        <h5>City registered </h5>
+                                        <h5>Agenata</h5>
                                     </div>
                                 </div> 
                             </div> 
                             <div class="col-sm-3 col-xs-6">
                                 <div class="count-item">
                                     <div class="count-item-circle">
-                                        <span class="pe-7s-graph2"></span>
+                                        <span class="pe-7s-graph2"></span> 
                                     </div>
                                     <div class="chart" data-percent="5000">
                                         <h2 class="percent"  id="counter3">5000</h2>
-                                        <h5>DEALER BRANCHES</h5>
+                                        <h5>Uspešnih prodaja</h5>
                                     </div>
                                 </div> 
 
