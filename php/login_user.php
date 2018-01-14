@@ -22,7 +22,7 @@ if ($username === 'gazda' && $password === 'gazda') {
 
         die (header('Location: ../index.php?msg=success'));
     } else {
-        die (header('Location: ../index.php?msg=failed'));
+        die (header('Location: ../login.php?msg=failed'));
     }
 }
 ?>
