@@ -1,8 +1,7 @@
 <?php
 session_start();
     
-$db = new PDO('mysql:host=localhost;dbname=singi_stan;charset=utf8', 'root', '');
-$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+require 'database_connection.php';
 
 $username = htmlspecialchars($_POST['username']);
 $password = htmlspecialchars($_POST['password']);
