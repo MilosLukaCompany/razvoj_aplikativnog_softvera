@@ -4,12 +4,12 @@ CREATE TABLE opstina (
 );
 
 CREATE TABLE tip_nekretnine (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     tip VARCHAR(50) NULL
 );
 
 CREATE TABLE nekretnina (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     adresa VARCHAR(150) NOT NULL,
     kvadratura INT NOT NULL,
     struktura ENUM('Jednosoban', 'Dvosoban', 'Trosoban', 'Cetvorosoban', 'Petosoban') NULL,
@@ -25,10 +25,10 @@ CREATE TABLE nekretnina (
 );
 
 CREATE TABLE agent (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     ime VARCHAR(50) NOT NULL,
     prezime VARCHAR(50) NOT NULL,
-    jmbg INT NOT NULL,
+    jmbg VARCHAR(13) NOT NULL,
     adresa VARCHAR(150) NULL,
     telefon VARCHAR(15),
     korisnicko_ime VARCHAR(20) NOT NULL,
@@ -37,10 +37,10 @@ CREATE TABLE agent (
 );
 
 CREATE TABLE kupac (
-	id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     ime VARCHAR(50) NOT NULL,
     prezime VARCHAR(50) NOT NULL,
-    jmbg INT NOT NULL,
+    jmbg VARCHAR(13) NOT NULL,
     adresa VARCHAR(150) NULL,
     telefon VARCHAR(15),
     korisnicko_ime VARCHAR(20) NOT NULL,

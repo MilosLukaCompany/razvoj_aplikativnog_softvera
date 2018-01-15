@@ -14,7 +14,7 @@
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
 
-        
+
         <link rel="shortcut icon" href="assets/img/favicon.png" type="image/x-icon">
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link rel="stylesheet" href="assets/css/normalize.css">
@@ -33,7 +33,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/responsive.css">
         <link rel="stylesheet" href="assets/css/nas_stil.css">
-       
+
     </head>
     <body>
 
@@ -42,12 +42,12 @@
         </div>
         <!-- Body content -->
 
-       
+
         <!--Nav bar -->
-      
-      
-        <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
+
+
+        <nav class="navbar navbar-default navbar-fixed-top  ">
+            <div class="container" id="nav_div">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
@@ -56,7 +56,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php"><img src="assets/img/logo.png" alt=""></a>
+                    <a class="navbar-brand" href="index.php" id="big_logo"><img src="assets/img/logo.png" alt=""></a>
+                    <a class="navbar-brand" href="index.php" id="small_logo"><img src="assets/img/favicon.png" alt=""></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -65,175 +66,173 @@
                         <?php
                         session_start();
                         if (!isset($_SESSION['username'])) {
-                        ?>
-                        <button class="navbar-btn nav-button wow bounceInRight login" onclick="window.open('login.php', '_self');" data-wow-delay="0.45s">Uloguj se</button>
-                        <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('register.php', '_self');" data-wow-delay="0.48s">Registruj se</button>
-                        <?php 
+                            ?>
+                            <button class="navbar-btn nav-button wow bounceInRight login" onclick="window.open('login.php', '_self');" data-wow-delay="0.45s">Uloguj se</button>
+                            <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('register.php', '_self');" data-wow-delay="0.48s">Registruj se</button>
+                            <?php
                         } else {
-                        ?>
-                        <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('php/logout.php', '_self');" data-wow-delay="0.48s">Izloguj se</button>
+                            ?>
+                            <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('php/logout.php', '_self');" data-wow-delay="0.48s">Izloguj se</button>
                         <?php } ?>
                     </div>
                     <ul class="main-nav nav navbar-nav navbar-right">
-                        <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="" href="index.php">Početna</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="" href="properties.php">Nekretnine</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="" href="contact.php">Kontakt</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="navbar_link" href="index.php">Početna</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="properties.php">Nekretnine</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="contact.php">Kontakt</a></li>
+                        <?php
+                        if (isset($_SESSION['username'])) {
+                            ?>                        
+                            <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="" href="profile.php"><?php echo $_SESSION['username']; ?></a></li>
+                            <?php
+                        }
+                        ?>                        
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-              
-      
+
+
         <!-- End of nav bar -->
 
         <div class="slider-area">
-            
-               
+            <div class="banner" ><img src="assets/img/awesome-livingroom.jpg" alt="livingroom">
+                <div class="slider-content">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+                                <h2>traženje vašeg novog doma je upravo postalo lakše uz Singi Stan</h2>
 
-          <div class="banner" ><img src="assets/img/awesome-livingroom.jpg" alt="livingroom">
-                   
+                                <div id="trazi" class="search-form wow pulse" data-wow-delay="0.8s">
 
-                    
-           
-            <div class="slider-content">
-                <div class="row">
-                    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
-                        <h2>traženje vašeg novog doma je upravo postalo lakše uz Singi Stan</h2>
-                        
-                        <div id="trazi" class="search-form wow pulse" data-wow-delay="0.8s">
+                                    <form action="" class=" form-inline">
+                                        <button class="btn  toggle-btn" type="button"><i class="fa fa-bars"></i></button>
 
-                            <form action="" class=" form-inline">
-                                <button class="btn  toggle-btn" type="button"><i class="fa fa-bars"></i></button>
+                                        <div class="form-group">                                     
+                                            <select id="basic" title="Izaberi tip nekretnine" class="selectpicker show-tick form-control">
+                                                <option>Stan</option>
+                                                <option>Rent </option>
+                                                <option>Boy</option>
+                                                <option>used</option>  
 
-                                 <div class="form-group">                                     
-                                    <select id="basic" title="Izaberi tip nekretnine" class="selectpicker show-tick form-control">
-                                        <option>Stan</option>
-                                        <option>Rent </option>
-                                        <option>Boy</option>
-                                        <option>used</option>  
-
-                                    </select>
-                                </div>
-                                
-                                <div class="form-group">                                   
-                                    <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Izaberi opštinu">
-
-                                        <option>New york, CA</option>
-                                        <option>Paris</option>
-                                        <option>Casablanca</option>
-                                        <option>Tokyo</option>
-                                        <option>Marraekch</option>
-                                        <option>kyoto , shibua</option>
-                                    </select>
-                                </div>
-                               
-                                <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
-
-                                <div style="display: none;" class="search-toggle">
-
-                                    <div class="search-row">   
-
-                                        <div class="form-group mar-r-20">
-                                            <label for="price-range">Cena od - do (EUR):</label>
-                                            <input type="text" class="span2" value="" data-slider-min="5000" 
-                                                   data-slider-max="900000" data-slider-step="10000" 
-                                                   data-slider-value="[100000,500000]" id="price-range" ><br />
-                                            <b class="pull-left color">5000€</b> 
-                                            <b class="pull-right color">900000€</b>
+                                            </select>
                                         </div>
-                                        <!-- End of  -->  
 
-                                        <div class="form-group mar-l-20">
-                                            <label for="property-geo">Kvadratura (m2) :</label>
-                                            <input type="text" class="span2" value="" data-slider-min="0" 
-                                                   data-slider-max="600" data-slider-step="5" 
-                                                   data-slider-value="[50,250]" id="property-geo" ><br />
-                                            <b class="pull-left color">0m2</b> 
-                                            <b class="pull-right color">600m2</b>
+                                        <div class="form-group">                                   
+                                            <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Izaberi opštinu">
+
+                                                <option>New york, CA</option>
+                                                <option>Paris</option>
+                                                <option>Casablanca</option>
+                                                <option>Tokyo</option>
+                                                <option>Marraekch</option>
+                                                <option>kyoto , shibua</option>
+                                            </select>
                                         </div>
-                                        <!-- End of  --> 
-                                    </div>
 
-                                   
-                                    <br>
-                                    <div class="search-row">  
+                                        <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
 
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Namesten
-                                                </label>
+                                        <div style="display: none;" class="search-toggle">
+
+                                            <div class="search-row">   
+
+                                                <div class="form-group mar-r-20">
+                                                    <label for="price-range">Cena od - do (EUR):</label>
+                                                    <input type="text" class="span2" value="" data-slider-min="5000" 
+                                                           data-slider-max="900000" data-slider-step="10000" 
+                                                           data-slider-value="[100000,500000]" id="price-range" ><br />
+                                                    <b class="pull-left color">5000€</b> 
+                                                    <b class="pull-right color">900000€</b>
+                                                </div>
+                                                <!-- End of  -->  
+
+                                                <div class="form-group mar-l-20">
+                                                    <label for="property-geo">Kvadratura (m2) :</label>
+                                                    <input type="text" class="span2" value="" data-slider-min="0" 
+                                                           data-slider-max="600" data-slider-step="5" 
+                                                           data-slider-value="[50,250]" id="property-geo" ><br />
+                                                    <b class="pull-left color">0m2</b> 
+                                                    <b class="pull-right color">600m2</b>
+                                                </div>
+                                                <!-- End of  --> 
                                             </div>
-                                        </div>
-                                        <!-- End of  -->  
 
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Nenamesten
-                                                </label>
+
+                                            <br>
+                                            <div class="search-row">  
+
+                                                <div class="form-group">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"> Namesten
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <!-- End of  -->  
+
+                                                <div class="form-group">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"> Nenamesten
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <!-- End of  --> 
+
+                                                <div class="form-group">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"> Polunamesten
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <!-- End of  --> 
                                             </div>
-                                        </div>
-                                        <!-- End of  --> 
 
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Polunamesten
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  --> 
-                                    </div>
+                                            <div class="search-row">  
 
-                                    <div class="search-row">  
+                                                <div class="form-group">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"> Jednosoban
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <!-- End of  -->  
 
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Jednosoban
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  -->  
+                                                <div class="form-group">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"> Dvosoban
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <!-- End of  --> 
 
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Dvosoban
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  --> 
+                                                <div class="form-group">
+                                                    <div class="checkbox">
+                                                        <label>
+                                                            <input type="checkbox"> Trosoban
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                                <!-- End of  --> 
+                                            </div>                                    
 
-                                        <div class="form-group">
-                                            <div class="checkbox">
-                                                <label>
-                                                    <input type="checkbox"> Trosoban
-                                                </label>
-                                            </div>
-                                        </div>
-                                        <!-- End of  --> 
-                                    </div>                                    
 
-                                   
-                                        <br>
-                                        <hr>
-                                    </div>                             
-                                     
+                                            <br>
+                                            <hr>
+                                        </div>                             
+
                                 </div>                    
 
-                            </form>
+                                </form>
+                            </div>
                         </div>
                     </div>
+                    
                 </div>
             </div>
-          </div>
-        
-        <div class="prostor">
-             
-        </div>
-        
+        </div>             
 
         <!--Welcome area -->
         <div class="Welcome-area">
@@ -299,7 +298,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!--TESTIMONIALS -->
         <div class="testimonial-area recent-property" style="background-color: #FCFCFC; padding-bottom: 15px;">
             <div class="container">
@@ -473,14 +472,14 @@
                                 <h4>Singi Stan</h4>
                                 <div class="footer-title-line"></div>
 
-                                
+
                                 <p>Garantovano vas dovodimo do željenog doma, u rekordnom vremenu.</p>
                                 <ul class="footer-adress">
                                     <li><i class="pe-7s-map-marker strong"> </i>11000 Beograd, Danijelova 32</li>
                                     <li><i class="pe-7s-mail strong"> </i> office@singistan.tk</li>
                                     <li><i class="pe-7s-call strong"> </i>+381 11 235684</li>
                                 </ul>
-                                
+
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-6 wow fadeInRight animated">
@@ -494,7 +493,7 @@
                                 </ul>
                             </div>
                         </div>
-                       
+
                         <div class="col-md-4 col-sm-6 wow fadeInRight animated">
                             <div class="single-footer news-letter">
                                 <h4>Pretplati se</h4>
@@ -511,7 +510,7 @@
                                     <!-- /input-group -->
                                 </form> 
 
-                                
+
                             </div>
                         </div>
 
@@ -526,9 +525,9 @@
                             <span> (C) <b>MilosLukaCompany</b> , All rights reserved 2018  </span> 
                         </div> 
                         <div class="bottom-menu pull-right"> 
-                           <!-- Return to Top -->
-                           <a href="javascript:" id="return-to-top"><p class="i">/\</p></a>
-                           
+                            <!-- Return to Top -->
+                            <a href="javascript:" id="return-to-top"><p class="i">/\</p></a>
+
                         </div>
                     </div>
                 </div>
@@ -537,7 +536,7 @@
         </div>
 
         <script src="assets/js/modernizr-2.6.2.min.js"></script>
-    
+
         <script src="assets/js/jquery-1.10.2.min.js"></script> 
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/bootstrap-select.min.js"></script>
@@ -554,6 +553,6 @@
 
         <script src="assets/js/main.js"></script>
         <script src="assets/js/scroll_up.js"></script>
-
+        <script src="assets/js/navbar.js" type="text/javascript"></script>
     </body>
 </html>

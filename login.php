@@ -42,7 +42,7 @@
         </div>
         <!-- Body content -->
 
-        <nav class="navbar navbar-default ">
+        <nav class="navbar navbar-default">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -95,7 +95,7 @@
                             <?php
                             if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
                                 echo "<div class='alert alert-danger' role='alert'>\n";
-                                echo "<span class='warning'><b>Greška!</b> Uneta šifra ili korisničko ime nepostoji.</span><br />\n";
+                                echo "<span class='warning'><b>Greška!</b> Korisničko ime ili šifra su neispravni.</span><br />\n";
                                 echo "<a class='alert-link' href='#'>Zaboravljena lozinka?</a>\n";
                                 echo "</div>\n";
                             }
@@ -106,11 +106,11 @@
                             <form action="php/login_user.php" method="POST">
                                 <div class="form-group">
                                     <label for="username">Korisničko ime</label>
-                                    <input type="text" class="form-control" id="username" name="username">
+                                    <input type="text" class="form-control" id="username" name="username" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Šifra</label>
-                                    <input type="password" class="form-control" id="password" name="password">
+                                    <input type="password" class="form-control" id="password" name="password" required>
                                 </div>
                                 <br />
                                 <div class="text-center">

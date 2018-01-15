@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Singi Stan | Uloguj se</title>
+        <title>Singi Stan | Registruj se</title>
         <meta name="description" content="Singi Stan je agencija koja se bavi prometom nekretnina u Beogradu.">
         <meta name="author" content="Luka Kovacevic & Milos Ratkovic">
         <meta name="keyword" content="nekretnine, beograd">
@@ -42,7 +42,7 @@
         </div>
         <!-- Body content -->
 
-        <nav class="navbar navbar-default ">
+        <nav class="navbar navbar-default">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -76,7 +76,7 @@
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
-                        <h1 class="page-title">Početna / Uloguj se</h1>               
+                        <h1 class="page-title">Početna / Registruj se</h1>               
                     </div>
                 </div>
             </div>
@@ -92,29 +92,52 @@
                     <div class="box-for overflow">
                         <div class="col-md-12 col-xs-12 register-blocks">
                             <?php
-                            if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
+                            if (isset($_GET["msg"]) && $_GET["msg"] == 'username_taken') {
                                 echo "<div class='alert alert-danger' role='alert'>\n";
-                                echo "<span class='warning'><b>Greška!</b> Uneta šifra ili korisničko ime nepostoji.</span><br />\n";
-                                echo "<a class='alert-link' href='#'>Zaboravljena lozinka?</a>\n";
+                                echo "<span class='warning'>Korisničko ime je več zauzeto. Probajte ponovo sa drugim korisnčkim imenom.</span><br />\n";                                
                                 echo "</div>\n";
                             }
                             ?>
-                            <h2>Registracija : </h2> 
-                            <form action="" method="post">
+                            <h2>Registruj se : </h2> 
+                            <form action="php/register_user.php" method="post" onsubmit="return check_fields()">
                                 <div class="form-group">
                                     <label for="name">Ime</label>
-                                    <input type="text" class="form-control" id="name">
+                                    <input type="text" class="form-control" id="name" name="name" required>
                                 </div>
                                 <div class="form-group">
-                                    <label for="email">Email</label>
-                                    <input type="text" class="form-control" id="email">
+                                    <label for="name">Prezime</label>
+                                    <input type="text" class="form-control" id="surname" name="surname" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">JMBG</label>
+                                    <input type="text" class="form-control" id="jmbg" name="jmbg" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Adresa</label>
+                                    <input type="text" class="form-control" id="address" name="address" required>
+                                </div>
+                                <label for="name">Telefon</label>
+                                <div class="input-group" style="width: 100%; margin-bottom: 15px;">
+                                    <div class="input-group-addon" id="381" style="border: 1px solid #9A9A9A; border-radius: 0;">
+                                        +381
+                                    </div>
+                                    <input type="text" class="form-control" id="tel" name="tel" required>                                    
+                                </div>
+                                <div class="form-group">
+                                    <label for="name">Korisničko ime</label>
+                                    <input type="text" class="form-control" id="username" name="username" required>
                                 </div>
                                 <div class="form-group">
                                     <label for="password">Šifra</label>
-                                    <input type="password" class="form-control" id="password">
+                                    <input type="password" class="form-control" id="password" name="password" required>
                                 </div>
+                                <div class="form-group">
+                                    <label for="email">Email</label>
+                                    <input type="text" class="form-control" id="email" name="email" required>
+                                </div>
+                                <br />
                                 <div class="text-center">
-                                    <button type="submit" class="btn btn-default">Registruj se</button>
+                                    <button type="submit" class="btn btn-default btn-block" name="submit">Registruj se</button>
                                 </div>
                             </form>
                         </div>
@@ -211,6 +234,5 @@
         <script src="assets/js/price-range.js"></script>
 
         <script src="assets/js/main.js"></script>
-
     </body>
 </html>
