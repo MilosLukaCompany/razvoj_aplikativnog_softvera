@@ -98,6 +98,13 @@
                                 echo "</div>\n";
                             }
                             ?>
+                            <?php
+                            if (isset($_GET["msg"]) && $_GET["msg"] == 'success_registration') {
+                                echo "<div class='alert alert-success' role='alert'>\n";
+                                echo "<span class='success'>Uspesno ste se registrovali!<br />\n";
+                                echo "</div>\n";
+                            }
+                            ?> 
                             <h2>Uloguj se : </h2> 
                             <form action="php/login_user.php" method="POST">
                                 <div class="form-group">
@@ -114,13 +121,6 @@
                                 </div>
                                 <br>
                                 <p><a href="register.php">Nemaš svoj nalog? Registruj se.</a></p>
-                                <?php
-                                if (isset($_GET["msg"]) && $_GET["msg"] == 'success_registration') {
-                                    echo "<div class='alert alert-success' role='alert'>\n";
-                                    echo "<span class='success'>Uspesno ste se registrovali!<br />\n";
-                                    echo "</div>\n";
-                                }
-                                ?> 
                             </form>
                             <br>                                                        
                         </div>
@@ -221,7 +221,7 @@
         <script src="assets/js/main.js"></script>
         <script>
             $(document).ready(function() {
-                $('.alert-success').delay(3000).fadeOut();
+                $('.alert-success').delay(3000).slideUp()();
             });
         </script>
 

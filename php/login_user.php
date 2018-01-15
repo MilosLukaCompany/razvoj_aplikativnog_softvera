@@ -16,14 +16,14 @@ if ($username === 'gazda' && $password === 'gazda') {
     $prep2->execute([$username, $password]);
     
     if ($prep->rowCount() > 0) {
-        $res = $prep->fetchAll();
+        $res = $prep->fetchAll(PDO::FETCH_OBJ);
         $_SESSION['username'] = $username;
 
         die (header('Location: ../index.php?msg=success'));
     } else {
         die (header('Location: ../login.php?msg=failed'));
     }
-    if ($prep2->rowCount() > 0) {
+    if ($prep2->rowCount(PDO::FETCH_OBJ) > 0) {
         $res2 = $prep2->fetchAll();
         $_SESSION['username'] = $username;
 

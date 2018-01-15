@@ -33,7 +33,7 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/responsive.css">
         <link rel="stylesheet" href="assets/css/nas_stil.css">
-        <script src="assets/js/google_maps.js" type="text/javascript"></script>
+        <script src="assets/js/google_maps.js" type="text/javascript"></script>        
     </head>
     <body>
 
@@ -101,6 +101,13 @@
             <div class="container">  
                 <div class="row">
                     <div class="col-md-8 col-md-offset-2"> 
+                        <?php
+                        if (isset($_GET["msg"]) && $_GET["msg"] == 'email_has_been_sent') {
+                            echo "<div class='alert alert-success' role='alert'>\n";
+                            echo "<span class='success'>Vasa poruka je uspesno poslata!<br />\n";
+                            echo "</div>\n";
+                        }                        
+                        ?> 
                         <div class="" id="contact1"> 
                             <h2>Pitajte nas</h2>
                             <form action="php/contact_question.php" method="POST">
@@ -283,6 +290,11 @@
 
         <script src="assets/js/main.js"></script>
         <script src="assets/js/navbar.js" type="text/javascript"></script>
+        <script>
+            $(document).ready(function() {
+                $('.alert-success').delay(3000).slideUp();
+            });
+        </script>
         
     </body>
 </html>
