@@ -23,7 +23,7 @@ if (isset($_POST['submit'])) {
         $prep = $db->prepare('INSERT INTO kupac (ime, prezime, jmbg, adresa, telefon, korisnicko_ime, sifra, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?);');
         $prep->execute([$name, $surname, $jmbg, $address, $tel_prefix, $username, $password, $email]);
         
-        die (header('Location: ../login.php'));
+        die (header('Location: ../login.php?msg=success_registration'));
     }
 }
 

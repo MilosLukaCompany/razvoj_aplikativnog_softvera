@@ -32,8 +32,7 @@
         <link rel="stylesheet" href="assets/css/owl.transitions.css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/responsive.css">
-        <link rel="stylesheet" href="assets/css/nas_stil.css">
-       
+        <link rel="stylesheet" href="assets/css/nas_stil.css">        
     </head>
     <body>
 
@@ -90,8 +89,7 @@
 
                 <div class="col-md-6 col-md-offset-3">
                     <div class="box-for overflow">                         
-                        <div class="col-md-12 col-xs-12 login-blocks">
-                            
+                        <div class="col-md-12 col-xs-12 login-blocks">                            
                             <?php
                             if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
                                 echo "<div class='alert alert-danger' role='alert'>\n";
@@ -100,8 +98,6 @@
                                 echo "</div>\n";
                             }
                             ?>
-                            
-                            
                             <h2>Uloguj se : </h2> 
                             <form action="php/login_user.php" method="POST">
                                 <div class="form-group">
@@ -118,7 +114,13 @@
                                 </div>
                                 <br>
                                 <p><a href="register.php">Nemaš svoj nalog? Registruj se.</a></p>
-                                 
+                                <?php
+                                if (isset($_GET["msg"]) && $_GET["msg"] == 'success_registration') {
+                                    echo "<div class='alert alert-success' role='alert'>\n";
+                                    echo "<span class='success'>Uspesno ste se registrovali!<br />\n";
+                                    echo "</div>\n";
+                                }
+                                ?> 
                             </form>
                             <br>                                                        
                         </div>
@@ -217,6 +219,11 @@
         <script src="assets/js/price-range.js"></script>
 
         <script src="assets/js/main.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('.alert-success').delay(3000).fadeOut();
+            });
+        </script>
 
     </body>
 </html>
