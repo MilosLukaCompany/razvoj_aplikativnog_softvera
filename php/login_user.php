@@ -18,16 +18,13 @@ if ($username === 'gazda' && $password === 'gazda') {
     if ($prep->rowCount() > 0) {
         $res = $prep->fetchAll(PDO::FETCH_OBJ);
         $_SESSION['username'] = $username;
-
+        $_SESSION['user_type'] = "kupac";
         die (header('Location: ../index.php?msg=success'));
-    } else {
-        die (header('Location: ../login.php?msg=failed'));
-    }
-    if ($prep2->rowCount(PDO::FETCH_OBJ) > 0) {
+    } else if ($prep2->rowCount(PDO::FETCH_OBJ) > 0) {
         $res2 = $prep2->fetchAll();
         $_SESSION['username'] = $username;
-
-        die (header('Location: ../index.php?msg=success'));
+        $_SESSION['user_type'] = "agent";
+        die (header('Location: ../index.php?msg=success'));        
     } else {
         die (header('Location: ../login.php?msg=failed'));
     }

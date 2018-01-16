@@ -78,14 +78,36 @@
                     <ul class="main-nav nav navbar-nav navbar-right">
                         <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="navbar_link" href="index.php">Početna</a></li>
                         <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="properties.php">Nekretnine</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="contact.php">Kontakt</a></li>
                         <?php
-                        if (isset($_SESSION['username'])) {
-                            ?>                        
-                            <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="" href="profile.php"><?php echo $_SESSION['username']; ?></a></li>
+                        if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
+                            ?>
+                            <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="contact.php">Kontakt</a></li>
                             <?php
                         }
-                        ?>                        
+                        if (isset($_SESSION['username'])) {
+                            if ($_SESSION['user_type'] === "kupac") {
+                                ?>                        
+                                <li class="wow fadeInDown" data-wow-delay="0.6s" style="font-family: 'Open Sans', sans-serif;"><a class="" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
+                                <?php
+                            } else if ($_SESSION['user_type'] === "agent") {
+                                ?>
+                                <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointment.php">Termini gledanja</a></li>
+                                <li class="wow fadeInDown dropdown ymm-sw " data-wow-delay="0.6s">
+                                    <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Opcije <b class="caret"></b></a>
+                                    <ul class="dropdown-menu navbar-nav">
+                                        <li>
+                                            <a class="navbar_link" href="agent_new_property.php">Dodaj nekretninu</a>
+                                        </li>                                
+                                        <li>
+                                            <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="navbar_link" href="agent_profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>  
+                            <?php
+                        }
+                    }
+                    ?>                        
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -229,7 +251,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
             </div>
         </div>             

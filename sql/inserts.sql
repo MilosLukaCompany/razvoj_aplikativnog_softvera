@@ -1,0 +1,1 @@
+INSERT INTO agent (ime, prezime, jmbg, adresa, telefon, korisnicko_ime, sifra, email) VALUES ('Milos', 'Ratkovic', '0404993782851', 'Vojvode Stepe 321', '+381653731577', 'Milos', 'samsung4', 'dowsha032@gmail.com');
