@@ -103,16 +103,17 @@ session_start();
             <div class="container">
                 <div class="row">
                     <div class="box-for overflow">
-                        <div class="col-md-6">
-
-                            <div class="col-md-12 col-xs-12 register-blocks">
-                                <h2>Nova nekretnina: </h2> 
-                                <form action="" method="post">
+                        <div class="register-blocks col-md-12">
+                            <h2>Nova nekretnina: </h2> 
+                        </div>                      
+                        <div class="col-md-12 col-xs-12 register-blocks">
+                            <form action="php/new_property.php" method="POST" enctype="multipart/form-data">
+                                <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="tip">Tip nekretnine</label>
                                         <br>
-
-                                        <select name="" class="selectpicker" id="tip">
+                                        <select name="" class="form-control" id="tip">
+                                            <option>- - -</option>
                                             <option value="volvo">Volvo</option>
                                             <option value="saab">Saab</option>
                                             <option value="fiat">Fiat</option>
@@ -123,7 +124,8 @@ session_start();
                                         <label for="opstina">Opština</label>
                                         <br>
 
-                                        <select name="" class="selectpicker" id="opstina">
+                                        <select name="" class="form-control" id="opstina">
+                                            <option>- - -</option>
                                             <option value="volvo">Volvo</option>
                                             <option value="saab">Saab</option>
                                             <option value="fiat">Fiat</option>
@@ -141,37 +143,27 @@ session_start();
                                     <div class="form-group">
                                         <label for="struktura">Struktura</label>
                                         <br>
-
-                                        <select name="" class="selectpicker" id="struktura">
+                                        <select name="" class="form-control" id="struktura">
+                                            <option>- - -</option>
                                             <option value="volvo">Volvo</option>
                                             <option value="saab">Saab</option>
                                             <option value="fiat">Fiat</option>
                                             <option value="audi">Audi</option>
                                         </select>
                                     </div>
-
-
-                                </form>
-                            </div>
-
-                        </div>
-
-                        <div class="col-md-6">
-
-                            <div class="col-md-12 col-xs-12 login-blocks">
-
-                                <form id="forma2" action="" method="post">
+                                </div>                                  
+                                <div class="col-md-6">
                                     <div class="form-group">
-                                        <label for="radio">Nameštenost</label>
+                                        <label for="struktura">Nameštenost</label>
                                         <br>
-                                        <input type="radio" name="namestenost" value="namesten" > Namešten
-                                        <input type="radio" name="namestenost" value="polunamesten"> Polunamešten
-                                        <input type="radio" name="namestenost" value="nenamesten" checked> Nenamešten
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="property-images">Izaberi sliku</label>
-                                        <input class="form-control" type="file" id="property-images">
-                                    </div>
+
+                                        <select name="" class="form-control" id="struktura">
+                                            <option>- - -</option>
+                                            <option value="namesten">Namešten</option>
+                                            <option value="polunamesten">Polunamešten</option>
+                                            <option value="nenamesten">Nenamešten</option>                                                
+                                        </select>
+                                    </div>                                                                                
                                     <div class="form-group">
                                         <label for="grejanje">Vrsta grejanja</label>
                                         <input type="text" class="form-control" id="grejanje">
@@ -190,19 +182,20 @@ session_start();
                                         <input type="number" class="form-control" id="cena">
                                         <span class="input-group-addon">.00</span>
                                     </div>
-
-
-                                </form>
-
-                            </div>
-
-
-
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="form-group" id="multiple_pics_div">
+                                        <label for="property-images">Izaberi sliku</label>
+                                        <spann id="add_pic_input" class="glyphicon glyphicon-plus" style="margin-left: 10px; cursor: pointer; color: #FDC600" data-toggle="tooltip" data-placement="top" title="Dodaj polje za unos slike"></spann>
+                                        <input class="form-control-file" type="file" name="file[]">
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                         <div class="col-md-12">
-                            <br>
+                            <br />                            
                             <div class="text-center">
-                                <button type="submit" class="btn btn-default">Unesi <span class="glyphicon glyphicon-home" aria-hidden="true"> </button>
+                                <button type="submit" class="btn btn-default btn-block">Unesi <span class="glyphicon glyphicon-home" aria-hidden="true"> </button>
                             </div>
                         </div>    
                     </div>    
@@ -220,15 +213,12 @@ session_start();
                             <div class="single-footer">
                                 <h4>Singi Stan</h4>
                                 <div class="footer-title-line"></div>
-
-
                                 <p>Garantovano vas dovodimo do željenog doma, u rekordnom vremenu.</p>
                                 <ul class="footer-adress">
                                     <li><i class="pe-7s-map-marker strong"> </i>11000 Beograd, Danijelova 32</li>
                                     <li><i class="pe-7s-mail strong"> </i> office@singistan.tk</li>
                                     <li><i class="pe-7s-call strong"> </i>+381 11 235684</li>
                                 </ul>
-
                             </div>
                         </div>
                         <div class="col-md-4 col-sm-6 wow fadeInRight animated">
