@@ -109,7 +109,7 @@
                                     <label for="tip">Tip nekretnine</label>
                                     <br>
                                     
-                                    <select name="" class="selectpicker" id="tip">
+                                    <select name="" class="form-control" id="tip">
                                         <option value="volvo">Volvo</option>
                                         <option value="saab">Saab</option>
                                         <option value="fiat">Fiat</option>
@@ -120,7 +120,7 @@
                                     <label for="opstina">Opština</label>
                                     <br>
                                     
-                                    <select name="" class="selectpicker" id="opstina">
+                                    <select name="" class="form-control" id="opstina">
                                         <option value="volvo">Volvo</option>
                                         <option value="saab">Saab</option>
                                         <option value="fiat">Fiat</option>
@@ -139,7 +139,7 @@
                                     <label for="struktura">Struktura</label>
                                     <br>
                                     
-                                    <select name="" class="selectpicker" id="struktura">
+                                    <select name="" class="form-control" id="struktura">
                                         <option value="volvo">Volvo</option>
                                         <option value="saab">Saab</option>
                                         <option value="fiat">Fiat</option>
