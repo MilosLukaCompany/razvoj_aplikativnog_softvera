@@ -1,4 +1,4 @@
-<?php 
+<?php
 session_start();
 ?>
 <!DOCTYPE html>
@@ -61,12 +61,12 @@ session_start();
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse yamm" id="navigation">
                     <div class="button navbar-right">
-                        
-                            <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('php/logout.php', '_self');" data-wow-delay="0.48s">Izloguj se</button>
-                            
+
+                        <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('php/logout.php', '_self');" data-wow-delay="0.48s">Izloguj se</button>
+
                     </div>
                     <ul class="main-nav nav navbar-nav navbar-right">
-                        
+
                         <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="navbar_link" href="index.php">Početna</a></li>
                         <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="properties.php">Nekretnine</a></li>
                         <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointment.php">Termini gledanja</a></li>
@@ -79,7 +79,7 @@ session_start();
                                 <li>
                                     <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
                                 </li>
-                                
+
 
                             </ul>
                         </li>
@@ -97,119 +97,119 @@ session_start();
                 </div>
             </div>
         </div>
-        
+
         <!-- property area -->
         <div class="content-area recent-property padding-top-40" style="background-color: #F4F4F4;">
             <div class="container">
                 <div class="row">
-                <div class="box-for overflow">
-                <div class="col-md-6">
-                    
-                        <div class="col-md-12 col-xs-12 register-blocks">
-                            <h2>Nova nekretnina: </h2> 
-                            <form action="" method="post">
-                                <div class="form-group">
-                                    <label for="tip">Tip nekretnine</label>
-                                    <br>
-                                    
-                                    <select name="" class="selectpicker" id="tip">
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="fiat">Fiat</option>
-                                        <option value="audi">Audi</option>
-                                    </select>
-                                </div>
-                                 <div class="form-group">
-                                    <label for="opstina">Opština</label>
-                                    <br>
-                                    
-                                    <select name="" class="selectpicker" id="opstina">
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="fiat">Fiat</option>
-                                        <option value="audi">Audi</option>
-                                    </select>
-                                </div>
-                                <div class="form-group">
-                                    <label for="adresa">Adresa</label>
-                                    <input type="text" class="form-control" id="adresa">
-                                </div>
-                                <div class="form-group">
-                                    <label for="m2">Kvadratura</label>
-                                    <input type="number" class="form-control" id="m2">
-                                </div>
-                                <div class="form-group">
-                                    <label for="struktura">Struktura</label>
-                                    <br>
-                                    
-                                    <select name="" class="selectpicker" id="struktura">
-                                        <option value="volvo">Volvo</option>
-                                        <option value="saab">Saab</option>
-                                        <option value="fiat">Fiat</option>
-                                        <option value="audi">Audi</option>
-                                    </select>
-                                </div>
-                                
-                                
-                            </form>
-                        </div>
-                    
-                </div>
+                    <div class="box-for overflow">
+                        <div class="col-md-6">
 
-                <div class="col-md-6">
-                                            
-                        <div class="col-md-12 col-xs-12 login-blocks">
-                            
-                            <form id="forma2" action="" method="post">
-                                <div class="form-group">
-                                     <label for="radio">Nameštenost</label>
-                                     <br>
+                            <div class="col-md-12 col-xs-12 register-blocks">
+                                <h2>Nova nekretnina: </h2> 
+                                <form action="" method="post">
+                                    <div class="form-group">
+                                        <label for="tip">Tip nekretnine</label>
+                                        <br>
+
+                                        <select name="" class="selectpicker" id="tip">
+                                            <option value="volvo">Volvo</option>
+                                            <option value="saab">Saab</option>
+                                            <option value="fiat">Fiat</option>
+                                            <option value="audi">Audi</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="opstina">Opština</label>
+                                        <br>
+
+                                        <select name="" class="selectpicker" id="opstina">
+                                            <option value="volvo">Volvo</option>
+                                            <option value="saab">Saab</option>
+                                            <option value="fiat">Fiat</option>
+                                            <option value="audi">Audi</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="adresa">Adresa</label>
+                                        <input type="text" class="form-control" id="adresa">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="m2">Kvadratura</label>
+                                        <input type="number" class="form-control" id="m2">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="struktura">Struktura</label>
+                                        <br>
+
+                                        <select name="" class="selectpicker" id="struktura">
+                                            <option value="volvo">Volvo</option>
+                                            <option value="saab">Saab</option>
+                                            <option value="fiat">Fiat</option>
+                                            <option value="audi">Audi</option>
+                                        </select>
+                                    </div>
+
+
+                                </form>
+                            </div>
+
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="col-md-12 col-xs-12 login-blocks">
+
+                                <form id="forma2" action="" method="post">
+                                    <div class="form-group">
+                                        <label for="radio">Nameštenost</label>
+                                        <br>
                                         <input type="radio" name="namestenost" value="namesten" > Namešten
                                         <input type="radio" name="namestenost" value="polunamesten"> Polunamešten
                                         <input type="radio" name="namestenost" value="nenamesten" checked> Nenamešten
-                                </div>
-                                <div class="form-group">
-                                    <label for="property-images">Izaberi sliku</label>
-                                    <input class="form-control" type="file" id="property-images">
-                                </div>
-                                <div class="form-group">
-                                    <label for="grejanje">Vrsta grejanja</label>
-                                    <input type="text" class="form-control" id="grejanje">
-                                </div>
-                                <div class="form-group">
-                                    <label for="sprat">Sprat</label>
-                                    <input type="number" class="form-control" id="sprat">
-                                </div>
-                                <div class="form-group">
-                                    <label for="spratnost">Ukupno spratova</label>
-                                    <input type="number" class="form-control" id="spratnost">
-                                </div>
-                                <label for="cena">Cena</label> <br>
-                                <div class="input-group">
-                                    <span class="input-group-addon">€</span>
-                                    <input type="number" class="form-control" id="cena">
-                                    <span class="input-group-addon">.00</span>
-                                </div>
-                                
-                                
-                            </form>
-                            
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="property-images">Izaberi sliku</label>
+                                        <input class="form-control" type="file" id="property-images">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="grejanje">Vrsta grejanja</label>
+                                        <input type="text" class="form-control" id="grejanje">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="sprat">Sprat</label>
+                                        <input type="number" class="form-control" id="sprat">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="spratnost">Ukupno spratova</label>
+                                        <input type="number" class="form-control" id="spratnost">
+                                    </div>
+                                    <label for="cena">Cena</label> <br>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">€</span>
+                                        <input type="number" class="form-control" id="cena">
+                                        <span class="input-group-addon">.00</span>
+                                    </div>
+
+
+                                </form>
+
+                            </div>
+
+
+
                         </div>
-                    
-                        
-                    
-                </div>
-                    <div class="col-md-12">
-                        <br>
-                                <div class="text-center">
-                                    <button type="submit" class="btn btn-default">Unesi <span class="glyphicon glyphicon-home" aria-hidden="true"> </button>
-                                </div>
-                    </div>    
+                        <div class="col-md-12">
+                            <br>
+                            <div class="text-center">
+                                <button type="submit" class="btn btn-default">Unesi <span class="glyphicon glyphicon-home" aria-hidden="true"> </button>
+                            </div>
+                        </div>    
                     </div>    
                 </div>
             </div>
         </div> 
-         <!-- Footer area-->
+        <!-- Footer area-->
         <div class="footer-area">
 
             <div class=" footer">
@@ -279,7 +279,7 @@ session_start();
             </div>
 
         </div>
-        
+
         <script src="assets/js/modernizr-2.6.2.min.js"></script>
 
         <script src="assets/js/jquery-1.10.2.min.js"></script> 
@@ -298,6 +298,6 @@ session_start();
 
         <script src="assets/js/main.js"></script>
         <script src="assets/js/navbar.js" type="text/javascript"></script>
-        
+
     </body>
 </html>
