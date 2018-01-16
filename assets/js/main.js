@@ -6,7 +6,50 @@ $(window).load(function () { // makes sure the whole site is loaded
 $(document).ready(function () {
 
     $('#add_pic_input').tooltip();
+    $('#back_arrow').tooltip();
     $('#add_pic_input').on('click', function() { $('#multiple_pics_div').append('<input class="form-control-file" type="file" name="file[]">'); });
+    var option_value = "";
+    $('#property_type1').change(function() {
+        $('#property_form_next').removeAttr('disabled');
+        option_value = $('#property_type1').val();
+        $('#property_type2').val(option_value);
+        if (option_value === 'Kuca') {
+            $('#floor').fadeOut(50);
+        } else if (option_value === 'Lokal') {
+            $('#heat').fadeOut(50);
+            $('#floor').fadeOut(50);
+            $('#building_floors').fadeOut(50);
+        } else if (option_value === 'Garaza') {
+            $('#structure').fadeOut(50);
+            $('#parking').fadeOut(50);
+            $('#accommodation').fadeOut(50);
+            $('#heat').fadeOut(50);
+            $('#floor').fadeOut(50);
+            $('#building_floors').fadeOut(50);
+        }
+    });
+    $('#property_form_next').click(function() {
+        $('#back_arrow').delay(200).fadeIn();    
+        $('#before_new_property_form').delay(200).slideUp();
+        $('#new_property_form').delay(500).slideDown(1000);
+    });
+    $('#back_arrow').click(function() {
+        $('#property_type1').val("- - -");
+        $('#floor').delay(1000).fadeIn(50);
+        $('#heat').delay(1000).fadeIn(50);
+        $('#floor').delay(1000).fadeIn(50);
+        $('#building_floors').delay(1000).fadeIn(50);
+        $('#structure').delay(1000).fadeIn(50);
+        $('#parking').delay(1000).fadeIn(50);
+        $('#accommodation').delay(1000).fadeIn(50);
+        $('#heat').delay(1000).fadeIn(50);
+        $('#floor').delay(1000).fadeIn(50);
+        $('#building_floors').delay(1000).fadeIn(50);
+        $('#property_form_next').prop('disabled', true);
+        $('#new_property_form').delay(200).slideUp(1000);
+        $('#before_new_property_form').delay(1100).slideDown();
+        $('#back_arrow').delay(1100).fadeOut();  
+    });
     
     $('input').iCheck({
         checkboxClass: 'icheckbox_square-yellow',

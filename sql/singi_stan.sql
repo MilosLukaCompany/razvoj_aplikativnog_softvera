@@ -11,10 +11,11 @@ CREATE TABLE tip_nekretnine (
 CREATE TABLE nekretnina (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     adresa VARCHAR(150) NOT NULL,
-    kvadratura INT NOT NULL,
-    struktura ENUM('Jednosoban', 'Dvosoban', 'Trosoban', 'Cetvorosoban', 'Petosoban') NULL,
+    povrsina INT NOT NULL,
+    struktura ENUM('Garsonjera', 'Jednosobna', 'Dvosobna', 'Trosobna', 'Cetvorosobna', 'Petosobna') NULL,
+    parking VARCHAR(150) NULL,
     grejanje VARCHAR(150) NULL,
-    namestenost ENUM('Namesten', 'Polunamesten', 'Nenamesten') NULL,
+    namestenost ENUM('Namestena', 'Polunamestena', 'Nenamestena') NULL,
     sprat INT NULL,
     spratnost INT NULL,
     cena DECIMAL(20,2) NOT NULL,
@@ -77,4 +78,13 @@ CREATE TABLE lista_zelja (
     CONSTRAINT fk_lista_zelja_kupac FOREIGN KEY (id_kupac) REFERENCES kupac (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_lista_zelja_nekretnina FOREIGN KEY (id_nekretnina) REFERENCES nekretnina (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     PRIMARY KEY (id, id_kupac, id_nekretnina)
+);
+
+CREATE TABLE slike (
+    id INT NOT NULL AUTO_INCREMENT,
+    id_nekretnina INT NOT NULL,
+    ime_slike VARCHAR(255) NOT NULL,
+    putanja_slike VARCHAR(255) NOT NULL,
+    tip_slike VARCHAR(255) NOT NULL,
+    PRIMARY KEY (id, id_nekretnina)
 );

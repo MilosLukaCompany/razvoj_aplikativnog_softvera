@@ -99,105 +99,144 @@ session_start();
         </div>
 
         <!-- property area -->
-        <div class="content-area recent-property padding-top-40" style="background-color: #F4F4F4;">
+        <div class="content-area recent-property padding-top-40" style="background-color: #F4F4F4; padding-top: 60px; padding-bottom: 60px;">
             <div class="container">
                 <div class="row">
-                    <div class="box-for overflow">
+                    <div class="box-for overflow col-md-8 col-xs-8 col-md-offset-2 col-xs-offset-2">
                         <div class="register-blocks col-md-12">
-                            <h2>Nova nekretnina: </h2> 
+                            <h2>Nova nekretnina: </h2><span id="back_arrow" class="glyphicon glyphicon-arrow-up" style="margin-left: 15px; color: #FDC600; display: none;" data-toggle="tooltip" data-placement="right" title="Nazad"></span>
                         </div>                      
                         <div class="col-md-12 col-xs-12 register-blocks">
-                            <form action="php/new_property.php" method="POST" enctype="multipart/form-data">
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="tip">Tip nekretnine</label>
-                                        <br>
-                                        <select name="" class="form-control" id="tip">
-                                            <option>- - -</option>
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="fiat">Fiat</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="opstina">Opština</label>
-                                        <br>
+                            <div class="col-md-12" id="before_new_property_form">
+                                <div class="form-group">
+                                    <label for="tip">Tip nekretnine</label>
+                                    <br>
+                                    <select class="form-control" id="property_type1" name="property_type">
+                                        <option>- - -</option>
+                                        <?php
+                                        require 'php/database_connection.php';
+                                        $prep = $db->prepare('SELECT tip FROM tip_nekretnine;');
+                                        $prep->execute();
 
-                                        <select name="" class="form-control" id="opstina">
-                                            <option>- - -</option>
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="fiat">Fiat</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="adresa">Adresa</label>
-                                        <input type="text" class="form-control" id="adresa">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="m2">Kvadratura</label>
-                                        <input type="number" class="form-control" id="m2">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="struktura">Struktura</label>
-                                        <br>
-                                        <select name="" class="form-control" id="struktura">
-                                            <option>- - -</option>
-                                            <option value="volvo">Volvo</option>
-                                            <option value="saab">Saab</option>
-                                            <option value="fiat">Fiat</option>
-                                            <option value="audi">Audi</option>
-                                        </select>
-                                    </div>
-                                </div>                                  
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label for="struktura">Nameštenost</label>
-                                        <br>
+                                        $res = $prep->fetchAll(PDO::FETCH_OBJ);
+                                        foreach ($res as $r) {
+                                            echo "<option value='" . $r->tip . "'>" . $r->tip . "</option>\n";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <button class="btn btn-default btn-block" id="property_form_next" disabled>Dalje <span class="glyphicon glyphicon-arrow-down"></span></button>
+                            </div>
 
-                                        <select name="" class="form-control" id="struktura">
-                                            <option>- - -</option>
-                                            <option value="namesten">Namešten</option>
-                                            <option value="polunamesten">Polunamešten</option>
-                                            <option value="nenamesten">Nenamešten</option>                                                
-                                        </select>
-                                    </div>                                                                                
-                                    <div class="form-group">
-                                        <label for="grejanje">Vrsta grejanja</label>
-                                        <input type="text" class="form-control" id="grejanje">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="sprat">Sprat</label>
-                                        <input type="number" class="form-control" id="sprat">
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="spratnost">Ukupno spratova</label>
-                                        <input type="number" class="form-control" id="spratnost">
-                                    </div>
-                                    <label for="cena">Cena</label> <br>
-                                    <div class="input-group">
-                                        <span class="input-group-addon">€</span>
-                                        <input type="number" class="form-control" id="cena">
-                                        <span class="input-group-addon">.00</span>
-                                    </div>
+                            <form action="php/new_property.php" method="POST" enctype="multipart/form-data" style="display: none;" id="new_property_form">
+                                <div class="form-group">
+                                    <label for="tip">Tip nekretnine</label>
+                                    <br>
+                                    <select class="form-control" id="property_type2" name="property_type2" disabled>
+                                        <option>- - -</option>
+                                        <?php
+                                        require 'php/database_connection.php';
+                                        $prep = $db->prepare('SELECT tip FROM tip_nekretnine;');
+                                        $prep->execute();
+
+                                        $res = $prep->fetchAll(PDO::FETCH_OBJ);
+                                        foreach ($res as $r) {
+                                            echo "<option value='" . $r->tip . "'>" . $r->tip . "</option>\n";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="opstina">Opština</label>
+                                    <br>
+
+                                    <select class="form-control" id="opstina" name="municipalities" required>
+                                        <option>- - -</option>
+                                        <?php
+                                        require 'php/database_connection.php';
+                                        $prep = $db->prepare('SELECT naziv FROM opstina ORDER BY naziv ASC;');
+                                        $prep->execute();
+
+                                        $res = $prep->fetchAll(PDO::FETCH_OBJ);
+                                        foreach ($res as $r) {
+                                            echo "<option value='" . $r->naziv . "'>" . $r->naziv . "</option>\n";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label for="adresa">Adresa</label>
+                                    <input type="text" class="form-control" id="adresa" name="address" required>
+                                </div>
+                                <div class="form-group" id="structure">
+                                    <label for="struktura">Struktura</label>
+                                    <br>
+                                    <select name="" class="form-control" name="structure" required>
+                                        <option>- - -</option>
+                                        <option value="Garsonjera">Garsonjera</option>
+                                        <option value="Jednosoban">Jednosobna</option>
+                                        <option value="Dvosoban">Dvosobna</option>
+                                        <option value="Trosoban">Trosobna</option>
+                                        <option value="Cetvorosoban">Cetvorosobna</option>
+                                        <option value="Petosoban">Petosobna</option>
+                                    </select>
+                                </div>
+                                <div class="form-group" id="parking">
+                                    <label for="struktura">Parking</label>
+                                    <br>
+                                    <select name="" class="form-control" name="parking" required>
+                                        <option>- - -</option>
+                                        <option value="Slobodna zona">Slobodna zona</option>
+                                        <option value="Zona III">Zona III</option>
+                                        <option value="Zona II">Zona II</option>
+                                        <option value="Zona I">Zona I</option>                                            
+                                    </select>
+                                </div>                                   
+                                <label for="m2">Površina</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="m2" name="quadrature" required>
+                                    <span class="input-group-addon" style="border-radius: 0;">m<sup>2</sup></span>                                        
+                                </div>
+                                <div class="form-group" id="accommodation">
+                                    <label for="struktura">Nameštenost</label>
+                                    <br />
+                                    <select name="" class="form-control" name="accommodation" required>
+                                        <option>- - -</option>
+                                        <option value="Namestena">Nameštena</option>
+                                        <option value="Polunamestena">Polunameštena</option>
+                                        <option value="Nenamestena">Nenameštena</option>                                                
+                                    </select>
+                                </div>                                                                                
+                                <div class="form-group" id="heat">
+                                    <label for="grejanje">Vrsta grejanja</label>
+                                    <input type="text" class="form-control" name="heat" required>
+                                </div>
+                                <div class="form-group" id="floor">
+                                    <label for="sprat">Sprat</label>
+                                    <input type="number" class="form-control" name="floor" required>
+                                </div>
+                                <div class="form-group" id="building_floors" >
+                                    <label for="spratnost">Ukupno spratova</label>
+                                    <input type="number" class="form-control" name="building_floors" required>
+                                </div>
+                                <label for="cena">Cena</label>
+                                <div class="input-group">
+                                    <input type="number" class="form-control" id="cena" name="price" required>
+                                    <span class="input-group-addon" style="border-radius: 0;">€</span>                                        
+                                </div>
+                                <div class="form-group" id="multiple_pics_div" style="margin-top: 15px;">
+                                    <label for="property-images">Izaberi sliku</label>
+                                    <spann id="add_pic_input" class="glyphicon glyphicon-plus" style="margin-left: 10px; cursor: pointer; color: #FDC600" data-toggle="tooltip" data-placement="top" title="Dodaj polje za unos slike"></spann>
+                                    <input class="form-control-file" type="file" name="file[]">
                                 </div>
                                 <div class="col-md-12">
-                                    <div class="form-group" id="multiple_pics_div">
-                                        <label for="property-images">Izaberi sliku</label>
-                                        <spann id="add_pic_input" class="glyphicon glyphicon-plus" style="margin-left: 10px; cursor: pointer; color: #FDC600" data-toggle="tooltip" data-placement="top" title="Dodaj polje za unos slike"></spann>
-                                        <input class="form-control-file" type="file" name="file[]">
+                                    <br />                            
+                                    <div class="text-center">
+                                        <button type="submit" class="btn btn-default btn-block">Unesi <span class="glyphicon glyphicon-home" aria-hidden="true"> </button>
                                     </div>
-                                </div>
+                                </div>    
                             </form>
                         </div>
-                        <div class="col-md-12">
-                            <br />                            
-                            <div class="text-center">
-                                <button type="submit" class="btn btn-default btn-block">Unesi <span class="glyphicon glyphicon-home" aria-hidden="true"> </button>
-                            </div>
-                        </div>    
                     </div>    
                 </div>
             </div>
