@@ -163,7 +163,7 @@
                                                 <div class="form-group">
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox"> Namesten
+                                                            <input type="checkbox"> Namešten
                                                         </label>
                                                     </div>
                                                 </div>
@@ -172,7 +172,7 @@
                                                 <div class="form-group">
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox"> Nenamesten
+                                                            <input type="checkbox"> Nenamešten
                                                         </label>
                                                     </div>
                                                 </div>
@@ -181,7 +181,7 @@
                                                 <div class="form-group">
                                                     <div class="checkbox">
                                                         <label>
-                                                            <input type="checkbox"> Polunamesten
+                                                            <input type="checkbox"> Polunamešten
                                                         </label>
                                                     </div>
                                                 </div>
@@ -279,7 +279,7 @@
                                             <div class="welcome-icon">
                                                 <i class="pe-7s-notebook pe-4x"></i>
                                             </div>
-                                            <h3>Instan potpisivanje ugovora</h3>
+                                            <h3>Instant potpisivanje ugovora</h3>
                                         </div>
                                     </div>
                                     <div class="col-xs-6 m-padding">
