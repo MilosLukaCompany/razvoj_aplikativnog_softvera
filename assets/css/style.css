@@ -2394,8 +2394,8 @@ count-area
 }
 .boy-sale-area {
     position: relative;
-    padding: 70px 0px;
-    background-color: #F3F3F3;
+    padding: 100px 0px 70px 0px;
+    background-color: #fff;
     color: #FFF;
 }
 

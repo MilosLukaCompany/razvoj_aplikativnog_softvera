@@ -80,7 +80,7 @@ CREATE TABLE lista_zelja (
     PRIMARY KEY (id, id_kupac, id_nekretnina)
 );
 
-CREATE TABLE slike (
+CREATE TABLE slika (
     id INT NOT NULL AUTO_INCREMENT,
     id_nekretnina INT NOT NULL,
     ime_slike VARCHAR(255) NOT NULL,

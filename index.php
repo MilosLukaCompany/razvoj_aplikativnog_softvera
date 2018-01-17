@@ -33,7 +33,6 @@
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/responsive.css">
         <link rel="stylesheet" href="assets/css/nas_stil.css">
-
     </head>
     <body>
 
@@ -116,145 +115,267 @@
 
         <!-- End of nav bar -->
 
-        <div class="slider-area">
-            <div class="banner" ><img src="assets/img/awesome-livingroom.jpg" alt="livingroom">
-                <div class="slider-content">
-                    <div class="container-fluid">
-                        <div class="row">
-                            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
-                                <h2>traženje vašeg novog doma je upravo postalo lakše uz Singi Stan</h2>
+        <div class="slider-area" id="welcome_pic">
+            <div class="slider-content">
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
+                            <h2>nikad brže i lakše do novog doma</h2>
 
-                                <div id="trazi" class="search-form wow pulse" data-wow-delay="0.8s">
+                            <div id="trazi" class="search-form wow pulse" data-wow-delay="0.8s">
 
-                                    <form action="" class=" form-inline">
-                                        <button class="btn  toggle-btn" type="button"><i class="fa fa-bars"></i></button>
+                                <form action="" class=" form-inline">
+                                    <button class="btn  toggle-btn" type="button"><i class="fa fa-bars"></i></button>
 
-                                        <div class="form-group">                                     
-                                            <select id="basic" title="Izaberi tip nekretnine" class="selectpicker show-tick form-control">
-                                                <option>Stan</option>
-                                                <option>Rent </option>
-                                                <option>Boy</option>
-                                                <option>used</option>  
+                                    <div class="form-group">                                     
+                                        <select id="basic" title="Izaberi tip nekretnine" class="selectpicker show-tick form-control">
+                                            <?php
+                                            require 'php/database_connection.php';
+                                            $prep = $db->prepare('SELECT * FROM tip_nekretnine;');
+                                            $prep->execute();
 
-                                            </select>
+                                            $res = $prep->fetchAll(PDO::FETCH_OBJ);
+                                            foreach ($res as $r) {
+                                                echo "<option value='" . $r->id . "'>" . $r->tip . "</option>\n";
+                                            }
+                                            ?> 
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group">                                   
+                                        <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Izaberi opštinu">
+                                            <?php
+                                            require 'php/database_connection.php';
+                                            $prep = $db->prepare('SELECT * FROM opstina ORDER BY naziv ASC;');
+                                            $prep->execute();
+
+                                            $res = $prep->fetchAll(PDO::FETCH_OBJ);
+                                            foreach ($res as $r) {
+                                                echo "<option value='" . $r->id . "'>" . $r->naziv . "</option>\n";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+
+                                    <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
+
+                                    <div style="display: none;" class="search-toggle">
+
+                                        <div class="search-row">   
+
+                                            <div class="form-group mar-r-20">
+                                                <label for="price-range">Cena od - do (EUR) :</label>
+                                                <input type="text" class="span2" value="" data-slider-min="10000" 
+                                                       data-slider-max="500000" data-slider-step="10000" 
+                                                       data-slider-value="[30000,200000]" id="price-range" ><br />
+                                                <b class="pull-left color">10.000€</b> 
+                                                <b class="pull-right color">500.000€</b>
+                                            </div>
+                                            <!-- End of  -->  
+
+                                            <div class="form-group mar-l-20">
+                                                <label for="property-geo">Kvadratura (m<sup>2</sup>) :</label>
+                                                <input type="text" class="span2" value="" data-slider-min="0" 
+                                                       data-slider-max="600" data-slider-step="5" 
+                                                       data-slider-value="[50,250]" id="property-geo" ><br />
+                                                <b class="pull-left color">0m<sup>2</sup></b> 
+                                                <b class="pull-right color">600m<sup>2</sup></b>
+                                            </div>
+                                            <!-- End of  --> 
                                         </div>
 
-                                        <div class="form-group">                                   
-                                            <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Izaberi opštinu">
 
-                                                <option>New york, CA</option>
-                                                <option>Paris</option>
-                                                <option>Casablanca</option>
-                                                <option>Tokyo</option>
-                                                <option>Marraekch</option>
-                                                <option>kyoto , shibua</option>
-                                            </select>
+                                        <br>
+                                        <div class="search-row">  
+
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> Namešten
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <!-- End of  -->  
+
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> Nenamešten
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <!-- End of  --> 
+
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> Polunamešten
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            <!-- End of  --> 
                                         </div>
 
-                                        <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
+                                        <div class="search-row">  
 
-                                        <div style="display: none;" class="search-toggle">
-
-                                            <div class="search-row">   
-
-                                                <div class="form-group mar-r-20">
-                                                    <label for="price-range">Cena od - do (EUR):</label>
-                                                    <input type="text" class="span2" value="" data-slider-min="5000" 
-                                                           data-slider-max="900000" data-slider-step="10000" 
-                                                           data-slider-value="[100000,500000]" id="price-range" ><br />
-                                                    <b class="pull-left color">5000€</b> 
-                                                    <b class="pull-right color">900000€</b>
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> Jednosoban
+                                                    </label>
                                                 </div>
-                                                <!-- End of  -->  
-
-                                                <div class="form-group mar-l-20">
-                                                    <label for="property-geo">Kvadratura (m2) :</label>
-                                                    <input type="text" class="span2" value="" data-slider-min="0" 
-                                                           data-slider-max="600" data-slider-step="5" 
-                                                           data-slider-value="[50,250]" id="property-geo" ><br />
-                                                    <b class="pull-left color">0m2</b> 
-                                                    <b class="pull-right color">600m2</b>
-                                                </div>
-                                                <!-- End of  --> 
                                             </div>
+                                            <!-- End of  -->  
 
-
-                                            <br>
-                                            <div class="search-row">  
-
-                                                <div class="form-group">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"> Namešten
-                                                        </label>
-                                                    </div>
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> Dvosoban
+                                                    </label>
                                                 </div>
-                                                <!-- End of  -->  
-
-                                                <div class="form-group">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"> Nenamešten
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <!-- End of  --> 
-
-                                                <div class="form-group">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"> Polunamešten
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <!-- End of  --> 
                                             </div>
+                                            <!-- End of  --> 
 
-                                            <div class="search-row">  
-
-                                                <div class="form-group">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"> Jednosoban
-                                                        </label>
-                                                    </div>
+                                            <div class="form-group">
+                                                <div class="checkbox">
+                                                    <label>
+                                                        <input type="checkbox"> Trosoban
+                                                    </label>
                                                 </div>
-                                                <!-- End of  -->  
-
-                                                <div class="form-group">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"> Dvosoban
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <!-- End of  --> 
-
-                                                <div class="form-group">
-                                                    <div class="checkbox">
-                                                        <label>
-                                                            <input type="checkbox"> Trosoban
-                                                        </label>
-                                                    </div>
-                                                </div>
-                                                <!-- End of  --> 
-                                            </div>                                    
-
-
-                                            <br>
-                                            <hr>
-                                        </div>                             
-
-                                </div>                    
-
+                                            </div>
+                                            <!-- End of  --> 
+                                        </div>                                    
+                                        <br>
+                                        <hr>
+                                    </div>                             
                                 </form>
+                            </div>                    
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </div>                
+
+        <!-- Count area -->
+        <div class="count-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
+                        <!-- /.feature title -->
+                        <h2>Imajte poverenja u nas</h2> 
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-xs-12 percent-blocks m-main" data-waypoint-scroll="true">
+                        <div class="row">
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="count-item">
+                                    <div class="count-item-circle">
+                                        <span class="pe-7s-users"></span>
+                                    </div>
+                                    <div class="chart" data-percent="700">
+                                        <h2 class="percent" id="counter">0</h2>
+                                        <h5>Zadovoljnih kupaca</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="count-item">
+                                    <div class="count-item-circle">
+                                        <span class="pe-7s-home"></span>
+                                    </div>
+                                    <div class="chart" data-percent="1200">
+                                        <h2 class="percent" id="counter1">0</h2>
+                                        <h5>Nekretnina u bazi</h5>
+                                    </div>
+                                </div> 
+                            </div> 
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="count-item">
+                                    <div class="count-item-circle">
+                                        <span class="pe-7s-flag"></span>
+                                    </div>
+                                    <div class="chart" data-percent="120">
+                                        <h2 class="percent" id="counter2">0</h2>
+                                        <h5>Agenata</h5>
+                                    </div>
+                                </div> 
+                            </div> 
+                            <div class="col-sm-3 col-xs-6">
+                                <div class="count-item">
+                                    <div class="count-item-circle">
+                                        <span class="pe-7s-graph2"></span> 
+                                    </div>
+                                    <div class="chart" data-percent="5000">
+                                        <h2 class="percent"  id="counter3">5000</h2>
+                                        <h5>Uspešnih prodaja</h5>
+                                    </div>
+                                </div> 
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!--TESTIMONIALS -->
+        <div class="testimonial-area recent-property" style="background-color: #FCFCFC; padding-bottom: 15px;">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
+                        <!-- /.feature title -->
+                        <h2>Klijenti o nama</h2> 
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="row testimonial">
+                        <div class="col-md-12">
+                            <div id="testimonial-slider">
+                                <div class="item">
+                                    <div class="client-text">                                
+                                        <p>U odabiru novog stana nismo imali nikakvih poteškoća i neprilika. Sve pohvale!</p>
+                                        <h4><strong>Dušan Nikolić </strong><i>Diplomirani ekonomista</i></h4>
+                                    </div>
+                                    <div class="client-face wow fadeInLeft" data-wow-delay=".9s"> 
+                                        <img src="assets/img/client-face1.png" alt="">
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="client-text">                                
+                                        <p>Sve je proteklo bez problema i brzo i lako smo došli do svog doma.</p>
+                                        <h4><strong>Milosava Milovanović </strong><i>Menadžer</i></h4>
+                                    </div>
+                                    <div class="client-face wow fadeInLeft" data-wow-delay=".9s">
+                                        <img src="assets/img/client-face4.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="client-text">                                
+                                        <p>Bilo je zabavno i lako tražiti stan iz snova!</p>
+                                        <h4><strong>Senad Bajić </strong><i>Modni bloger</i></h4>
+                                    </div>
+                                    <div class="client-face wow fadeInLeft" data-wow-delay=".9s">
+                                        <img src="assets/img/client-face3.jpg" alt="">
+                                    </div>
+                                </div>
+                                <div class="item">
+                                    <div class="client-text">                                
+                                        <p>Iznenađen sam lakoćom procesa pronalaska novog stana.</p>
+                                        <h4><strong>Petar Jovanović, </strong><i>Mašinski inženjer</i></h4>
+                                    </div>
+                                    <div class="client-face wow fadeInLeft" data-wow-delay=".9s"> 
+                                        <img src="assets/img/client-face2.png" alt="">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
 
                 </div>
             </div>
-        </div>             
+        </div>
 
         <!--Welcome area -->
         <div class="Welcome-area">
@@ -319,128 +440,7 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!--TESTIMONIALS -->
-        <div class="testimonial-area recent-property" style="background-color: #FCFCFC; padding-bottom: 15px;">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
-                        <!-- /.feature title -->
-                        <h2>Klijenti o nama</h2> 
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="row testimonial">
-                        <div class="col-md-12">
-                            <div id="testimonial-slider">
-                                <div class="item">
-                                    <div class="client-text">                                
-                                        <p>U odabiru novog stana nismo imali nikakvih poteškoća i neprilika. Sve pohvale!</p>
-                                        <h4><strong>Dušan Nikolić </strong><i>Diplomirani ekonomista</i></h4>
-                                    </div>
-                                    <div class="client-face wow fadeInRight" data-wow-delay=".9s"> 
-                                        <img src="assets/img/client-face1.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="client-text">                                
-                                        <p>Sve je proteklo bez problema i brzo i lako smo došli do svog doma.</p>
-                                        <h4><strong>Milosava Milovanović </strong><i>Menadžer</i></h4>
-                                    </div>
-                                    <div class="client-face wow fadeInRight" data-wow-delay=".9s">
-                                        <img src="assets/img/client-face4.jpg" alt="">
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="client-text">                                
-                                        <p>Bilo je zabavno i lako tražiti stan iz snova!</p>
-                                        <h4><strong>Senad Bajić </strong><i>Modni bloger</i></h4>
-                                    </div>
-                                    <div class="client-face wow fadeInRight" data-wow-delay=".9s">
-                                        <img src="assets/img/client-face3.jpg" alt="">
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="client-text">                                
-                                        <p>Iznenađen sam lakoćom procesa pronalaska novog stana.</p>
-                                        <h4><strong>Petar Jovanović, </strong><i>Mašinski inženjer</i></h4>
-                                    </div>
-                                    <div class="client-face wow fadeInRight" data-wow-delay=".9s"> 
-                                        <img src="assets/img/client-face2.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </div>
-
-        <!-- Count area -->
-        <div class="count-area">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
-                        <!-- /.feature title -->
-                        <h2>Imajte poverenja u nas</h2> 
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12 col-xs-12 percent-blocks m-main" data-waypoint-scroll="true">
-                        <div class="row">
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-users"></span>
-                                    </div>
-                                    <div class="chart" data-percent="700">
-                                        <h2 class="percent" id="counter">0</h2>
-                                        <h5>Zadovoljnih kupaca</h5>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-home"></span>
-                                    </div>
-                                    <div class="chart" data-percent="12000">
-                                        <h2 class="percent" id="counter1">0</h2>
-                                        <h5>Nekretnina u bazi</h5>
-                                    </div>
-                                </div> 
-                            </div> 
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-flag"></span>
-                                    </div>
-                                    <div class="chart" data-percent="120">
-                                        <h2 class="percent" id="counter2">0</h2>
-                                        <h5>Agenata</h5>
-                                    </div>
-                                </div> 
-                            </div> 
-                            <div class="col-sm-3 col-xs-6">
-                                <div class="count-item">
-                                    <div class="count-item-circle">
-                                        <span class="pe-7s-graph2"></span> 
-                                    </div>
-                                    <div class="chart" data-percent="5000">
-                                        <h2 class="percent"  id="counter3">5000</h2>
-                                        <h5>Uspešnih prodaja</h5>
-                                    </div>
-                                </div> 
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+        </div>        
 
         <!-- boy-sale area -->
         <div class="boy-sale-area">
@@ -548,7 +548,7 @@
                         </div> 
                         <div class="bottom-menu pull-right"> 
                             <!-- Return to Top -->
-                            <a href="javascript:" id="return-to-top"><p class="i">/\</p></a>
+                            <a href="javascript:" id="return-to-top" data-toggle="tooltip" data-placement="top" title="Idi na vrh"><p class="i">/\</p></a>
 
                         </div>
                     </div>

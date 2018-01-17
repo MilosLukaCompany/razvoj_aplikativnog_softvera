@@ -7,19 +7,28 @@ $(document).ready(function () {
 
     $('#add_pic_input').tooltip();
     $('#back_arrow').tooltip();
+    $('#return-to-top').tooltip();
+    
+    $('#tel').focus(function() {
+        $(this).prev('span').css({'border-top': '1px solid #9A9A9A', 'border-left': '1px solid #9A9A9A', 'border-bottom': '1px solid #9A9A9A'});
+    });
+    
+    $('#tel').focusout(function() {
+        $(this).prev('span').css({'border-top': '1px solid #DADADA', 'border-left': '1px solid #DADADA', 'border-bottom': '1px solid #DADADA'});
+    });
     $('#add_pic_input').on('click', function() { $('#multiple_pics_div').append('<input class="form-control-file" type="file" name="file[]">'); });
     var option_value = "";
-    $('#property_type1').change(function() {
+    $('#property_type').change(function() {
         $('#property_form_next').removeAttr('disabled');
-        option_value = $('#property_type1').val();
-        $('#property_type2').val(option_value);
-        if (option_value === 'Kuca') {
+        option_value = $('#property_type').val(); 
+        console.log(option_value);
+        if (option_value === '17') {
             $('#floor').fadeOut(50);
-        } else if (option_value === 'Lokal') {
+        } else if (option_value === '19') {
             $('#heat').fadeOut(50);
             $('#floor').fadeOut(50);
             $('#building_floors').fadeOut(50);
-        } else if (option_value === 'Garaza') {
+        } else if (option_value === '20') {
             $('#structure').fadeOut(50);
             $('#parking').fadeOut(50);
             $('#accommodation').fadeOut(50);
@@ -34,7 +43,7 @@ $(document).ready(function () {
         $('#new_property_form').delay(500).slideDown(1000);
     });
     $('#back_arrow').click(function() {
-        $('#property_type1').val("- - -");
+        $('#property_type').val("- - -");
         $('#floor').delay(1000).fadeIn(50);
         $('#heat').delay(1000).fadeIn(50);
         $('#floor').delay(1000).fadeIn(50);
@@ -134,14 +143,14 @@ $(document).ready(function () {
         $('#counter3').text('0');
         setInterval(function () {
             var curval = parseInt($('#counter').text());
-            var curval1 = parseInt($('#counter1').text().replace(' ', ''));
+            var curval1 = parseInt($('#counter1').text());
             var curval2 = parseInt($('#counter2').text());
             var curval3 = parseInt($('#counter3').text());
             if (curval <= 908) {
                 $('#counter').text(curval + 1);
             }
-            if (curval1 <= 529) {
-                $('#counter1').text(sdf_FTS((curval1 + 20), 0, ' '));
+            if (curval1 <= 877) {
+                $('#counter1').text(curval1 + 1);
             }
             if (curval2 <= 23) {
                 $('#counter2').text(curval2 + 1);
@@ -150,7 +159,7 @@ $(document).ready(function () {
                 $('#counter3').text(curval3 + 1);
             }
         }, 2);
-    }, 500);
+    }, 1000);
 
     function sdf_FTS(_number, _decimal, _separator) {
         var decimal = (typeof (_decimal) != 'undefined') ? _decimal : 2;
