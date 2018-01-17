@@ -63,7 +63,13 @@
 
         <?php
         require 'php/database_connection.php';
+        
+        if ($_SESSION['user_type'] === "kupac") {
         $prep = $db->prepare('SELECT * FROM kupac WHERE korisnicko_ime=?;');
+        }
+        elseif ($_SESSION['user_type'] === "agent") {
+            $prep = $db->prepare('SELECT * FROM agent WHERE korisnicko_ime=?;');
+        }
         $prep->execute([$_SESSION['username']]);
 
         $res = $prep->fetchAll(PDO::FETCH_OBJ);
@@ -103,9 +109,9 @@
                     <ul class="main-nav nav navbar-nav navbar-right">
                         <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="navbar_link" href="index.php">Početna</a></li>
                         <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="properties.php">Nekretnine</a></li>
-<?php
-if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
-    ?>
+                        <?php
+                        if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
+                            ?>
                             <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="contact.php">Kontakt</a></li>
                             <?php
                         }
@@ -126,9 +132,12 @@ if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION
                                         <li>
                                             <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
                                         </li>
+                                        <li>
+                                            <a class="navbar_link" href="customers.php">Lista kupaca</a>
+                                        </li>
                                     </ul>
                                 </li>
-                                <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="navbar_link" href="agent_profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>  
+                                <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="navbar_link" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>  
                                     <?php
                                 }
                             }
@@ -153,11 +162,12 @@ if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION
         <!-- End page header -->
         <!-- property area -->
         <div class="content-area user-profiel" style="background-color: #FCFCFC;">&nbsp;
+           
             <div class="container">   
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 profiel-container">
-
-                        <form action="" method="">
+                        
+                        <form action="php/change_profile.php" method="post">
                             <div class="profiel-header">
                                 <h3>
                                     <b>IZMENI&nbsp; </b>SVOJ PROFIL  <br>
@@ -170,42 +180,51 @@ if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION
                                 <hr>
                                 <hr>
                             </div>
-
+                             <?php
+                            if (isset($_GET["msg"]) && $_GET["msg"] == 'success') {
+                                echo "<div id='succes_profile_change' class='alert alert-success' role='alert' style='margin:10px 30px;'>\n";
+                                echo "<span class='success'>Uspesno ste izmenili podatke!<br />\n";
+                                echo "</div>\n";
+                            }
+                            ?> 
                             <div class="clear">
                                 <div class="col-sm-3 col-sm-offset-1">
                                     <div class="picture-container">
-                                        <div class="picture">
-                                            <img src="assets/img/profile_blank.jpg" alt=""   title=""/>
-
+                                         <div class="picture">
+                                            <img src="assets/img/profile_blank.jpg" class="picture-src" id="wizardPicturePreview" title=""/>
+                                            <input type="file" id="wizard-picture">
                                         </div>
-
+                                        <label>Podesi profilnu sliku.</label>
+                                        
+                                       
+                                        
                                     </div>
                                 </div>
 
                                 <div class="col-sm-3 padding-top-25">
 
                                     <div class="form-group">
-                                        <label>Ime : <small> (obavezno)</small></label>
-                                    <?php echo "<input name='fistname' type='text' class='form-control' value='" . $res[0]->ime . "' readonly>\n"; ?> 
+                                        <label>Ime : <small hidden> (obavezno)</small></label>
+                                    <?php echo "<input name='firstname' type='text' class='form-control' value='" . $res[0]->ime . "' readonly>\n"; ?> 
                                     </div>
 
                                     <div class="form-group">
-                                        <label>Prezime : <small> (obavezno)</small></label>
-                                        <input name="lastname" type="text" class="form-control" required>
+                                        <label>Prezime : <small hidden> (obavezno)</small></label>
+                                    <?php echo " <input name='lastname' type='text' class='form-control' required readonly value='". $res[0]->prezime. "'> \n";?>
                                     </div> 
                                     <div class="form-group">
-                                        <label>Email : <small> (obavezno)</small></label>
-                                        <input name="email" type="email" class="form-control" required>
+                                        <label>Email : <small hidden> (obavezno)</small></label>
+                                        <?php echo "<input name='email' type='email' class='form-control' required readonly value='" . $res[0]->email . "'> \n";?>
                                     </div> 
                                 </div>
                                 <div class="col-sm-3 padding-top-25">
                                     <div id="sifra1" class="form-group sifra">
-                                        <label>Lozinka : <small> (obavezno)</small></label>
-                                        <input name="Password" id="password" type="password" class="form-control" required readonly>
+                                        <label>Lozinka : <small hidden> (obavezno)</small></label>
+                                        <input name="password" id="password" type="password" class="form-control" required readonly>
                                     </div>
                                     <div id="sifra2" class="form-group sifra">
-                                        <label>Potvrdi lozinku : <small> (obavezno)</small></label>
-                                        <input type="password" id="confirm_password" class="form-control" required >
+                                        <label>Potvrdi lozinku : <small hidden> (obavezno)</small></label>
+                                        <input type="password" id="confirm_password" class="form-control" required readonly>
                                         
                                         <span id='message'></span>
                                     </div>
@@ -219,12 +238,12 @@ if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION
                                 <br>
                                 <div class="col-sm-5 col-sm-offset-1">
                                     <div class="form-group">
-                                        <label>Korisničko ime : <small> (obavezno)</small></label>
-                                        <input name="" type="text" class="form-control" required>
+                                        <label>Korisničko ime : <small hidden> (obavezno)</small></label>
+                                       <?php echo "<input name='username' type='text' class='form-control' required readonly value='" . $res[0]->korisnicko_ime . "'> \n"; ?>
                                     </div>
                                     <div class="form-group">
-                                        <label>JMBG : <small> (obavezno)</small></label>
-                                        <input name="" type="number" class="form-control" required>
+                                        <label>JMBG : <small hidden> (obavezno)</small></label>
+                                        <?php echo "<input name='jmbg' type='number' class='form-control' required readonly value='" . $res[0]->jmbg . "'> \n";?>
                                     </div>
 
                                 </div>  
@@ -232,11 +251,15 @@ if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION
                                 <div class="col-sm-5">
                                     <div class="form-group">
                                         <label>Telefon : </label>
-                                        <input name="Phone" type="text" class="form-control" >
+                                       <!-- <div class="input-group">
+                                        <span class="input-group-addon" style="border-radius: 0;">+381</span> -->
+                                        
+                                        <?php echo "<input name='tel' type='text' class='form-control' readonly value='" . $res[0]->telefon . "'> \n"; ?>
+                                        
                                     </div>
                                     <div class="form-group">
                                         <label>Adresa : </label>
-                                        <input name="" type="text" class="form-control" >
+                                        <?php echo "<input name='address' type='text' class='form-control' readonly value='" . $res[0]->adresa . "'> \n";?>
                                     </div>
 
                                 </div>
@@ -245,7 +268,9 @@ if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION
 
                             <div class="col-sm-5 col-sm-offset-1">
                                 <br>
-                                <input type='button' id="change_profile" class='btn btn-finish btn-primary' name='finish' value='Unesi izmene' />
+                                <input type='button' id="edit_profile" class='btn btn-finish btn-primary' name='edit' value='Izmeni podatke' />
+                                <input type='hidden' id="change_profile" class='btn btn-finish btn-primary' name='change_profile' value='Unesi izmene' />
+                                
                             </div>
                             <br>
                             <br>
