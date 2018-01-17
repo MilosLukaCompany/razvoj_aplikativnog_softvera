@@ -116,13 +116,13 @@
                                     <label for="name">Adresa</label>
                                     <input type="text" class="form-control" id="address" name="address" required>
                                 </div>
-                                <label for="name">Telefon</label>
-                                <div class="input-group" style="width: 100%; margin-bottom: 15px;">
-                                    <div class="input-group-addon" id="381" style="border: 1px solid #9A9A9A; border-radius: 0;">
-                                        +381
+                                <div class="form-group">
+                                    <label for="tel">Telefon</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon" style="border-radius: 0;">+381</span>  
+                                        <input type="number" class="form-control" id="tel" name="tel" required>                                    
                                     </div>
-                                    <input type="text" class="form-control" id="tel" name="tel" required>                                    
-                                </div>
+                                </div>                                
                                 <div class="form-group">
                                     <label for="name">Korisničko ime</label>
                                     <input type="text" class="form-control" id="username" name="username" required>
