@@ -459,13 +459,13 @@ input[type="search"]::-webkit-search-decoration {
 .has-error .form-control, 
 .has-success .form-control:focus, 
 .has-error .form-control:focus{
-    border-color: #E3E3E3;
-    box-shadow: none;
+    /*border-color: #E3E3E3;
+    box-shadow: none;*/
 }
 .has-success .form-control, 
 .has-success .form-control-feedback,
 .form-control.valid:focus{
-    border-color: #05AE0E;
+   border-color: #05AE0E;
     color: #05AE0E;
 }
 .has-error .form-control, 
@@ -2691,14 +2691,14 @@ padding-bottom: 15px;
 
 .profiel-container .picture-container{
     position: relative;
-    cursor: pointer;
+    margin-top:32px;
     text-align: center;
 }
 .profiel-container .picture{
     width: 220px;
-    height: 230px;
+    height: 220px;
     background-color: #808080;
-    border: 4px solid #CCC;
+    
     color: #FFF;
     border-radius: 4px;
     margin: 35px auto;

@@ -19,3 +19,7 @@ INSERT INTO opstina (naziv) VALUES ('Sopot');
 INSERT INTO opstina (naziv) VALUES ('Stari Grad');
 INSERT INTO opstina (naziv) VALUES ('Surcin');
 INSERT INTO opstina (naziv) VALUES ('Cukarica');
+INSERT INTO `agent` (`id`, `ime`, `prezime`, `jmbg`, `adresa`, `telefon`, `korisnicko_ime`, `sifra`, `email`) VALUES (NULL, 'Zika', 'Zikic', '2509991710123', 'Mite Balije 32', '011 2346754', 'zika', 'zika', 'zilecar@starmail.com');
+INSERT INTO `agent` (`id`, `ime`, `prezime`, `jmbg`, `adresa`, `telefon`, `korisnicko_ime`, `sifra`, `email`) VALUES (NULL, 'Mika', 'Mikic', '2108987710453', 'Laze Simica 12/2', '011 5432341', 'mika', 'mika', 'mika@gmail.com');
+INSERT INTO `kupac` (`id`, `ime`, `prezime`, `jmbg`, `adresa`, `telefon`, `korisnicko_ime`, `sifra`, `email`) VALUES (NULL, 'Pera', 'Peric', '1111971710101', 'Bacansofisanova 45b', '011 2453345', 'pera', 'pera', 'peramanijak@mail.ru');
+INSERT INTO `kupac` (`id`, `ime`, `prezime`, `jmbg`, `adresa`, `telefon`, `korisnicko_ime`, `sifra`, `email`) VALUES (NULL, 'Miroslava', 'Miroslavovic', '1012965710020', 'Mire Berkovica 78', '031 2313332', 'mirka', 'mirka', 'mirkakuvarica@gmail.com');
