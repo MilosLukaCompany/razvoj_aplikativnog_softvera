@@ -1176,9 +1176,6 @@ page-header
 .form-inline input[type="submit"]:hover {
     background: rgb(126, 126, 126) none repeat scroll 0% 0%;
 }
-fieldset { 
-    padding-bottom: 10px;
-}
 
 .search-widget fieldset .bootstrap-select button.dropdown-toggle ,.search-widget fieldset .bootstrap-select { 
     width: 100% !important;
@@ -1874,6 +1871,7 @@ proerty-th-list
     font-weight: 600;
     color: #FDC600;
     font-size: 25px;
+    margin-top: 30px;
 }
 .property-icon {
     clear: both;
@@ -1886,13 +1884,8 @@ proerty-th-list
     background-color: #EDEDED;
     color: #555;
 }
-.property-icon img{
-
-}
-.proerty-th-list p {
-    clear: both;
-    padding-top: 25px;
-    padding-right: 20px;
+.proerty-th-list div.list_properties {
+    clear: both;    
     display: block !important;
 }
 
@@ -2727,8 +2720,10 @@ padding-bottom: 15px;
     width: auto;
 }
 .error-page .error-title{
-    font-size: 11em;
+    font-size: 3em;
     color: #FDC600;
+    padding-top: 30px;
+    padding-bottom: 50px;
 }
 
 .fqa-title::before {

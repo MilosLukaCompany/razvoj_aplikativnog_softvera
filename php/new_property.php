@@ -4,15 +4,50 @@ if (isset($_POST['submit'])) {
     $property_type = htmlspecialchars($_POST['property_type']);
     $municipalities = htmlspecialchars($_POST['municipalities']);
     $address = htmlspecialchars($_POST['address']);
-    $structure = htmlspecialchars($_POST['structure']);
-    $parking = htmlspecialchars($_POST['parking']);
     $quadrature = htmlspecialchars($_POST['quadrature']);
-    $accommodation = htmlspecialchars($_POST['accommodation']);
-    $heat= htmlspecialchars($_POST['heat']);
-    $floor= htmlspecialchars($_POST['floor']);
-    $building_floors = htmlspecialchars($_POST['building_floors']);
     $price = htmlspecialchars($_POST['price']);
     
+    $floor;
+    $heat;
+    $building_floors;
+    $accommodation;
+    $parking;
+    $structure;
+    
+    
+    switch ($property_type) {
+        case 1: //kuca
+            $floor = NULL;
+            $heat = htmlspecialchars($_POST['heat']);        
+            $building_floors = htmlspecialchars($_POST['building_floors']);        
+            $structure = htmlspecialchars($_POST['structure']);        
+            $parking = htmlspecialchars($_POST['parking']);
+            $accommodation = htmlspecialchars($_POST['accommodation']);
+            break;
+        case 3: //lokal
+            $floor = NULL;
+            $heat = NULL;
+            $building_floors = NULL;
+            $structure = NULL;
+            $parking = htmlspecialchars($_POST['parking']);
+            $accommodation = htmlspecialchars($_POST['accommodation']);
+            break;
+        case 4: //garaza
+            $floor = NULL;
+            $heat = NULL;
+            $building_floors = NULL;
+            $structure = NULL;
+            $parking = NULL;
+            $accommodation = NULL;
+            break;
+        default: //stan
+            $floor = htmlspecialchars($_POST['floor']);     
+            $heat = htmlspecialchars($_POST['heat']);        
+            $building_floors = htmlspecialchars($_POST['building_floors']);        
+            $structure = htmlspecialchars($_POST['structure']);        
+            $parking = htmlspecialchars($_POST['parking']);
+            $accommodation = htmlspecialchars($_POST['accommodation']);
+    }                                   
     
     require 'database_connection.php';
     $prep = $db->prepare('SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?;');

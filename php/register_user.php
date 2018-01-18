@@ -13,6 +13,7 @@ if (isset($_POST['submit'])) {
     $username = htmlspecialchars($_POST['username']);
     $password = htmlspecialchars($_POST['password']);
     $email = htmlspecialchars($_POST['email']);
+    $pic_patch = NULL;
     
     $prep = $db->prepare('SELECT korisnicko_ime FROM kupac WHERE korisnicko_ime=?;');
     $prep->execute([$username]);
@@ -20,8 +21,8 @@ if (isset($_POST['submit'])) {
     if ($prep->rowCount() > 0) {
         die (header('Location: ../register.php?msg=username_taken'));
     } else {    
-        $prep = $db->prepare('INSERT INTO kupac (ime, prezime, jmbg, adresa, telefon, korisnicko_ime, sifra, email) VALUES (?, ?, ?, ?, ?, ?, ?, ?);');
-        $prep->execute([$name, $surname, $jmbg, $address, $tel_prefix, $username, $password, $email]);
+        $prep = $db->prepare('INSERT INTO kupac (ime, prezime, jmbg, adresa, telefon, korisnicko_ime, sifra, email, putanja_slike) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);');
+        $prep->execute([$name, $surname, $jmbg, $address, $tel_prefix, $username, $password, $email, $pic_patch]);
         
         die (header('Location: ../login.php?msg=success_registration'));
     }

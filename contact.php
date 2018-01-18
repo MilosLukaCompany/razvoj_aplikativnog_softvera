@@ -72,7 +72,7 @@
                     </div>
                     <ul class="main-nav nav navbar-nav navbar-right">
                         <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="navbar_link" href="index.php">Početna</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="properties.php">Nekretnine</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="property_list.php">Nekretnine</a></li>
                         <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="contact.php">Kontakt</a></li>
                         <?php
                         if (isset($_SESSION['username'])) {
@@ -229,7 +229,7 @@
                                 <div class="footer-title-line"></div>
                                 <ul class="footer-menu">
                                     <li><a href="index.php">Početna</a>  </li>
-                                    <li><a href="properties.php">Nekretnine</a>  </li> 
+                                    <li><a href="property_list.php">Nekretnine</a>  </li> 
                                     <li><a href="contact.php">Kontakt </a></li> 
                                 </ul>
                             </div>

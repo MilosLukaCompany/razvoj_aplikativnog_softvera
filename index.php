@@ -76,7 +76,7 @@
                     </div>
                     <ul class="main-nav nav navbar-nav navbar-right">
                         <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="navbar_link" href="index.php">Početna</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="properties.php">Nekretnine</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="property_list.php">Nekretnine</a></li>
                         <?php
                         if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
                             ?>
@@ -100,6 +100,9 @@
                                         <li>
                                             <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
                                         </li>
+                                        <li>
+                                            <a class="navbar_link" href="customers.php">Lista kupaca</a>
+                                        </li>
                                     </ul>
                                 </li>
                             <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="navbar_link" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>  
@@ -120,44 +123,44 @@
                 <div class="container-fluid">
                     <div class="row">
                         <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 col-sm-12">
-                            <h2>nikad brže i lakše do novog doma</h2>
+                            <h2>lako i brzo do novog doma</h2>
 
                             <div id="trazi" class="search-form wow pulse" data-wow-delay="0.8s">
 
-                                <form action="" class=" form-inline">
+                                <form action="php/filter.php" method="POST" class=" form-inline">
                                     <button class="btn  toggle-btn" type="button"><i class="fa fa-bars"></i></button>
 
                                     <div class="form-group">                                     
-                                        <select id="basic" title="Izaberi tip nekretnine" class="selectpicker show-tick form-control">
+                                        <select id="basic" title="Izaberi tip nekretnine" class="selectpicker show-tick form-control" name="property_type">
                                             <?php
                                             require 'php/database_connection.php';
-                                            $prep = $db->prepare('SELECT * FROM tip_nekretnine;');
-                                            $prep->execute();
+                                            $prep_property_type = $db->prepare('SELECT * FROM tip_nekretnine;');
+                                            $prep_property_type->execute();
 
-                                            $res = $prep->fetchAll(PDO::FETCH_OBJ);
-                                            foreach ($res as $r) {
-                                                echo "<option value='" . $r->id . "'>" . $r->tip . "</option>\n";
+                                            $res_property_type = $prep_property_type->fetchAll(PDO::FETCH_OBJ);
+                                            foreach ($res_property_type as $type) {
+                                                echo "<option value='" . $type->id . "'>" . $type->tip . "</option>\n";
                                             }
                                             ?> 
                                         </select>
                                     </div>
 
                                     <div class="form-group">                                   
-                                        <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Izaberi opštinu">
+                                        <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Izaberi opštinu" name="municipalities">
                                             <?php
                                             require 'php/database_connection.php';
-                                            $prep = $db->prepare('SELECT * FROM opstina ORDER BY naziv ASC;');
-                                            $prep->execute();
+                                            $prep_municipality = $db->prepare('SELECT * FROM opstina ORDER BY naziv ASC;');
+                                            $prep_municipality->execute();
 
-                                            $res = $prep->fetchAll(PDO::FETCH_OBJ);
-                                            foreach ($res as $r) {
-                                                echo "<option value='" . $r->id . "'>" . $r->naziv . "</option>\n";
+                                            $res_municipality = $prep_municipality->fetchAll(PDO::FETCH_OBJ);
+                                            foreach ($res_municipality as $municipality) {
+                                                echo "<option value='" . $municipality->id . "'>" . $municipality->naziv . "</option>\n";
                                             }
                                             ?>
                                         </select>
                                     </div>
 
-                                    <button class="btn search-btn" type="submit"><i class="fa fa-search"></i></button>
+                                    <button class="btn search-btn" type="submit" name="submit"><i class="fa fa-search"></i></button>
 
                                     <div style="display: none;" class="search-toggle">
 
@@ -165,89 +168,139 @@
 
                                             <div class="form-group mar-r-20">
                                                 <label for="price-range">Cena od - do (EUR) :</label>
-                                                <input type="text" class="span2" value="" data-slider-min="10000" 
+                                                <input type="text" class="span2" data-slider-min="10000" 
                                                        data-slider-max="500000" data-slider-step="10000" 
-                                                       data-slider-value="[30000,200000]" id="price-range" ><br />
+                                                       data-slider-value="[30000,200000]" id="price-range" name="price_range"><br />
                                                 <b class="pull-left color">10.000€</b> 
                                                 <b class="pull-right color">500.000€</b>
-                                            </div>
-                                            <!-- End of  -->  
+                                            </div> 
 
                                             <div class="form-group mar-l-20">
                                                 <label for="property-geo">Kvadratura (m<sup>2</sup>) :</label>
-                                                <input type="text" class="span2" value="" data-slider-min="0" 
+                                                <input type="text" class="span2"  data-slider-min="0" 
                                                        data-slider-max="600" data-slider-step="5" 
-                                                       data-slider-value="[50,250]" id="property-geo" ><br />
+                                                       data-slider-value="[50,250]" id="property-geo" name="quadrature_range"><br />
                                                 <b class="pull-left color">0m<sup>2</sup></b> 
                                                 <b class="pull-right color">600m<sup>2</sup></b>
                                             </div>
-                                            <!-- End of  --> 
                                         </div>
 
 
                                         <br>
-                                        <div class="search-row">  
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-8 col-md-offset-2">
+                                                    <div class="col-md-4">                                                    
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="structure[]" value="Garsonjera"> Garsonjera
+                                                                </label>
+                                                            </div>
+                                                        </div>
+ 
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="structure[]" value="Jednosobna"> Jednosobna
+                                                                </label>
+                                                            </div>
+                                                        </div>  
 
-                                            <div class="form-group">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> Namešten
-                                                    </label>
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="structure[]" value="Dvosobna"> Dvosobna
+                                                                </label>
+                                                            </div>
+                                                        </div> 
+
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="structure[]" value="Trosobna"> Trosobna
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="structure[]" value="Cetvorosobna"> Četvorosobna
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="structure[]" value="Petosobna"> Petosobna
+                                                                </label>
+                                                            </div>
+                                                        </div>                                                    
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="parking[]" value="Zona I"> Zona I
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="parking[]" value="Zona II"> Zona II
+                                                                </label>
+                                                            </div>
+                                                        </div>
+ 
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="parking[]" value="Zona III"> Zona III
+                                                                </label>
+                                                            </div>
+                                                        </div>  
+
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="parking[]" value="Slobodna zona"> Slobodna zona
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                    <div class="col-md-4">
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="accommodation[]" value="Namestena"> Nameštena
+                                                                </label>
+                                                            </div>
+                                                        </div>  
+
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="accommodation[]" value="Nenamestena"> Nenameštena
+                                                                </label>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="form-group">
+                                                            <div class="checkbox">
+                                                                <label>
+                                                                    <input type="checkbox" name="accommodation[]" value="Polunamestena"> Polunameštena
+                                                                </label>
+                                                            </div>
+                                                        </div> 
+                                                    </div>
                                                 </div>
                                             </div>
-                                            <!-- End of  -->  
-
-                                            <div class="form-group">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> Nenamešten
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <!-- End of  --> 
-
-                                            <div class="form-group">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> Polunamešten
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <!-- End of  --> 
-                                        </div>
-
-                                        <div class="search-row">  
-
-                                            <div class="form-group">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> Jednosoban
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <!-- End of  -->  
-
-                                            <div class="form-group">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> Dvosoban
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <!-- End of  --> 
-
-                                            <div class="form-group">
-                                                <div class="checkbox">
-                                                    <label>
-                                                        <input type="checkbox"> Trosoban
-                                                    </label>
-                                                </div>
-                                            </div>
-                                            <!-- End of  --> 
-                                        </div>                                    
+                                        </div>                                        
                                         <br>
-                                        <hr>
-                                    </div>                             
+                                        <hr>                                                                
+                                    </div>
                                 </form>
                             </div>                    
                         </div>
@@ -510,7 +563,7 @@
                                 <div class="footer-title-line"></div>
                                 <ul class="footer-menu">
                                     <li><a href="index.php">Početna</a>  </li>
-                                    <li><a href="properties.php">Nekretnine</a>  </li> 
+                                    <li><a href="property_list.php">Nekretnine</a>  </li> 
                                     <li><a href="contact.php">Kontakt </a></li> 
                                 </ul>
                             </div>

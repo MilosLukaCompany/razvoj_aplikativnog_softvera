@@ -13,14 +13,14 @@ CREATE TABLE nekretnina (
     adresa VARCHAR(150) NOT NULL,
     povrsina INT NOT NULL,
     struktura ENUM('Garsonjera', 'Jednosobna', 'Dvosobna', 'Trosobna', 'Cetvorosobna', 'Petosobna') NULL,
-    parking VARCHAR(150) NULL,
+    parking ENUM('Slobodna zona', 'Zona III', 'Zona II', 'Zona I') NULL,,
     grejanje VARCHAR(150) NULL,
     namestenost ENUM('Namestena', 'Polunamestena', 'Nenamestena') NULL,
     sprat INT NULL,
     spratnost INT NULL,
     cena DECIMAL(20,2) NOT NULL,
-    id_opstina INT NULL,
-    id_tip_nekretnine INT NULL,
+    id_opstina INT NOT NULL,
+    id_tip_nekretnine INT NOT NULL,
     CONSTRAINT fk_nekretnina_opstina FOREIGN KEY (id_opstina) REFERENCES opstina (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
     CONSTRAINT fk_nekretnina_tip_nekretnine FOREIGN KEY (id_tip_nekretnine) REFERENCES tip_nekretnine (id) ON DELETE NO ACTION ON UPDATE NO ACTION
 );
@@ -30,11 +30,12 @@ CREATE TABLE agent (
     ime VARCHAR(50) NOT NULL,
     prezime VARCHAR(50) NOT NULL,
     jmbg VARCHAR(13) NOT NULL,
-    adresa VARCHAR(150) NULL,
-    telefon VARCHAR(15),
+    adresa VARCHAR(150) NOT NULL,
+    telefon VARCHAR(15) NOT NULL,
     korisnicko_ime VARCHAR(20) NOT NULL,
     sifra VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL
+    email VARCHAR(50) NOT NULL,
+    putanja_slike VARCHAR(255) NULL
 );
 
 CREATE TABLE kupac (
@@ -42,11 +43,12 @@ CREATE TABLE kupac (
     ime VARCHAR(50) NOT NULL,
     prezime VARCHAR(50) NOT NULL,
     jmbg VARCHAR(13) NOT NULL,
-    adresa VARCHAR(150) NULL,
-    telefon VARCHAR(15),
+    adresa VARCHAR(150) NOT NULL,
+    telefon VARCHAR(15)NOT NULL,
     korisnicko_ime VARCHAR(20) NOT NULL,
     sifra VARCHAR(50) NOT NULL,
-    email VARCHAR(50) NOT NULL
+    email VARCHAR(50) NOT NULL,
+    putanja_slike VARCHAR(255) NULL
 );
 
 CREATE TABLE gledanje_nekretnine (

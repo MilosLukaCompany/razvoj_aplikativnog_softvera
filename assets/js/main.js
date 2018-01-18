@@ -22,13 +22,14 @@ $(document).ready(function () {
         $('#property_form_next').removeAttr('disabled');
         option_value = $('#property_type').val(); 
         console.log(option_value);
-        if (option_value === '17') {
+        if (option_value === '1') { //kuca
             $('#floor').fadeOut(50);
-        } else if (option_value === '19') {
+        } else if (option_value === '3') { //lokal
             $('#heat').fadeOut(50);
             $('#floor').fadeOut(50);
             $('#building_floors').fadeOut(50);
-        } else if (option_value === '20') {
+            $('#structure').fadeOut(50);
+        } else if (option_value === '4') { //garaza
             $('#structure').fadeOut(50);
             $('#parking').fadeOut(50);
             $('#accommodation').fadeOut(50);
@@ -53,6 +54,7 @@ $(document).ready(function () {
         $('#accommodation').delay(1000).fadeIn(50);
         $('#heat').delay(1000).fadeIn(50);
         $('#floor').delay(1000).fadeIn(50);
+        $('#structure').delay(1000).fadeIn(50);
         $('#building_floors').delay(1000).fadeIn(50);
         $('#property_form_next').prop('disabled', true);
         $('#new_property_form').delay(200).slideUp(1000);
