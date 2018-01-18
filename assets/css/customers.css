@@ -1,0 +1,19 @@
+
+@media (min-width: 1200px)
+.container_tabela {
+    width: 800px;
+}
+@media (min-width: 992px)
+.container_tabela {
+    width: 600px;
+}
+
+@media (min-width: 768px)
+.container_tabela {
+    width: 450px;
+}
+.container_tabela{
+    margin: 90px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px -1px #aaa;
+}
