@@ -3,7 +3,7 @@ $(document).ready(function() {
     $(document).scroll(function() {
         var scroll_pos = $(document).scrollTop() + 100;
         //posle koliko ce da krene sa menjanem css propertija
-        if (scroll_pos > 350) {            
+        if (scroll_pos > 250) {            
             $('.navbar').css({'height': '60px', 'border-bottom': '1px solid #FDC600'});
             $('#nav_div').css({'padding-top': '0px'});
             $('.main-nav').css({'padding-top': '0px'});

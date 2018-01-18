@@ -161,7 +161,7 @@ session_start();
                                     <div class="form-group" id="structure">
                                         <label for="struktura">Struktura</label>
                                         <br>
-                                        <select class="form-control" name="structure" required>
+                                        <select class="form-control" name="structure">
                                             <option>- - -</option>
                                             <option value="Garsonjera">Garsonjera</option>
                                             <option value="Jednosobna">Jednosobna</option>
@@ -174,7 +174,7 @@ session_start();
                                     <div class="form-group" id="parking">
                                         <label for="struktura">Parking</label>
                                         <br>
-                                        <select class="form-control" name="parking" required>
+                                        <select class="form-control" name="parking">
                                             <option>- - -</option>
                                             <option value="Slobodna zona">Slobodna zona</option>
                                             <option value="Zona III">Zona III</option>
@@ -192,7 +192,7 @@ session_start();
                                     <div class="form-group" id="accommodation">
                                         <label for="struktura">Nameštenost</label>
                                         <br />
-                                        <select class="form-control" name="accommodation" required>
+                                        <select class="form-control" name="accommodation">
                                             <option>- - -</option>
                                             <option value="Namestena">Nameštena</option>
                                             <option value="Polunamestena">Polunameštena</option>
@@ -201,15 +201,15 @@ session_start();
                                     </div>                                                                                
                                     <div class="form-group" id="heat">
                                         <label for="grejanje">Vrsta grejanja</label>
-                                        <input type="text" class="form-control" name="heat" required>
+                                        <input type="text" class="form-control" name="heat">
                                     </div>
                                     <div class="form-group" id="floor">
                                         <label for="sprat">Sprat</label>
-                                        <input type="number" class="form-control" name="floor" required>
+                                        <input type="number" class="form-control" name="floor">
                                     </div>
                                     <div class="form-group" id="building_floors" >
                                         <label for="spratnost">Ukupno spratova</label>
-                                        <input type="number" class="form-control" name="building_floors" required>
+                                        <input type="number" class="form-control" name="building_floors">
                                     </div>
                                     <div class="form-group">
                                         <label for="cena">Cena</label>
