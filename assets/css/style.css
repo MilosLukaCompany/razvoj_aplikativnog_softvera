@@ -2720,8 +2720,10 @@ padding-bottom: 15px;
     width: auto;
 }
 .error-page .error-title{
-    font-size: 11em;
+    font-size: 3em;
     color: #FDC600;
+    padding-top: 30px;
+    padding-bottom: 50px;
 }
 
 .fqa-title::before {

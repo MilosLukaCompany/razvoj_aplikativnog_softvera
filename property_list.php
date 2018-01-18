@@ -74,7 +74,7 @@
                     </div>
                     <ul class="main-nav nav navbar-nav navbar-right">
                         <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="navbar_link" href="index.php">Početna</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="properties.php">Nekretnine</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="property_list.php">Nekretnine</a></li>
                         <?php
                         if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
                             ?>
@@ -98,6 +98,9 @@
                                         <li>
                                             <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
                                         </li>
+                                        <li>
+                                            <a class="navbar_link" href="customers.php">Lista kupaca</a>
+                                        </li>
                                     </ul>
                                 </li>
                             <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="navbar_link" href="agent_profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>  
@@ -114,7 +117,7 @@
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
-                        <h1 class="page-title">pregled nekretnina</h1>               
+                        <h1 class="page-title">početna / pregled nekretnina</h1>               
                     </div>
                 </div>
             </div>
@@ -455,7 +458,7 @@
                                 <div class="footer-title-line"></div>
                                 <ul class="footer-menu">
                                     <li><a href="index.php">Početna</a>  </li>
-                                    <li><a href="properties.php">Nekretnine</a>  </li> 
+                                    <li><a href="property_list.php">Nekretnine</a>  </li> 
                                     <li><a href="contact.php">Kontakt </a></li> 
                                 </ul>
                             </div>
