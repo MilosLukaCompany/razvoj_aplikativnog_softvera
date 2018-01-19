@@ -86,7 +86,7 @@
                         if (isset($_SESSION['username'])) {
                             if ($_SESSION['user_type'] === "kupac") {
                                 ?>                        
-                                <li class="wow fadeInDown" data-wow-delay="0.6s" style="font-family: 'Open Sans', sans-serif;"><a class="" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
+                                <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
                                 <?php
                             } else if ($_SESSION['user_type'] === "agent") {
                                 ?>
@@ -127,7 +127,7 @@
 
                             <div id="trazi" class="search-form wow pulse" data-wow-delay="0.8s">
 
-                                <form action="php/filter.php" method="POST" class=" form-inline">
+                                <form action="filter_view.php" method="POST" class=" form-inline">
                                     <button class="btn  toggle-btn" type="button"><i class="fa fa-bars"></i></button>
 
                                     <div class="form-group">                                     
@@ -178,7 +178,7 @@
                                             <div class="form-group mar-l-20">
                                                 <label for="property-geo">Kvadratura (m<sup>2</sup>) :</label>
                                                 <input type="text" class="span2"  data-slider-min="0" 
-                                                       data-slider-max="600" data-slider-step="5" 
+                                                       data-slider-max="400" data-slider-step="5" 
                                                        data-slider-value="[50,250]" id="property-geo" name="quadrature_range"><br />
                                                 <b class="pull-left color">0m<sup>2</sup></b> 
                                                 <b class="pull-right color">600m<sup>2</sup></b>
