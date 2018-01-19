@@ -188,7 +188,7 @@ else if (!isset($_SESSION['user_id'])) {
                             echo "<td class='por'>".$r->telefon."</td> \n";
                             echo "<td class='por'>".$r->korisnicko_ime."</td> \n";
                             echo "<td class='por'>".$r->email."</td> \n";
-                            echo "<td class='por'><button class='btn btn-danger btn-xs' style='border-width: 1px;' onclick='window.open(\"php/delete_customer.php?ID={$r->id}\", \"_self\");return confirm(\"Da li ste sigurni da želite da obrišete kupca?\");' ><span class='glyphicon glyphicon-trash'></span></button></td> \n";
+                            echo "<td class='por'><button class='btn btn-danger btn-xs' style='border-width: 1px;' onclick='if(confirm(\"Da li ste sigurni da želite da obrišete kupca?\")){window.open(\"php/delete_customer.php?ID={$r->id}\", \"_self\")};' ><span class='glyphicon glyphicon-trash'></span></button></td> \n";
                             echo "</tr> \n";
                             $br=$br+1;
                             }           
