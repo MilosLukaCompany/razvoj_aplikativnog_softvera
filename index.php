@@ -96,20 +96,20 @@
                                     <ul class="dropdown-menu navbar-nav">
                                         <li>
                                             <a class="navbar_link" href="agent_new_property.php">Dodaj nekretninu</a>
-                                        </li>                                
-                                        <li>
-                                            <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
                                         </li>
                                         <li>
                                             <a class="navbar_link" href="customers.php">Lista kupaca</a>
                                         </li>
+                                        <li>
+                                            <a class="navbar_link" href="agent_contract.php">Ugovori</a>
+                                        </li>
                                     </ul>
                                 </li>
-                            <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="navbar_link" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>  
-                            <?php
+                                <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="navbar_link" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>  
+                                <?php
+                            }
                         }
-                    }
-                    ?>                        
+                        ?>                        
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -198,7 +198,7 @@
                                                                 </label>
                                                             </div>
                                                         </div>
- 
+
                                                         <div class="form-group">
                                                             <div class="checkbox">
                                                                 <label>
@@ -252,7 +252,7 @@
                                                                 </label>
                                                             </div>
                                                         </div>
- 
+
                                                         <div class="form-group">
                                                             <div class="checkbox">
                                                                 <label>
@@ -371,7 +371,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!--TESTIMONIALS -->
         <div class="testimonial-area recent-property" style="background-color: #FCFCFC; padding-bottom: 15px;">
             <div class="container">

@@ -71,10 +71,13 @@
                             <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Opcije <b class="caret"></b></a>
                             <ul class="dropdown-menu navbar-nav">
                                 <li>
-                                    <a class="navbar_link" href="agent_new_property.php">Dodaj nekretninu</a></li>
+                                    <a class="navbar_link" href="agent_new_property.php">Dodaj nekretninu</a>
                                 </li>
                                 <li>
-                                    <a class="navbar_link" href="agent_contract.php">Novi ugovor</a></li>
+                                    <a class="navbar_link" href="customers.php">Lista kupaca</a>
+                                </li>
+                                <li>
+                                    <a class="navbar_link" href="agent_contract.php">Ugovori</a>
                                 </li>
                                 
 
