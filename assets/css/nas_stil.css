@@ -126,3 +126,10 @@ h1 .page-title {
     box-shadow: 2px 2px 20px 4px #000;
     z-index: 1;
 }
+a.disabled {
+    pointer-events: none;    
+}
+a.current_pagination_number {
+    background-color: #d27e04;
+    color: #fff;
+}

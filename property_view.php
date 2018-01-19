@@ -31,9 +31,11 @@
         <link rel="stylesheet" href="assets/css/owl.carousel.css">  
         <link rel="stylesheet" href="assets/css/owl.theme.css">
         <link rel="stylesheet" href="assets/css/owl.transitions.css">
+        <link rel="stylesheet" href="assets/css/lightslider.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/responsive.css">
         <link rel="stylesheet" href="assets/css/nas_stil.css">
+        <script src="assets/js/google_maps.js" type="text/javascript"></script>
     </head>
     <body>
 
@@ -111,27 +113,70 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-
+	<?php 
+        require 'php/database_connection.php';
+        
+        if (isset($_GET['id'])) {
+            $prep = $db->prepare("SELECT slika.putanja_slike, nekretnina.* FROM nekretnina INNER JOIN slika ON nekretnina.id = slika.id_nekretnina WHERE nekretnina.id = ?");
+            $prep->execute([$_GET['id']]);
+            
+            $res = $prep->fetchAll(PDO::FETCH_OBJ);
+        }
+        ?>
+        
         <div class="page-head" style="margin-top: 99px;"> 
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
-                        <h1 class="page-title">početna / pregled nekretnina</h1>               
+                        <h1 class="page-title">početna / pregled nekretnina / <span class="orange strong"><?php echo $res[0]->adresa ?></span></h1>               
                     </div>
                 </div>
             </div>
         </div>
-        <!-- End page header -->
 
-        <!-- property area -->
-        <div class="properties-area recent-property" style="background-color: #FFF;">
-            <div class="container">  
-                <div class="row">
-                     
-                    <div class="col-md-3 p0 padding-top-40">
-                        <div class="blog-asside-right pr0">
-                            <div class="panel panel-default sidebar-menu wow fadeInRight animated" >
-                                <div class="panel-heading">
+        
+
+        <div class="content-area single-property" style="background-color: #FCFCFC;">
+            <div class="container">
+
+                <div class="clearfix padding-top-40">
+                    
+                    <div class="col-md-4 p0">
+                        <aside class="sidebar sidebar-property blog-asside-right">
+                            <div class="dealer-widget">
+                                <div class="dealer-content">
+                                    <div class="inner-wrapper">
+
+                                        <div class="clear">
+                                            <div class="col-xs-12 dealer-face">
+                                               
+                                                <img src="assets/img/logo.png" class="img-responsive" style="margin: auto; pointer-events: none;">
+                                                
+                                            </div>
+                                            <div class="col-xs-12 col-sm-12 text-center ">
+                                                <h3 class="dealer-name">
+                                                    <a href="" style="pointer-events: none;">Singi Stan</a><br />
+                                                    <span>Brzo i jednostavno!</span>        
+                                                </h3>                                                
+                                            </div>
+                                        </div>
+
+                                        <div class="clear">
+                                            <ul class="dealer-contacts">                                       
+                                                <li><i class="pe-7s-map-marker strong"> </i> 11000 Beograd, Danijelova 32</li>
+                                                <li><i class="pe-7s-mail strong"> </i> office@singistan.tk</li>
+                                                <li><i class="pe-7s-call strong"> </i> +381 11 235684</li>
+                                            </ul>
+                                            <p>Garantovano vas dovodimo do željenog doma, u rekordnom vremenu.</p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                                                        
+                            <div class="panel panel-default sidebar-menu wow fadeInRight animated" >                                
+                                <div class="panel-body search-widget">
+                                    <div class="panel-heading">
                                     <h3 class="panel-title">Filter</h3>
                                 </div>
                                 <div class="panel-body search-widget">
@@ -315,130 +360,186 @@
                                         <button class="btn search-btn" type="submit" name="submit" style="display: block; width: 100%;">Pretraži <i class="fa fa-search"></i></button>
                                     </form>
                                 </div>
-                            </div>                        
-                        </div>
+                                </div>
+                            </div>
+
+
+                        </aside>
                     </div>
+                    
+                    <div class="col-md-8 single-property-content ">
+                        <div class="row">
+                            <div class="light-slide-item">            
+                                <div class="clearfix">
+                                    <div class="favorite-and-print">
+                                        <a class="add-to-fav" href="#login-modal" data-toggle="modal">
+                                            <i class="fa fa-heart" data-toggle="tooltip" data-placement="bottom" title="Stavi u omiljene"></i>
+                                        </a>
+                                        <a class="printer-icon " href="javascript:window.print()">
+                                            <i class="fa fa-print" data-toggle="tooltip" data-placement="bottom" title="Štampaj"></i> 
+                                        </a>
+                                    </div> 
 
-                    <div class="col-md-9  pr0 padding-top-40 properties-page">
-                        <div class="col-md-12 clear">                         
-                            <div class="col-md-12 layout-switcher">
-                                <a class="layout-list" href="javascript:void(0);"> <i class="fa fa-th-list"></i>  </a>
-                                <a class="layout-grid active" href="javascript:void(0);"> <i class="fa fa-th"></i> </a>                          
-                            </div><!--/ .layout-switcher-->
-                        </div>
-
-                        <div class="col-md-12 clear"> 
-                            <div id="list-type" class="proerty-th">                                
-                                <?php 
-                                require 'php/database_connection.php';
-                                $prep_pagination = $db->prepare('SELECT COUNT(id) AS total_rows FROM nekretnina;');
-                                $prep_pagination->execute();
-                                $res_pagination = $prep_pagination->fetchAll(PDO::FETCH_OBJ);
-
-                                $rows = $res_pagination[0]->total_rows;
-                                $items_per_page = 12;
-                                $last_page = ceil($rows / $items_per_page);
-
-                                if ($last_page < 1) {
-                                    $last_page = 1;
-                                }
-
-                                $page_num = 1;
-                                if (isset($_GET['pn'])) {
-                                    $page_num = preg_replace('#[^0-9]#', '', $_GET['pn']);
-                                }
-                                if ($page_num < 1) {
-                                    $page_num = 1;
-                                } else if ($page_num > $last_page) {
-                                    $page_num = $last_page;
-                                }
-                                $pagination_ctrl = "";
-                                if ($last_page !== 1) {                                
-                                    if ($page_num > 1) {
-                                        $previous = $page_num - 1;
-                                        $pagination_ctrl .= "<a href='" . $_SERVER['PHP_SELF'] . "?pn=" . $previous . "'>Prethodna</a>\n";
-                                        for ($i = $page_num - 3; $i < $page_num; $i++) {                                        
-                                            if ($i > 0) {
-                                                $pagination_ctrl .= "<li><a href='" . $_SERVER['PHP_SELF'] . "?pn=" . $i . "'>" . $i . "</a></li>\n";
-                                            }
+                                    <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                                        <?php 
+                                        
+                                        foreach ($res as $pic) {
+                                            echo "<li data-thumb='" . $res[0]->putanja_slike . "'>\n";
+                                            echo "<img src='" . $res[0]->putanja_slike . "' />";
+                                            echo "</li>\n";
                                         }
-                                    } else if ($page_num == 1) {
-                                        $pagination_ctrl .= "<li><a href='#' class='disabled'>Prethodna</a></li>\n";                                    
-                                    }
-                                    $pagination_ctrl .= "<li><a href='#' class='disabled current_pagination_number'>" . $page_num . "</a></li>\n";;
-
-                                    for ($i = $page_num + 1; $i <= $last_page; $i++) {
-                                        $pagination_ctrl .= "<li><a href='" . $_SERVER['PHP_SELF'] . "?pn=" . $i . "'>" . $i . "</a></li>\n";                                        
-                                        if ($i >= $page_num + 4) {
-                                            break;
-                                        }
-                                    }
-
-                                    if ($page_num == $last_page) {
-                                        $pagination_ctrl .= "<li><a href='#' class='disabled'>Sledeca</a></li>\n";                                    
-                                    } else {
-                                        $next = $page_num + 1;
-                                        $pagination_ctrl .= "<li><a href='" . $_SERVER['PHP_SELF'] . "?pn=" . $next . "'>Sledeca</a></li>\n";
-                                    }
-                                }                            
-                                $start_limit = ($page_num - 1) * $items_per_page;                            
-
-                                $prep_property = $db->prepare("SELECT nekretnina.*, opstina.naziv, tip_nekretnine.tip FROM
-                                                    opstina INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id)
-                                                    ON opstina.id = nekretnina.id_opstina ORDER BY id DESC LIMIT ?, ?;");
-                                $prep_property->execute([$start_limit, $items_per_page]);
-                                $res_property = $prep_property->fetchAll(PDO::FETCH_OBJ);
-
-
-                                foreach ($res_property as $property) {
-                                    $prep_img = $db->prepare('SELECT putanja_slike FROM slika WHERE id_nekretnina = ? LIMIT 1;');
-                                    $prep_img->execute([$property->id]);
-                                    $res_img = $prep_img->fetchAll(PDO::FETCH_OBJ);
-
-                                    $property_address = "";
-                                    if (strlen($property->adresa) > 20) {
-                                        $property_address = substr($property->adresa, 0, 19) . "...";
-                                    } else {
-                                        $property_address = $property->adresa;
-                                    }
-
-                                    echo "<div class='col-sm-6 col-md-4 p0'>\n";
-                                    echo "<div class='box-two proerty-item'>\n";
-                                    echo "<div class='item-thumb'>\n";
-                                    echo "<a href='property_view.php?id=" . $property->id ."'><img src='" . $res_img[0]->putanja_slike . "' /></a>\n";
-                                    echo "</div>\n";
-                                    echo "<div class='item-entry overflow'>\n";
-                                    echo "<h5><a href='property_view.php?id=" . $property->id . "'>" . $property_address . "</a></h5>\n";
-                                    echo "<div class='dot-hr'></div>\n";
-                                    echo "<span class='pull-left'><b> Tip nekretnine: </b>" . $property->tip . "</span><br />\n";
-                                    echo "<span class='pull-left'><b> Opština: </b>" . $property->naziv . "</span><br />\n";
-                                    echo "<div class='list_properties' style='display: none;'>\n";
-                                    echo "<span class='pull-left'><b> Površina: </b>" . $property->povrsina . "<sup>2</sup></span><br />\n";
-                                    echo "<span class='pull-left'><b> Struktura: </b>" . $property->struktura . "</span><br />\n";
-                                    echo "</div>\n";
-                                    echo "<span class='proerty-price pull-left'>" . $property->cena . " €</span>\n";
-                                    echo "</div>\n";
-                                    echo "</div>\n";
-                                    echo "</div>\n";
-                                }
-                                
-                                ?>                                    
+                                        ?>                                                                                                                       
+                                    </ul>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="col-md-12"> 
-                            <div class="text-center">
-                                <div class="pagination">
-                                    <ul>
-                                        <?php
-                                        echo $pagination_ctrl;
-                                        ?>
-                                    </ul>
+                        <div class="single-property-wrapper">
+                            <div class="single-property-header">                                          
+                                <?php 
+                                $prep_2 = $db->prepare("SELECT nekretnina.*, opstina.naziv, tip_nekretnine.tip FROM
+                                                    opstina INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id)
+                                                    ON opstina.id = nekretnina.id_opstina WHERE nekretnina.id = ?;");
+                                $prep_2->execute([$_GET['id']]);
+                                $res_2 = $prep_2->fetchAll(PDO::FETCH_OBJ);                                
+                                ?>
+                                <h1 class="property-title pull-left"><?php echo $res[0]->adresa . ", " . $res_2[0]->tip ?></h1>
+                                <span class="property-price pull-right"><?php echo $res[0]->cena ?> €</span>
+                                <input autocomplete="on" id="property_address" type="hidden" value="<?php echo $res[0]->adresa; ?>" />
+                            </div>
+                            <?php 
+                            if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
+                                echo "<button class='btn btn-default pull-right'>ZAKAZI GLEDANJE</button>";
+                            }                            
+                            ?>                            
+                            <div class="section additional-details">
+
+                                <h4 class="s-property-title">Additional Details</h4>
+
+                                <ul class="additional-details-list clearfix">
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Opština</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"><?php echo $res_2[0]->naziv ?></span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Adresa</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"><?php echo $res[0]->adresa ?></span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Struktura</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php 
+                                            if ($res[0]->struktura == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->struktura;                                                
+                                            }
+                                            ?>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Površina</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php
+                                            if ($res[0]->povrsina == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->povrsina; 
+                                            }
+                                            ?> 
+                                        m<sup>2</sup></span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Nameštenost</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php
+                                            if ($res[0]->namestenost == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->namestenost; 
+                                            }
+                                            ?>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Parking</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php
+                                            if ($res[0]->parking == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->parking; 
+                                            }
+                                            ?>                                            
+                                        </span>
+                                    </li> 
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Vrsta grejanja</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php
+                                            if ($res[0]->grejanje == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->grejanje; 
+                                            }
+                                            ?>
+                                        </span>
+                                    </li> 
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Sprat</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php
+                                            if ($res[0]->sprat == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->sprat; 
+                                            }
+                                            ?>                                            
+                                        </span>
+                                    </li> 
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Ukupno spratova</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">                                            
+                                            <?php
+                                            if ($res[0]->spratnost == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->spratnost; 
+                                            }
+                                            ?>  
+                                        </span>
+                                    </li> 
+
+                                </ul>
+                            </div>  
+                            
+                            <div class="section">
+                                <h4 class="s-property-title">Opis</h4>
+                                <div class="s-property-content">
+                                    <p>Nulla quis dapibus nisl. Suspendisse ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies commodo arcu nec pretium. Nullam sed arcu ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies                                </p>
                                 </div>
-                            </div>                
+                            </div>                          
+                            
+                            <div class="section">
+                                <h4 class="s-property-title">Lokacija</h4>
+                                <!-- Google Map -->
+                                <div id="googleMap"></div>
+                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy70D14WJrMBJWZ6NemVDNnyVGsz1Vm1U&callback=initMap"></script>
+                            </div>
+                            <?php
+                            if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
+                                echo "<button class='btn btn-default pull-right'>ZAKAZI GLEDANJE</button>";
+                            } 
+                            if (isset($_SESSION['username']) && $_SESSION['user_type'] === "agent") {
+                                echo "<button class='btn btn-default pull-right'>IZMENI</button>";
+                                echo "<button class='btn btn-default pull-right'>IZBRISI</button>";
+                            }
+                            ?>
                         </div>
-                    </div>  
-                </div>              
+                    </div>
+<!--                    <button class="btn btn-default" style="margin-left: 10px; position: fixed;">ZAKAZI GLEDANJE</button>                   -->
+                </div>
+
             </div>
         </div>
 
@@ -517,7 +618,7 @@
 
         </div>
 
-      <script src="assets/js/modernizr-2.6.2.min.js"></script>
+      <script src="assets/js/vendor/modernizr-2.6.2.min.js"></script>
         <script src="assets/js/jquery-1.10.2.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/bootstrap-select.min.js"></script>
@@ -528,7 +629,26 @@
         <script src="assets/js/wow.js"></script>
         <script src="assets/js/icheck.min.js"></script>
         <script src="assets/js/price-range.js"></script>
+        <script type="text/javascript" src="assets/js/lightslider.min.js"></script>
         <script src="assets/js/main.js"></script>
         <script src="assets/js/navbar.js" type="text/javascript"></script>
+        
+        <script>
+            $(document).ready(function () {
+
+                $('#image-gallery').lightSlider({
+                    gallery: true,
+                    item: 1,
+                    thumbItem: 9,
+                    slideMargin: 0,
+                    speed: 500,
+                    auto: true,
+                    loop: true,
+                    onSliderLoad: function () {
+                        $('#image-gallery').removeClass('cS-hidden');
+                    }
+                });
+            });
+        </script>
     </body>
 </html>
