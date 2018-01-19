@@ -76,10 +76,10 @@ session_start();
                                     <a class="navbar_link" href="agent_new_property.php">Dodaj nekretninu</a>
                                 </li>
                                 <li>
-                                    <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
+                                    <a class="navbar_link" href="customers.php">Lista kupaca</a>
                                 </li>
                                 <li>
-                                    <a class="navbar_link" href="customers.php">Lista kupaca</a>
+                                    <a class="navbar_link" href="agent_contract.php">Ugovori</a>
                                 </li>
                             </ul>
                         </li>

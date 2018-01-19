@@ -44,8 +44,8 @@
         // if no valid session is found then the user is not logged in and will
         // receive a access denied message and will be redirected to the login page.
         if (!isset($_SESSION['username'])) {
-            
-            header("Refresh: 4; url=login.php");            
+
+            header("Refresh: 4; url=login.php");
             include_once '404.php';
 
             exit(); // Quit the script.
@@ -59,11 +59,10 @@
 
         <?php
         require 'php/database_connection.php';
-        
+
         if ($_SESSION['user_type'] === "kupac") {
-        $prep = $db->prepare('SELECT * FROM kupac WHERE korisnicko_ime=?;');
-        }
-        elseif ($_SESSION['user_type'] === "agent") {
+            $prep = $db->prepare('SELECT * FROM kupac WHERE korisnicko_ime=?;');
+        } elseif ($_SESSION['user_type'] === "agent") {
             $prep = $db->prepare('SELECT * FROM agent WHERE korisnicko_ime=?;');
         }
         $prep->execute([$_SESSION['username']]);
@@ -124,20 +123,20 @@
                                     <ul class="dropdown-menu navbar-nav">
                                         <li>
                                             <a class="navbar_link" href="agent_new_property.php">Dodaj nekretninu</a>
-                                        </li>                                
-                                        <li>
-                                            <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
                                         </li>
                                         <li>
                                             <a class="navbar_link" href="customers.php">Lista kupaca</a>
                                         </li>
+                                        <li>
+                                            <a class="navbar_link" href="agent_contract.php">Ugovori</a>
+                                        </li>
                                     </ul>
                                 </li>
                                 <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="navbar_link" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>  
-                                    <?php
-                                }
+                                <?php
                             }
-                            ?>                        
+                        }
+                        ?>                        
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
@@ -158,11 +157,11 @@
         <!-- End page header -->
         <!-- property area -->
         <div class="content-area user-profiel" style="background-color: #FCFCFC;">&nbsp;
-           
+
             <div class="container">   
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 profiel-container">
-                        
+
                         <form action="php/change_profile.php" method="post">
                             <div class="profiel-header">
                                 <h3>
@@ -176,7 +175,7 @@
                                 <hr>
                                 <hr>
                             </div>
-                             <?php
+                            <?php
                             if (isset($_GET["msg"]) && $_GET["msg"] == 'success') {
                                 echo "<div id='succes_profile_change' class='alert alert-success' role='alert' style='margin:10px 30px;'>\n";
                                 echo "<span class='success'>Uspesno ste izmenili podatke!<br />\n";
@@ -186,14 +185,14 @@
                             <div class="clear">
                                 <div class="col-sm-3 col-sm-offset-1">
                                     <div class="picture-container">
-                                         <div class="picture">
+                                        <div class="picture">
                                             <img src="assets/img/profile_blank.jpg" class="picture-src" id="wizardPicturePreview" title=""/>
                                             <input type="file" id="wizard-picture">
                                         </div>
                                         <label>Podesi profilnu sliku.</label>
-                                        
-                                       
-                                        
+
+
+
                                     </div>
                                 </div>
 
@@ -201,16 +200,16 @@
 
                                     <div class="form-group">
                                         <label>Ime : <small hidden> (obavezno)</small></label>
-                                    <?php echo "<input name='firstname' type='text' class='form-control' value='" . $res[0]->ime . "' readonly>\n"; ?> 
+                                        <?php echo "<input name='firstname' type='text' class='form-control' value='" . $res[0]->ime . "' readonly>\n"; ?> 
                                     </div>
 
                                     <div class="form-group">
                                         <label>Prezime : <small hidden> (obavezno)</small></label>
-                                    <?php echo " <input name='lastname' type='text' class='form-control' required readonly value='". $res[0]->prezime. "'> \n";?>
+                                        <?php echo " <input name='lastname' type='text' class='form-control' required readonly value='" . $res[0]->prezime . "'> \n"; ?>
                                     </div> 
                                     <div class="form-group">
                                         <label>Email : <small hidden> (obavezno)</small></label>
-                                        <?php echo "<input name='email' type='email' class='form-control' required readonly value='" . $res[0]->email . "'> \n";?>
+                                        <?php echo "<input name='email' type='email' class='form-control' required readonly value='" . $res[0]->email . "'> \n"; ?>
                                     </div> 
                                 </div>
                                 <div class="col-sm-3 padding-top-25">
@@ -221,7 +220,7 @@
                                     <div id="sifra2" class="form-group sifra">
                                         <label>Potvrdi lozinku : <small hidden> (obavezno)</small></label>
                                         <input type="password" id="confirm_password" class="form-control" required readonly>
-                                        
+
                                         <span id='message'></span>
                                     </div>
                                 </div>  
@@ -235,11 +234,11 @@
                                 <div class="col-sm-5 col-sm-offset-1">
                                     <div class="form-group">
                                         <label>Korisničko ime : <small hidden> (obavezno)</small></label>
-                                       <?php echo "<input name='username' type='text' class='form-control' required readonly value='" . $res[0]->korisnicko_ime . "'> \n"; ?>
+                                        <?php echo "<input name='username' type='text' class='form-control' required readonly value='" . $res[0]->korisnicko_ime . "'> \n"; ?>
                                     </div>
                                     <div class="form-group">
                                         <label>JMBG : <small hidden> (obavezno)</small></label>
-                                        <?php echo "<input name='jmbg' type='number' class='form-control' required readonly value='" . $res[0]->jmbg . "'> \n";?>
+                                        <?php echo "<input name='jmbg' type='number' class='form-control' required readonly value='" . $res[0]->jmbg . "'> \n"; ?>
                                     </div>
 
                                 </div>  
@@ -247,15 +246,15 @@
                                 <div class="col-sm-5">
                                     <div class="form-group">
                                         <label>Telefon : </label>
-                                       <!-- <div class="input-group">
-                                        <span class="input-group-addon" style="border-radius: 0;">+381</span> -->
-                                        
+                                        <!-- <div class="input-group">
+                                         <span class="input-group-addon" style="border-radius: 0;">+381</span> -->
+
                                         <?php echo "<input name='tel' type='text' class='form-control' readonly value='" . $res[0]->telefon . "'> \n"; ?>
-                                        
+
                                     </div>
                                     <div class="form-group">
                                         <label>Adresa : </label>
-                                        <?php echo "<input name='address' type='text' class='form-control' readonly value='" . $res[0]->adresa . "'> \n";?>
+                                        <?php echo "<input name='address' type='text' class='form-control' readonly value='" . $res[0]->adresa . "'> \n"; ?>
                                     </div>
 
                                 </div>
@@ -266,7 +265,7 @@
                                 <br>
                                 <input type='button' id="edit_profile" class='btn btn-finish btn-primary' name='edit' value='Izmeni podatke' />
                                 <input type='hidden' id="change_profile" class='btn btn-finish btn-primary' name='change_profile' value='Unesi izmene' />
-                                
+
                             </div>
                             <br>
                             <br>
