@@ -133,3 +133,48 @@ a.current_pagination_number {
     background-color: #d27e04;
     color: #fff;
 }
+@media screen and (min-width: 480px) {
+    .container_tabela {
+        margin-left: 0px;
+        margin-right:  0px;
+    }
+}
+@media screen and (min-width: 900px) {
+    .container_tabela {
+          margin-left: 90px;
+    margin-right: 90px;
+    }
+}
+.container_tabela{
+  
+    margin-top: 60px;
+    border-radius: 4px;
+    box-shadow: 0 0 10px -1px #aaa;
+}
+
+.img_prifile_xs{
+    
+    width: 35px;
+    height: 35px;
+}
+.img_profile_lg{
+    
+    border: 3px solid gray;
+    border-radius: 3px;
+    
+}
+
+.por {
+    padding-top: 15px !important; 
+}
+div .modal .fade .in {
+    padding-right:  0 !important;
+}
+.btn_table{
+    margin-top: 34px ;
+}
+a .link_table{
+    font-weight: normal !important;
+    color: #000;
+    
+}

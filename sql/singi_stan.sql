@@ -18,7 +18,7 @@ CREATE TABLE nekretnina (
     namestenost ENUM('Namestena', 'Polunamestena', 'Nenamestena') NULL,
     sprat INT NULL,
     spratnost INT NULL,
-    cena DECIMAL(20,2) NOT NULL,
+    cena INT NOT NULL,
     id_opstina INT NOT NULL,
     id_tip_nekretnine INT NOT NULL,
     CONSTRAINT fk_nekretnina_opstina FOREIGN KEY (id_opstina) REFERENCES opstina (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -64,6 +64,7 @@ CREATE TABLE gledanje_nekretnine (
 CREATE TABLE ugovor (
     id INT NOT NULL AUTO_INCREMENT,
     datum DATE NOT NULL,
+    putanja_ugovora VARCHAR(255) NULL;
     id_agent INT NOT NULL,
     id_kupac INT NOT NULL,
     id_nekretnina INT NOT NULL,

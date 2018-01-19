@@ -21,8 +21,7 @@ if (isset($_SESSION['username'])) {
 else if (!isset($_SESSION['user_id'])) {
 
     header("Refresh: 3; url=login.php");
-    echo '<h3>Morate se ulogovati kako bi imali pristup ovoj strani!</h3>';
-    echo '<p>Bićete preusmereni za 3 sekunde!</p>';
+    include_once '404.php';
 
     exit(); // Quit the script.
 }
@@ -62,7 +61,7 @@ else if (!isset($_SESSION['user_id'])) {
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/responsive.css">
         <link rel="stylesheet" href="assets/css/nas_stil.css">        
-        <link rel="stylesheet" href="assets/css/customers.css"/>
+        
     </head>
     <body>
 
@@ -348,7 +347,7 @@ else if (!isset($_SESSION['user_id'])) {
         </script>
         <script>
             $(document).ready(function() {
-                $('.alert-success').delay(3000).slideUp()();
+                $('.alert-success').delay(3000).slideUp();
             });
         </script>
         <?php

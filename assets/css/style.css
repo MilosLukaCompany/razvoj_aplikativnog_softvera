@@ -3077,3 +3077,8 @@ padding: 10px;
 #map {
     height: 300px;
 }
+a>.link_table {
+    font-weight: normal !important;
+    color: #000;
+    
+}
