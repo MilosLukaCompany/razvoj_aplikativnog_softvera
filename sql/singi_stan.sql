@@ -11,6 +11,8 @@ CREATE TABLE tip_nekretnine (
 CREATE TABLE nekretnina (
     id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     adresa VARCHAR(150) NOT NULL,
+    latitude VARCHAR(20) NULL,
+    longitude VARCHAR(20) NULL,
     povrsina INT NOT NULL,
     struktura ENUM('Garsonjera', 'Jednosobna', 'Dvosobna', 'Trosobna', 'Cetvorosobna', 'Petosobna') NULL,
     parking ENUM('Slobodna zona', 'Zona III', 'Zona II', 'Zona I') NULL,,
@@ -19,6 +21,7 @@ CREATE TABLE nekretnina (
     sprat INT NULL,
     spratnost INT NULL,
     cena DECIMAL(20,2) NOT NULL,
+    stanje VARCHAR(10) NULL,
     id_opstina INT NOT NULL,
     id_tip_nekretnine INT NOT NULL,
     CONSTRAINT fk_nekretnina_opstina FOREIGN KEY (id_opstina) REFERENCES opstina (id) ON DELETE NO ACTION ON UPDATE NO ACTION,

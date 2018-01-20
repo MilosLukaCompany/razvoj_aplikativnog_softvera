@@ -4,6 +4,7 @@ if (isset($_POST['submit'])) {
     $property_type = htmlspecialchars($_POST['property_type']);
     $municipalities = htmlspecialchars($_POST['municipalities']);
     $address = htmlspecialchars($_POST['address']);
+    $prep_address = str_replace(" ", "+", $address);
     $quadrature = htmlspecialchars($_POST['quadrature']);
     $price = htmlspecialchars($_POST['price']);
     
@@ -47,7 +48,12 @@ if (isset($_POST['submit'])) {
             $structure = htmlspecialchars($_POST['structure']);        
             $parking = htmlspecialchars($_POST['parking']);
             $accommodation = htmlspecialchars($_POST['accommodation']);
-    }                                   
+    }
+    
+    $geocode=file_get_contents('https://maps.googleapis.com/maps/api/geocode/json?address=' . $prep_address . '&key=AIzaSyAy70D14WJrMBJWZ6NemVDNnyVGsz1Vm1U');        
+    $output= json_decode($geocode);    
+    $latitude = $output->results[0]->geometry->location->lat;
+    $longitude = $output->results[0]->geometry->location->lng;
     
     require 'database_connection.php';
     $prep = $db->prepare('SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?;');
@@ -57,8 +63,8 @@ if (isset($_POST['submit'])) {
     $curdir = getcwd();
     mkdir($curdir . "/../assets/img/property_images/" . $res[0]->AUTO_INCREMENT, 0777);
 
-    $prep2 = $db->prepare('INSERT INTO nekretnina (adresa, povrsina, struktura, parking, grejanje, namestenost, sprat, spratnost, cena, id_opstina, id_tip_nekretnine) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);');
-    $prep2->execute([$address, $quadrature, $structure, $parking, $heat, $accommodation, $floor, $building_floors, $price, $municipalities, $property_type]);
+    $prep2 = $db->prepare('INSERT INTO nekretnina (adresa, latitude, longitude, povrsina, struktura, parking, grejanje, namestenost, sprat, spratnost, cena, id_opstina, id_tip_nekretnine) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);');
+    $prep2->execute([$address, $latitude, $longitude, $quadrature, $structure, $parking, $heat, $accommodation, $floor, $building_floors, $price, $municipalities, $property_type]);
     
     for ($i = 0; $i < count($_FILES["file"]["name"]); $i++) {
         $file_tmp = $_FILES["file"]["tmp_name"][$i];

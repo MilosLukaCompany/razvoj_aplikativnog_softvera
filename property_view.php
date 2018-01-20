@@ -34,8 +34,7 @@
         <link rel="stylesheet" href="assets/css/lightslider.min.css">
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/responsive.css">
-        <link rel="stylesheet" href="assets/css/nas_stil.css">
-        <script src="assets/js/google_maps.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="assets/css/nas_stil.css">   
     </head>
     <body>
 
@@ -123,7 +122,32 @@
             $res = $prep->fetchAll(PDO::FETCH_OBJ);
         }
         ?>
-        
+        <script>
+            function initMap() { 
+                
+                var myCenter = new google.maps.LatLng(<?php echo $res[0]->latitude ?>, <?php echo $res[0]->longitude ?>);
+                var mapProp = {
+                    center: myCenter,
+                    zoom: 16,
+                    scrollwheel: false,
+                    draggable: true,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP        
+                };
+
+                var map = new google.maps.Map(document.getElementById('googleMap'), mapProp);
+                var marker = new google.maps.Marker({
+                    position: myCenter,
+                    map: map
+                });
+
+
+                google.maps.event.addDomListener(window, "resize", function () {
+                    var center = map.getCenter();
+                    google.maps.event.trigger(map, "resize");
+                    map.setCenter(center);
+                });
+            }
+        </script>
         <div class="page-head" style="margin-top: 99px;"> 
             <div class="container">
                 <div class="row">
@@ -138,9 +162,21 @@
 
         <div class="content-area single-property" style="background-color: #FCFCFC;">
             <div class="container">
-
                 <div class="clearfix padding-top-40">
-                    
+                    <?php
+                    if (isset($_GET["msg"]) && $_GET["msg"] == 'succesfully_added_to_favourites') {                             
+                        echo "<div id='successful_alert' class='alert alert-success' role='alert'>\n";
+                        echo "<span class='success'>Uspesno ste dodali nekretninu u listu zelja!</span><br />\n";
+                        echo "</div>\n";
+                    }
+                    ?>                                                           
+                    <?php
+                    if (isset($_GET["msg"]) && $_GET["msg"] == 'already_in_favourites') {                             
+                        echo "<div id='info_alert' class='alert alert-info' role='alert'>\n";
+                        echo "<span class='success'>Ova nekretnina je već u vašoj listi želja!</span><br />\n";
+                        echo "</div>\n";
+                    }
+                    ?>                                                           
                     <div class="col-md-4 p0">
                         <aside class="sidebar sidebar-property blog-asside-right">
                             <div class="dealer-widget">
@@ -366,15 +402,22 @@
 
                         </aside>
                     </div>
-                    
                     <div class="col-md-8 single-property-content ">
                         <div class="row">
                             <div class="light-slide-item">            
                                 <div class="clearfix">
                                     <div class="favorite-and-print">
-                                        <a class="add-to-fav" href="#login-modal" data-toggle="modal">
-                                            <i class="fa fa-heart" data-toggle="tooltip" data-placement="bottom" title="Stavi u omiljene"></i>
-                                        </a>
+                                        <?php 
+                                        if (isset($_SESSION['username']) && $_SESSION['user_type'] == "kupac") {
+                                            $prep_user = $db->prepare("SELECT * FROM kupac WHERE korisnicko_ime = ?;");
+                                            $prep_user->execute([$_SESSION['username']]);
+                                            $res_user = $prep_user->fetchAll(PDO::FETCH_OBJ);
+                                            
+                                            echo "<a class='add-to-fav' href='#login-moda' data-toggle='modal'>\n";
+                                            echo "<i class='fa fa-star' data-toggle='tooltip' data-placement='bottom' title='Dodaj u listu zelja' onclick='window.open(\"php/add_favourite.php?user_id={$res_user[0]->id}&property_id={$res[0]->id}\", \"_self\");'></i>\n";
+                                            echo "</a>\n";
+                                        }
+                                        ?>                                      
                                         <a class="printer-icon " href="javascript:window.print()">
                                             <i class="fa fa-print" data-toggle="tooltip" data-placement="bottom" title="Štampaj"></i> 
                                         </a>
@@ -384,8 +427,8 @@
                                         <?php 
                                         
                                         foreach ($res as $pic) {
-                                            echo "<li data-thumb='" . $res[0]->putanja_slike . "'>\n";
-                                            echo "<img src='" . $res[0]->putanja_slike . "' />";
+                                            echo "<li data-thumb='" . $pic->putanja_slike . "' >\n";
+                                            echo "<img src='" . $pic->putanja_slike . "' onerror='this.src=\"assets/img/default_image.png\";' alt='Slike stana'  />";
                                             echo "</li>\n";
                                         }
                                         ?>                                                                                                                       
@@ -403,13 +446,12 @@
                                 $prep_2->execute([$_GET['id']]);
                                 $res_2 = $prep_2->fetchAll(PDO::FETCH_OBJ);                                
                                 ?>
-                                <h1 class="property-title pull-left"><?php echo $res[0]->adresa . ", " . $res_2[0]->tip ?></h1>
-                                <span class="property-price pull-right"><?php echo $res[0]->cena ?> €</span>
-                                <input autocomplete="on" id="property_address" type="hidden" value="<?php echo $res[0]->adresa; ?>" />
+                                <h1 class="property-title pull-left"><?php echo $res[0]->adresa . ", " . $res_2[0]->tip; ?></h1>
+                                <span class="property-price pull-right"><?php echo $res[0]->cena; ?> €</span>                                
                             </div>
                             <?php 
                             if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
-                                echo "<button class='btn btn-default pull-right'>ZAKAZI GLEDANJE</button>";
+                                echo "<button class='btn btn-default pull-right' data-toggle='modal' data-target='#contract_modal'>ZAKAZI GLEDANJE</button>";
                             }                            
                             ?>                            
                             <div class="section additional-details">
@@ -511,13 +553,6 @@
                                     </li> 
 
                                 </ul>
-                            </div>  
-                            
-                            <div class="section">
-                                <h4 class="s-property-title">Opis</h4>
-                                <div class="s-property-content">
-                                    <p>Nulla quis dapibus nisl. Suspendisse ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies commodo arcu nec pretium. Nullam sed arcu ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies Nulla quis dapibus nisl. Suspendisse ultricies commodo arcu nec pretium. Nullam sed arcu ultricies                                </p>
-                                </div>
                             </div>                          
                             
                             <div class="section">
@@ -528,11 +563,11 @@
                             </div>
                             <?php
                             if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
-                                echo "<button class='btn btn-default pull-right'>ZAKAZI GLEDANJE</button>";
+                                echo "<button class='btn btn-default pull-right' data-toggle='modal' data-target='#contract_modal'>ZAKAZI GLEDANJE</button>";
                             } 
                             if (isset($_SESSION['username']) && $_SESSION['user_type'] === "agent") {
-                                echo "<button class='btn btn-default pull-right'>IZMENI</button>";
-                                echo "<button class='btn btn-default pull-right'>IZBRISI</button>";
+                                echo "<button class='btn btn-default pull-right' data-toggle='modal' data-target='#update_property_modal' onclick='check_property_type()'>IZMENI</button>";
+                                echo "<button class='btn btn-default pull-right' id='delete_button' onclick='window.open(\"php/delete_property.php?id={$res[0]->id}\", \"_self\");'>IZBRISI</button>";
                             }
                             ?>
                         </div>
@@ -617,8 +652,253 @@
             </div>
 
         </div>
+        
+        
+        <!-- modal -->
+        <div class="modal fade" id="contract_modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 id="appointment_modal_title" class="modal-title text-center" style="color: orange;">Zakazi gledanje</h4>                        
+                    </div>
+                    <div class="modal-body" id="appointment_modal_body">
+                        <form action="php/make_appointment.php" method="POST" id='make_appointment_form'>
+                            <input type='hidden' name='property_id' <?php echo "value='" . $res_2[0]->id . "'"; ?> />
+                            <input type='hidden' name='user_id' <?php echo "value='" . $res_user[0]->id . "'"; ?> />
+                            <div class="card text-center" style="width: 30%; border: 1px solid #e5e5e5; float: left; margin-bottom: 15px;">
+                                <img class="card-img-top" src="assets/img/profile_blank.jpg" alt="Card image cap">
+                                <div class="card-body">
+                                    <p class="card-text"><b><?php echo $res_user[0]->ime . " " . $res_user[0]->prezime ?></b></p>
+                                    <p class="card-text"><b><?php echo $res_user[0]->email ?></b></p>
+                                    <p class="card-text"><b><?php echo $res_user[0]->telefon ?></b></p>
+                                </div>
+                            </div>
+                            <div class="request" style="width: 60%; float: right;">
+                                <p style="padding: 0 15px 10px 15px;">Zelim da zakazem termin gledanja sledece nekretnine:<br /> <b><?php echo $res_2[0]->adresa . ", " . $res_2[0]->naziv ?></b></p>
+                                <div class='col-sm-12'>
+                                    <div class="form-group">                                    
+                                        <input type='datetime-local' name='date' class="form-control" id="modal_date" required/>
+                                    </div>
 
-      <script src="assets/js/vendor/modernizr-2.6.2.min.js"></script>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer" style="clear: both;">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Nazad</button>
+                        <button type="submit" name="submit" id="modal_submit_date_button" class="btn btn-default">Zakaži <span class="glyphicon glyphicon-home" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="modal fade" id="update_property_modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 id="update_modal_title" class="modal-title text-center" style="color: orange;">Izmeni nekretninu</h4>                        
+                    </div>
+                    <div class="modal-body" id="update_modal_body">
+                        <div class="col-md-12 col-xs-12 register-blocks">
+
+                            <form action="php/update_property.php" method="POST" id="update_property_form">
+                                <input type="hidden" name="id" <?php echo "value='" . $res[0]->id . "'"; ?> />
+                                <div class="col-md-12" id="new_property_form">                                    
+                                    <div class="form-group">
+                                        <label for="property_type">Tip nekretnine</label>
+                                        <br>
+                                        <select class="form-control" id="property_type" name="property_type">
+                                            <option>- - -</option>
+                                            <?php
+                                            require 'php/database_connection.php';
+                                            $prep_select_property_type = $db->prepare('SELECT * FROM tip_nekretnine;');
+                                            $prep_select_property_type->execute();
+                                            $res_select_property_type = $prep_select_property_type->fetchAll(PDO::FETCH_OBJ);
+                                            
+                                            $prep_selected_property_type = $db->prepare('SELECT nekretnina.id_tip_nekretnine FROM nekretnina WHERE nekretnina.id = ?');
+                                            $prep_selected_property_type->execute([$res[0]->id]);
+                                            $res_selected_property_type = $prep_selected_property_type->fetchAll(PDO::FETCH_OBJ);
+                                            
+                                            foreach ($res_select_property_type as $r) {
+                                                if ($r->id == $res_selected_property_type[0]->id_tip_nekretnine) {
+                                                    echo "<option id='selected_property_type' value='" . $r->id . "' selected>" . $r->tip . "</option>\n";
+                                                }
+                                                echo "<option value='" . $r->id . "'>" . $r->tip . "</option>\n";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label for="opstina">Opština</label>
+                                        <br>
+
+                                        <select class="form-control" id="opstina" name="municipalities" required>
+                                            <option>- - -</option>
+                                            <?php
+                                            require 'php/database_connection.php';
+                                            $prep_municipality = $db->prepare('SELECT * FROM opstina ORDER BY naziv ASC;');
+                                            $prep_municipality->execute();
+                                            $res_municipality = $prep_municipality->fetchAll(PDO::FETCH_OBJ);
+                                            
+                                            $prep_selected_municipalities = $db->prepare('SELECT nekretnina.id_opstina FROM nekretnina WHERE nekretnina.id = ?;');
+                                            $prep_selected_municipalities->execute([$res[0]->id]);
+                                            $res_selected_municipalities = $prep_selected_municipalities->fetchAll(PDO::FETCH_OBJ);
+                                            
+                                            foreach ($res_municipality as $municipality) {
+                                                if ($municipality->id == $res_selected_municipalities[0]->id_opstina) {
+                                                    echo "<option value='" . $municipality->id . "' selected>" . $municipality->naziv . "</option>\n";                                                                
+                                                } else {
+                                                    echo "<option value='" . $municipality->id . "'>" . $municipality->naziv . "</option>\n";
+                                                }
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="adresa">Adresa</label>                                        
+                                        <input type="text" class="form-control" id="adresa" name="address" <?php echo "value='" . $res[0]->adresa . "'"; ?> required>
+                                    </div>
+                                    <div class="form-group" id="structure">
+                                        <label for="struktura">Struktura</label>
+                                        <br>
+                                        <select class="form-control" name="structure">
+                                            <option>- - -</option>
+                                            <option value="Garsonjera" <?php 
+                                            if ($res[0]->struktura != null && $res[0]->struktura == "Garsonjera") {
+                                                echo "selected";
+                                            }
+                                            ?>>Garsonjera</option>
+                                            <option value="Jednosobna" <?php 
+                                            if ($res[0]->struktura != null && $res[0]->struktura == "Jednosobna") {
+                                                echo "selected";
+                                            }
+                                            ?>>Jednosobna</option>
+                                            <option value="Dvosobna" <?php 
+                                            if ($res[0]->struktura != null && $res[0]->struktura == "Dvosobna") {
+                                                echo "selected";
+                                            }
+                                            ?>>Dvosobna</option>
+                                            <option value="Trosobna" <?php 
+                                            if ($res[0]->struktura != null && $res[0]->struktura == "Trosobna") {
+                                                echo "selected";
+                                            }
+                                            ?>>Trosobna</option>
+                                            <option value="Cetvorosobna" <?php 
+                                            if ($res[0]->struktura != null && $res[0]->struktura == "Cetvorosobna") {
+                                                echo "selected";
+                                            }
+                                            ?>>Cetvorosobna</option>
+                                            <option value="Petosobna" <?php 
+                                            if ($res[0]->struktura != null && $res[0]->struktura == "Petosobna") {
+                                                echo "selected";
+                                            }
+                                            ?>>Petosobna</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group" id="parking">
+                                        <label for="struktura">Parking</label>
+                                        <br>
+                                        <select class="form-control" name="parking">
+                                            <option>- - -</option>
+                                            <option value="Slobodna zona" <?php 
+                                            if ($res[0]->parking != null && $res[0]->parking == "Slobodna zona") {
+                                                echo "selected";
+                                            }
+                                            ?>>Slobodna zona</option>
+                                            <option value="Zona III" <?php 
+                                            if ($res[0]->parking != null && $res[0]->parking == "Zona III") {
+                                                echo "selected";
+                                            }
+                                            ?>>Zona III</option>
+                                            <option value="Zona II" <?php 
+                                            if ($res[0]->parking != null && $res[0]->parking == "Zona II") {
+                                                echo "selected";
+                                            }
+                                            ?>>Zona II</option>
+                                            <option value="Zona I" <?php 
+                                            if ($res[0]->parking != null && $res[0]->parking == "Zona I") {
+                                                echo "selected";
+                                            }
+                                            ?>>Zona I</option>                                            
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="m2">Površina</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="m2" name="quadrature" <?php echo "value='" . $res[0]->povrsina . "'"; ?> required>
+                                            <span class="input-group-addon" style="border-radius: 0;">m<sup>2</sup></span>                                        
+                                        </div>
+                                    </div>
+                                    <div class="form-group" id="accommodation">
+                                        <label for="struktura">Nameštenost</label>
+                                        <br />
+                                        <select class="form-control" name="accommodation">
+                                            <option>- - -</option>
+                                            <option value="Namestena" <?php 
+                                            if ($res[0]->namestenost != null && $res[0]->namestenost == "Namestena") {
+                                                echo "selected";
+                                            }
+                                            ?>>Nameštena</option>
+                                            <option value="Polunamestena" <?php 
+                                            if ($res[0]->namestenost != null && $res[0]->namestenost == "Polunamestena") {
+                                                echo "selected";
+                                            }
+                                            ?>>Polunameštena</option>
+                                            <option value="Nenamestena" <?php 
+                                            if ($res[0]->namestenost != null && $res[0]->namestenost == "Nenamestena") {
+                                                echo "selected";
+                                            }
+                                            ?>>Nenameštena</option>                                                
+                                        </select>
+                                    </div>                                                                                
+                                    <div class="form-group" id="heat">
+                                        <label for="grejanje">Vrsta grejanja</label>
+                                        <input type="text" class="form-control" name="heat" <?php 
+                                            if ($res[0]->grejanje != null) {
+                                                echo "value='" . $res[0]->grejanje . "'";
+                                            }
+                                            ?>>
+                                    </div>
+                                    <div class="form-group" id="floor">
+                                        <label for="sprat">Sprat</label>
+                                        <input type="number" class="form-control" name="floor" <?php 
+                                            if ($res[0]->sprat != null) {
+                                                echo "value='" . $res[0]->sprat . "'";
+                                            }
+                                            ?>>
+                                    </div>
+                                    <div class="form-group" id="building_floors" >
+                                        <label for="spratnost">Ukupno spratova</label>
+                                        <input type="number" class="form-control" name="building_floors" <?php 
+                                            if ($res[0]->spratnost != null) {
+                                                echo "value='" . $res[0]->spratnost . "'";
+                                            }
+                                            ?>>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="cena">Cena</label>
+                                        <div class="input-group">
+                                            <input type="number" class="form-control" id="cena" name="price" <?php echo "value='" .  $res[0]->cena . "'"; ?> required>
+                                            <span class="input-group-addon" style="border-radius: 0;">€</span>                                        
+                                        </div>
+                                    </div>                                    
+                                    
+                                </div>                                
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Nazad</button>
+                        <button type="submit" name="submit" id="modal_submit_button" class="btn btn-default">Izmeni <span class="glyphicon glyphicon-home" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <script src="assets/js/vendor/modernizr-2.6.2.min.js"></script>
         <script src="assets/js/jquery-1.10.2.min.js"></script>
         <script src="bootstrap/js/bootstrap.min.js"></script>
         <script src="assets/js/bootstrap-select.min.js"></script>
@@ -631,11 +911,12 @@
         <script src="assets/js/price-range.js"></script>
         <script type="text/javascript" src="assets/js/lightslider.min.js"></script>
         <script src="assets/js/main.js"></script>
-        <script src="assets/js/navbar.js" type="text/javascript"></script>
-        
+        <script src="assets/js/navbar.js" type="text/javascript"></script>        
+        <script src="assets/js/update_property_modal.js" type="text/javascript"></script>
         <script>
             $(document).ready(function () {
-
+                $('#successful_alert').delay(3000).slideUp();               
+                $('#info_alert').delay(3000).slideUp();                
                 $('#image-gallery').lightSlider({
                     gallery: true,
                     item: 1,
@@ -648,7 +929,57 @@
                         $('#image-gallery').removeClass('cS-hidden');
                     }
                 });
+                
+                $('#update_property_form').on("submit", function() {
+                    var post_data = $(this).serializeArray();
+                    var form_url = $(this).attr("action");
+                    
+                    $.ajax({
+                        url: form_url,
+                        type: "POST",
+                        data: post_data,
+                        success: function(data, textStatus, jqXHR) {
+                            $('#update_modal_title').html("Rezultat");
+                            $('#update_modal_body').html(data);
+                            $('#modal_submit_button').remove();
+                        },
+                        error: function(jqXHR, status, error) {
+                            console.log(status + ": " + error);
+                        }
+                    });
+                    e.preventDefault();
+                });
+                
+                $('#modal_submit_button').on("click", function() {                    
+                    $('#update_property_form').submit();
+                });
+                
+                $('#make_appointment_form').on("submit", function() {
+                    var post_data = $(this).serializeArray();
+                    var form_url = $(this).attr("action");
+                    
+                    $.ajax({
+                        url: form_url,
+                        type: "POST",
+                        data: post_data,
+                        success: function(data, textStatus, jqXHR) {
+                            $('#appointment_modal_title').html("Rezultat");
+                            $('#appointment_modal_body').html(data);
+                            $('#modal_submit_date_button').remove();
+                        },
+                        error: function(jqXHR, status, error) {
+                            console.log(status + ": " + error);
+                        }
+                    });
+                    e.preventDefault();
+                });
+                
+                
+                $('#modal_submit_date_button').on("click", function() {                    
+                    $('#make_appointment_form').submit();
+                });
             });
         </script>
+        
     </body>
 </html>

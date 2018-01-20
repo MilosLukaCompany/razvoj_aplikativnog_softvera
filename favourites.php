@@ -83,7 +83,7 @@
                         if (isset($_SESSION['username'])) {
                             if ($_SESSION['user_type'] === "kupac") {
                                 ?>                        
-                                <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="navbar_link" href="favourites.php">Lista želja</a></li>
+                                <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="navbar_link" href="favourites.php">Lista zelja</a></li>
                                 <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
                                 <?php
                             } else if ($_SESSION['user_type'] === "agent") {
@@ -117,7 +117,7 @@
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
-                        <h1 class="page-title">početna / pregled nekretnina</h1>               
+                        <h1 class="page-title">početna / lista želja</h1>               
                     </div>
                 </div>
             </div>
@@ -130,204 +130,12 @@
                 <?php
                 if (isset($_GET["msg"]) && $_GET["msg"] == 'succesfully_deleted_property') {                             
                     echo "<div id='successful_alert' class='alert alert-success' role='alert'>\n";
-                    echo "<span class='success'>Uspesno ste izbrisali nekretninu!</span><br />\n";
+                    echo "<span class='success'>Uspesno ste izbrisali nekretninu iz liste želja!</span><br />\n";
                     echo "</div>\n";
                 }
                 ?> 
-                <div class="row">
-                     
-                    <div class="col-md-3 p0 padding-top-40">
-                        <div class="blog-asside-right pr0">
-                            <div class="panel panel-default sidebar-menu wow fadeInRight animated" >
-                                <div class="panel-heading">
-                                    <h3 class="panel-title">Filter</h3>
-                                </div>
-                                <div class="panel-body search-widget">
-                                    <form action="filter_view.php" method="POST" class=" form-inline">                                     
-                                        <fieldset class="padding-5">
-                                            <div class="row">
-                                                <div class="col-xs-6">
-                                                    <label for="price-range">Cena od - do (EUR) :</label>
-                                                    <input type="text" class="span2" data-slider-min="10000" 
-                                                           data-slider-max="500000" data-slider-step="10000" 
-                                                           data-slider-value="[30000,200000]" id="price-range" name="price_range"><br />
-                                                    <b class="pull-left color">10.000€</b> 
-                                                    <b class="pull-right color">500.000€</b>                                            
-                                                </div>
-                                                <div class="col-xs-6">
-                                                    <label for="property-geo">Kvadratura (m<sup>2</sup>) :</label>
-                                                    <input type="text" class="span2"  data-slider-min="0" 
-                                                           data-slider-max="600" data-slider-step="5" 
-                                                           data-slider-value="[50,250]" id="property-geo" name="quadrature_range"><br />
-                                                    <b class="pull-left color">0m<sup>2</sup></b> 
-                                                    <b class="pull-right color">600m<sup>2</sup></b>                                            
-                                                </div>                                            
-                                            </div>
-                                        </fieldset>  
-                                        <hr />
-                                        <fieldset>
-                                            <div class="row">
-                                                <div class="col-xs-12">
-                                                    <select id="basic" title="Izaberi tip nekretnine" class="selectpicker show-tick form-control" name="property_type">
-                                                        <?php
-                                                        require 'php/database_connection.php';
-                                                        $prep_property_type = $db->prepare('SELECT * FROM tip_nekretnine;');
-                                                        $prep_property_type->execute();
-
-                                                        $res_property_type = $prep_property_type->fetchAll(PDO::FETCH_OBJ);
-                                                        foreach ($res_property_type as $type) {
-                                                            echo "<option value='" . $type->id . "'>" . $type->tip . "</option>\n";
-                                                        }
-                                                        ?> 
-                                                    </select>
-                                                </div>
-                                                <br /><br />
-                                                <div class="col-xs-12">
-                                                    <select id="lunchBegins" class="selectpicker" data-live-search="true" data-live-search-style="begins" title="Izaberi opštinu" name="municipalities">
-                                                        <?php
-                                                        require 'php/database_connection.php';
-                                                        $prep_municipality = $db->prepare('SELECT * FROM opstina ORDER BY naziv ASC;');
-                                                        $prep_municipality->execute();
-
-                                                        $res_municipality = $prep_municipality->fetchAll(PDO::FETCH_OBJ);
-                                                        foreach ($res_municipality as $municipality) {
-                                                            echo "<option value='" . $municipality->id . "'>" . $municipality->naziv . "</option>\n";
-                                                        }
-                                                        ?>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <hr />
-                                        <fieldset class="padding-5">
-                                            <div class="row">
-                                                <div class="col-md-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="structure[]" value="Garsonjera"> Garsonjera
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="structure[]" value="Jednosobna"> Jednosobna
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="structure[]" value="Dvosobna"> Dvosobna
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6  col-xs-6">
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="structure[]" value="Trosobna"> Trosobna
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="structure[]" value="Cetvorosobna"> Četvorosobna
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="structure[]" value="Petosobna"> Petosobna
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>                                        
-                                            </div>
-                                        </fieldset>
-                                        <hr />
-                                        <fieldset class="padding-5">
-                                            <div class="row">
-                                                <div class="col-md-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="accommodation[]" value="Namestena"> Nameštena
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="accommodation[]" value="Nenamestena"> Nenameštena
-                                                            </label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="accommodation[]" value="Polunamestena"> Polunameštena
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </fieldset>
-                                        <hr />
-                                        <fieldset class="padding-5">
-                                            <div class="row">
-                                                <div class="col-md-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="parking[]" value="Zona I"> Zona I
-                                                            </label>
-                                                        </div>
-                                                    </div> 
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="parking[]" value="Zona II"> Zona II
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-6 col-xs-6">
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="parking[]" value="Zona III"> Zona III
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                    <div class="form-group">
-                                                        <div class="checkbox">
-                                                            <label>
-                                                                <input type="checkbox" name="parking[]" value="Slobodna zona"> Slobodna zona
-                                                            </label>
-                                                        </div>
-                                                    </div>
-                                                </div> 
-                                            </div>
-                                        </fieldset>
-                                        <hr />
-                                        <button class="btn search-btn" type="submit" name="submit" style="display: block; width: 100%;">Pretraži <i class="fa fa-search"></i></button>
-                                    </form>
-                                </div>
-                            </div>                        
-                        </div>
-                    </div>
-
-                    <div class="col-md-9  pr0 padding-top-40 properties-page">
+                <div class="row">                                         
+                    <div class="col-md-10 col-md-offset-1  pr0 padding-top-40 properties-page">
                         <div class="col-md-12 clear">                         
                             <div class="col-md-12 layout-switcher">
                                 <a class="layout-list" href="javascript:void(0);"> <i class="fa fa-th-list"></i>  </a>
@@ -339,8 +147,10 @@
                             <div id="list-type" class="proerty-th">                                
                                 <?php 
                                 require 'php/database_connection.php';
-                                $prep_pagination = $db->prepare('SELECT COUNT(id) AS total_rows FROM nekretnina;');
-                                $prep_pagination->execute();
+                                $prep_pagination = $db->prepare('SELECT COUNT(lista_zelja.id) AS total_rows FROM'
+                                        . ' nekretnina INNER JOIN (lista_zelja INNER JOIN kupac ON lista_zelja.id_kupac = kupac.id) ON nekretnina.id = lista_zelja.id_nekretnina '
+                                        . 'WHERE lista_zelja.id_kupac = ?;');
+                                $prep_pagination->execute([$_SESSION['username']]);
                                 $res_pagination = $prep_pagination->fetchAll(PDO::FETCH_OBJ);
 
                                 $rows = $res_pagination[0]->total_rows;
@@ -391,17 +201,22 @@
                                 }                            
                                 $start_limit = ($page_num - 1) * $items_per_page;                            
 
-                                $prep_property = $db->prepare("SELECT nekretnina.*, opstina.naziv, tip_nekretnine.tip FROM
-                                                    opstina INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id)
-                                                    ON opstina.id = nekretnina.id_opstina ORDER BY id DESC LIMIT ?, ?;");
-                                $prep_property->execute([$start_limit, $items_per_page]);
+                                $prep_property = $db->prepare("SELECT lista_zelja.id_kupac, lista_zelja.id_nekretnina, nekretnina.* FROM "
+                                        . "nekretnina INNER JOIN (lista_zelja INNER JOIN kupac ON lista_zelja.id_kupac = kupac.id) ON nekretnina.id = lista_zelja.id_nekretnina "
+                                        . "WHERE kupac.korisnicko_ime = ? ORDER BY lista_zelja.id DESC LIMIT ?, ?;");
+                                $prep_property->execute([$_SESSION['username'], $start_limit, $items_per_page]);
                                 $res_property = $prep_property->fetchAll(PDO::FETCH_OBJ);
-
-
+                                
                                 foreach ($res_property as $property) {
                                     $prep_img = $db->prepare('SELECT putanja_slike FROM slika WHERE id_nekretnina = ? LIMIT 1;');
                                     $prep_img->execute([$property->id]);
                                     $res_img = $prep_img->fetchAll(PDO::FETCH_OBJ);
+                                    
+                                    $x = $db->prepare("SELECT opstina.naziv, tip_nekretnine.tip FROM opstina "
+                                            . "INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id) ON opstina.id = nekretnina.id_opstina "
+                                            . "WHERE nekretnina.id = ?;");
+                                    $x->execute([$property->id]);
+                                    $res_x = $x->fetchAll(PDO::FETCH_OBJ);
 
                                     $property_address = "";
                                     if (strlen($property->adresa) > 20) {
@@ -418,13 +233,14 @@
                                     echo "<div class='item-entry overflow'>\n";
                                     echo "<h5><a href='property_view.php?id=" . $property->id . "'>" . $property_address . "</a></h5>\n";
                                     echo "<div class='dot-hr'></div>\n";
-                                    echo "<span class='pull-left'><b> Tip nekretnine: </b>" . $property->tip . "</span><br />\n";
-                                    echo "<span class='pull-left'><b> Opština: </b>" . $property->naziv . "</span><br />\n";
+                                    echo "<span class='pull-left'><b> Tip nekretnine: </b>" . $res_x[0]->tip . "</span><br />\n";
+                                    echo "<span class='pull-left'><b> Opština: </b>" . $res_x[0]->naziv . "</span><br />\n";
                                     echo "<div class='list_properties' style='display: none;'>\n";
                                     echo "<span class='pull-left'><b> Površina: </b>" . $property->povrsina . "<sup>2</sup></span><br />\n";
                                     echo "<span class='pull-left'><b> Struktura: </b>" . $property->struktura . "</span><br />\n";
                                     echo "</div>\n";
                                     echo "<span class='proerty-price pull-left'>" . $property->cena . " €</span>\n";
+                                    echo "<button class='btn btn-danger btn-xs pull-right' style='border-width: 1px;' onclick='if(confirm(\"Da li ste sigurni da želite da obrišete nekretninu iz liste zelja?\")){window.open(\"php/delete_favourite_property.php?id={$property->id}\", \"_self\")};' ><span class='glyphicon glyphicon-trash' data-toggle='tooltip' data-placement='left' title='Izbrisi'></span></button>\n";
                                     echo "</div>\n";
                                     echo "</div>\n";
                                     echo "</div>\n";

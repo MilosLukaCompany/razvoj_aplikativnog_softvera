@@ -86,7 +86,8 @@
                         if (isset($_SESSION['username'])) {
                             if ($_SESSION['user_type'] === "kupac") {
                                 ?>                        
-                                <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
+                                <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="navbar_link" href="favourites.php">Lista želja</a></li>
+                                <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
                                 <?php
                             } else if ($_SESSION['user_type'] === "agent") {
                                 ?>
@@ -510,7 +511,7 @@
                                 <p> U našoj bazi podataka koja se ažurira svakog dana, sigurno možete pronaći ono što vam odgovara.</p>                                        
                             </div>
                             <div class="asks-first-arrow">
-                                <a href="properties.php"><span class="fa fa-angle-right"></span></a>
+                                <a href="property_list.php"><span class="fa fa-angle-right"></span></a>
                             </div>
                         </div>
                     </div>

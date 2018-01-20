@@ -8,8 +8,9 @@ $(document).ready(function () {
     $('#add_pic_input').tooltip();
     $('#back_arrow').tooltip();
     $('#return-to-top').tooltip();
-    $('.fa-heart').tooltip();
+    $('.fa-star').tooltip();
     $('.fa-print').tooltip();
+    $('.glyphicon-trash').tooltip();
     
     $('#tel').focus(function() {
         $(this).prev('span').css({'border-top': '1px solid #9A9A9A', 'border-left': '1px solid #9A9A9A', 'border-bottom': '1px solid #9A9A9A'});

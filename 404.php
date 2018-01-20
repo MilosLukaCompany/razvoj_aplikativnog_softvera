@@ -134,7 +134,7 @@
                                 <div class="footer-title-line"></div>
                                 <ul class="footer-menu">
                                     <li><a href="index.php">Početna</a>  </li>
-                                    <li><a href="properties.php">Nekretnine</a>  </li> 
+                                    <li><a href="property_list.php">Nekretnine</a>  </li> 
                                     <li><a href="contact.php">Kontakt </a></li> 
                                 </ul>
                             </div>

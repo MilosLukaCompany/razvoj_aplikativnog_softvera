@@ -1,16 +1,6 @@
 
 function initMap() {
-//    var latitude, longitude;
-//    var input = document.getElementById('property_address').value;
-//    console.log(input);
-//    var autocomplete = new google.maps.places.Autocomplete(input);
-//    console.log(autocomplete);
-//    google.maps.event.addListener(autocomplete, 'place_changed', function () {
-//        var place = autocomplete.getPlace();
-//        console.log(place);
-//        latitude = place.geometry.location.lat();
-//        longitude = place.geometry.location.lng();
-//    });    
+    
     var myCenter = new google.maps.LatLng(44.782977, 20.478502);
     var mapProp = {
         center: myCenter,

@@ -133,3 +133,21 @@ a.current_pagination_number {
     background-color: #d27e04;
     color: #fff;
 }
+#delete_button {
+    border-color: #f00;
+    background-color: #fff;
+    color: #f00;
+    margin-right: 10px;
+    transition: all 0.3s;
+}
+#delete_button:hover {
+    color: #fff;
+    background-color: #f00;
+}
+
+#modal_date {
+    padding: 0 !important;
+}
+.modal {
+    padding: 0 !important;
+}

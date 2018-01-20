@@ -77,7 +77,8 @@
                         <?php
                         if (isset($_SESSION['username'])) {
                             ?>                        
-                            <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
+                            <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="navbar_link" href="favourites.php">Lista želja</a></li>
+                            <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
                             <?php
                         }
                         ?>                        
