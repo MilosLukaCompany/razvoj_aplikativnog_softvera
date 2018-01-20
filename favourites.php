@@ -205,48 +205,59 @@
                                         . "nekretnina INNER JOIN (lista_zelja INNER JOIN kupac ON lista_zelja.id_kupac = kupac.id) ON nekretnina.id = lista_zelja.id_nekretnina "
                                         . "WHERE kupac.korisnicko_ime = ? ORDER BY lista_zelja.id DESC LIMIT ?, ?;");
                                 $prep_property->execute([$_SESSION['username'], $start_limit, $items_per_page]);
-                                $res_property = $prep_property->fetchAll(PDO::FETCH_OBJ);
                                 
-                                foreach ($res_property as $property) {
-                                    $prep_img = $db->prepare('SELECT putanja_slike FROM slika WHERE id_nekretnina = ? LIMIT 1;');
-                                    $prep_img->execute([$property->id]);
-                                    $res_img = $prep_img->fetchAll(PDO::FETCH_OBJ);
-                                    
-                                    $x = $db->prepare("SELECT opstina.naziv, tip_nekretnine.tip FROM opstina "
-                                            . "INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id) ON opstina.id = nekretnina.id_opstina "
-                                            . "WHERE nekretnina.id = ?;");
-                                    $x->execute([$property->id]);
-                                    $res_x = $x->fetchAll(PDO::FETCH_OBJ);
+                                if ($prep_property->rowCount() > 0) {
+                                    $res_property = $prep_property->fetchAll(PDO::FETCH_OBJ);
 
-                                    $property_address = "";
-                                    if (strlen($property->adresa) > 20) {
-                                        $property_address = substr($property->adresa, 0, 19) . "...";
-                                    } else {
-                                        $property_address = $property->adresa;
+                                    foreach ($res_property as $property) {
+                                        $prep_img = $db->prepare('SELECT putanja_slike FROM slika WHERE id_nekretnina = ? LIMIT 1;');
+                                        $prep_img->execute([$property->id]);
+                                        $res_img = $prep_img->fetchAll(PDO::FETCH_OBJ);
+
+                                        $x = $db->prepare("SELECT opstina.naziv, tip_nekretnine.tip FROM opstina "
+                                                . "INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id) ON opstina.id = nekretnina.id_opstina "
+                                                . "WHERE nekretnina.id = ?;");
+                                        $x->execute([$property->id]);                                    
+                                        $res_x = $x->fetchAll(PDO::FETCH_OBJ);
+
+                                        $property_address = "";
+                                        if (strlen($property->adresa) > 20) {
+                                            $property_address = substr($property->adresa, 0, 19) . "...";
+                                        } else {
+                                            $property_address = $property->adresa;
+                                        }
+
+                                        echo "<div class='col-sm-6 col-md-4 p0'>\n";
+                                        echo "<div class='box-two proerty-item'>\n";
+                                        echo "<div class='item-thumb'>\n";
+                                        echo "<a href='property_view.php?id=" . $property->id ."'><img src='" . $res_img[0]->putanja_slike . "' onerror='this.src=\"assets/img/default_image.png\";' alt='Slike stana' /></a>\n";
+                                        echo "</div>\n";
+                                        echo "<div class='item-entry overflow'>\n";
+                                        echo "<h5><a href='property_view.php?id=" . $property->id . "'>" . $property_address . "</a></h5>\n";
+                                        echo "<div class='dot-hr'></div>\n";
+                                        echo "<span class='pull-left'><b> Tip nekretnine: </b>" . $res_x[0]->tip . "</span><br />\n";
+                                        echo "<span class='pull-left'><b> Opština: </b>" . $res_x[0]->naziv . "</span><br />\n";
+                                        echo "<div class='list_properties' style='display: none;'>\n";
+                                        echo "<span class='pull-left'><b> Površina: </b>" . $property->povrsina . "<sup>2</sup></span><br />\n";
+                                        echo "<span class='pull-left'><b> Struktura: </b>" . $property->struktura . "</span><br />\n";
+                                        echo "</div>\n";
+                                        echo "<span class='proerty-price pull-left'>" . $property->cena . " €</span>\n";
+                                        echo "<button class='btn btn-danger btn-xs pull-right' style='border-width: 1px;' onclick='if(confirm(\"Da li ste sigurni da želite da obrišete nekretninu iz liste zelja?\")){window.open(\"php/delete_favourite_property.php?id={$property->id}\", \"_self\")};' ><span class='glyphicon glyphicon-trash' data-toggle='tooltip' data-placement='left' title='Izbrisi'></span></button>\n";
+                                        echo "</div>\n";
+                                        echo "</div>\n";
+                                        echo "</div>\n";
                                     }
-
-                                    echo "<div class='col-sm-6 col-md-4 p0'>\n";
-                                    echo "<div class='box-two proerty-item'>\n";
-                                    echo "<div class='item-thumb'>\n";
-                                    echo "<a href='property_view.php?id=" . $property->id ."'><img src='" . $res_img[0]->putanja_slike . "' onerror='this.src=\"assets/img/default_image.png\";' alt='Slike stana' /></a>\n";
-                                    echo "</div>\n";
-                                    echo "<div class='item-entry overflow'>\n";
-                                    echo "<h5><a href='property_view.php?id=" . $property->id . "'>" . $property_address . "</a></h5>\n";
-                                    echo "<div class='dot-hr'></div>\n";
-                                    echo "<span class='pull-left'><b> Tip nekretnine: </b>" . $res_x[0]->tip . "</span><br />\n";
-                                    echo "<span class='pull-left'><b> Opština: </b>" . $res_x[0]->naziv . "</span><br />\n";
-                                    echo "<div class='list_properties' style='display: none;'>\n";
-                                    echo "<span class='pull-left'><b> Površina: </b>" . $property->povrsina . "<sup>2</sup></span><br />\n";
-                                    echo "<span class='pull-left'><b> Struktura: </b>" . $property->struktura . "</span><br />\n";
-                                    echo "</div>\n";
-                                    echo "<span class='proerty-price pull-left'>" . $property->cena . " €</span>\n";
-                                    echo "<button class='btn btn-danger btn-xs pull-right' style='border-width: 1px;' onclick='if(confirm(\"Da li ste sigurni da želite da obrišete nekretninu iz liste zelja?\")){window.open(\"php/delete_favourite_property.php?id={$property->id}\", \"_self\")};' ><span class='glyphicon glyphicon-trash' data-toggle='tooltip' data-placement='left' title='Izbrisi'></span></button>\n";
+                                } else {
+                                    echo "<div class='content-area error-page' style='background-color: #FCFCFC; padding-bottom: 55px;'>\n";
+                                    echo "<div class='text-center page-title'>\n";
+                                    echo "<h2 class='error-title'>Trenutno nemate nekretnina u listi želja</h2>\n";
+                                    echo "<p>Mozete pogledati nasu ponudu <a href='property_list.php'>OVDE</a></p>\n";
                                     echo "</div>\n";
                                     echo "</div>\n";
-                                    echo "</div>\n";
+                                    
                                 }
                                 
-                                ?>                                    
+                                ?>                                                                        
                             </div>
                         </div>
 

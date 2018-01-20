@@ -20,8 +20,7 @@ if (isset($_SESSION['username'])) {
 else if (!isset($_SESSION['user_id'])) {
 
     header("Refresh: 3; url=login.php");
-    echo '<h3>Morate se ulogovati kako bi imali pristup ovoj strani!</h3>';
-    echo '<p>Bićete preusmereni za 3 sekunde!</p>';
+    include_once '404.php';
 
     exit(); // Quit the script.
 }
@@ -61,7 +60,7 @@ else if (!isset($_SESSION['user_id'])) {
         <link rel="stylesheet" href="assets/css/style.css">
         <link rel="stylesheet" href="assets/css/responsive.css">
         <link rel="stylesheet" href="assets/css/nas_stil.css">        
-        <link rel="stylesheet" href="assets/css/customers.css"/>
+        
     </head>
     <body>
 
@@ -181,13 +180,17 @@ else if (!isset($_SESSION['user_id'])) {
                             
                             echo "<tr> \n";
                             echo "<td class='por'>".($br)."</td> \n";
-                            echo "<td><a data-toggle='modal' href='#pic' ><img src='assets/img/profile_blank.jpg' class='img_prifile_xs'></a>&nbsp;&nbsp;".$r->ime."&nbsp;".$r->prezime."</td> \n";
+                            if ($r->putanja_slike != null) {
+                                echo "<td><a data-toggle='modal' href='#pic' ><img src='" . $r->putanja_slike . "' class='img_prifile_xs'></a>&nbsp;&nbsp;".$r->ime."&nbsp;".$r->prezime."</td> \n";
+                            } else {
+                                echo "<td><a data-toggle='modal' href='#pic' ><img src='assets/img/profile_blank.jpg' class='img_prifile_xs'></a>&nbsp;&nbsp;".$r->ime."&nbsp;".$r->prezime."</td> \n";                                
+                            }
                             echo "<td class='por'>".$r->jmbg."</td> \n";
                             echo "<td class='por'>".$r->adresa."</td> \n";
                             echo "<td class='por'>".$r->telefon."</td> \n";
                             echo "<td class='por'>".$r->korisnicko_ime."</td> \n";
                             echo "<td class='por'>".$r->email."</td> \n";
-                            echo "<td class='por'><button class='btn btn-danger btn-xs' style='border-width: 1px;' onclick='window.open(\"php/delete_customer.php?ID={$r->id}\", \"_self\");return confirm(\"Da li ste sigurni da želite da obrišete kupca?\");' ><span class='glyphicon glyphicon-trash'></span></button></td> \n";
+                            echo "<td class='por'><button class='btn btn-danger btn-xs' style='border-width: 1px;' onclick='if(confirm(\"Da li ste sigurni da želite da obrišete kupca?\")){window.open(\"php/delete_customer.php?ID={$r->id}\", \"_self\")};' ><span class='glyphicon glyphicon-trash'></span></button></td> \n";
                             echo "</tr> \n";
                             $br=$br+1;
                             }           
@@ -347,7 +350,7 @@ else if (!isset($_SESSION['user_id'])) {
         </script>
         <script>
             $(document).ready(function() {
-                $('.alert-success').delay(3000).slideUp()();
+                $('.alert-success').delay(3000).slideUp();
             });
         </script>
         <?php

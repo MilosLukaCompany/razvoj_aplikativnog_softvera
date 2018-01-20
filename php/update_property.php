@@ -60,7 +60,7 @@ $prep_update_property = $db->prepare("UPDATE nekretnina SET adresa=?, latitude=?
 $prep_update_property->execute([$address, $latitude, $longitude, $quadrature, $structure, $parking, $heat, $accommodation, $floor, $building_floors, $price, $id]);
 
 if ($prep_update_property) {
-    echo "Uspesno ste izmenili podatke o nekretnini!";
+    echo "<b>Uspesno ste izmenili podatke o nekretnini!</b>";
 } else {
-    echo "Doslo je do greske.";
+    echo "<b>Doslo je do greske.</b>";
 }

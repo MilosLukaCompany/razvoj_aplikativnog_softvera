@@ -163,10 +163,10 @@
                 <div class="row">
                     <div class="col-sm-10 col-sm-offset-1 profiel-container">
 
-                        <form action="php/change_profile.php" method="post">
+                        <form action="php/change_profile.php" method="post" enctype="multipart/form-data">
                             <div class="profiel-header">
                                 <h3>
-                                    <b>IZMENI&nbsp; </b>SVOJ PROFIL  <br>
+                                    <b>PREGLED&nbsp; </b>PROFILA  <br>
                                     <?php
                                     if ($_SESSION['user_type'] === "kupac") {
                                         echo "<small>Navedene informacije se mogu koristiti u svrhe sastavljanja ugovora o kupoprodaji.</small>";
@@ -184,16 +184,29 @@
                             }
                             ?> 
                             <div class="clear">
-                                <div class="col-sm-3 col-sm-offset-1">
+                                <div class="col-sm-4 col-sm-offset-1" style="margin-top: 22px;">
                                     <div class="picture-container">
                                         <div class="picture">
-                                            <img src="assets/img/profile_blank.jpg" class="picture-src" id="wizardPicturePreview" title=""/>
-                                            <input type="file" id="wizard-picture">
+                                            <?php
+                                            if ($res[0]->putanja_slike != null) {
+                                                echo "<img src='" . $res[0]->putanja_slike . "' class='picture-src' id='wizardPicturePreview' title='' alt='profilna slika' />\n";
+                                                echo "<input type='file' name='file' id='wizard-picture' />\n";
+                                            } else {
+                                                echo "<img src='assets/img/profile_blank.jpg' class='picture-src' id='wizardPicturePreview' title='' alt='profilna slika' />\n";
+                                                echo "<input type='file' name='file' id='wizard-picture' />\n";
+                                            }
+                                            ?>
+<!--                                            <img src="assets/img/profile_blank.jpg" class="picture-src" id="wizardPicturePreview" title=""/>
+                                            <input type="file" name="file" id="wizard-picture">-->
                                         </div>
-                                        <label>Podesi profilnu sliku.</label>
-
-
-
+                                        <?php
+                                        if ($res[0]->putanja_slike != null) {
+                                            echo "<label>Promeni profilnu sliku</label>\n";
+                                        } else {
+                                            echo "<label>Postavi profilnu sliku</label>\n";
+                                        }
+                                        ?>
+                                        
                                     </div>
                                 </div>
 
@@ -203,27 +216,34 @@
                                         <label>Ime : <small hidden> (obavezno)</small></label>
                                         <?php echo "<input name='firstname' type='text' class='form-control' value='" . $res[0]->ime . "' readonly>\n"; ?> 
                                     </div>
-
+                                    <div class="form-group">
+                                        <label>JMBG : <small hidden> (obavezno)</small></label>
+                                        <?php echo "<input name='jmbg' type='number' class='form-control' required readonly value='" . $res[0]->jmbg . "'> \n"; ?>
+                                    </div>
+                                    
+                                    <div class="form-group">
+                                        <label>Email : <small hidden> (obavezno)</small></label>
+                                        <?php echo "<input name='email' type='email' class='form-control' required readonly value='" . $res[0]->email . "'> \n"; ?>
+                                    </div> 
+                                    
+                                </div>
+                                <div class="col-sm-3 padding-top-25">
                                     <div class="form-group">
                                         <label>Prezime : <small hidden> (obavezno)</small></label>
                                         <?php echo " <input name='lastname' type='text' class='form-control' required readonly value='" . $res[0]->prezime . "'> \n"; ?>
                                     </div> 
                                     <div class="form-group">
-                                        <label>Email : <small hidden> (obavezno)</small></label>
-                                        <?php echo "<input name='email' type='email' class='form-control' required readonly value='" . $res[0]->email . "'> \n"; ?>
-                                    </div> 
-                                </div>
-                                <div class="col-sm-3 padding-top-25">
-                                    <div id="sifra1" class="form-group sifra">
-                                        <label>Lozinka : <small hidden> (obavezno)</small></label>
-                                        <input name="password" id="password" type="password" class="form-control" required readonly>
+                                        <label>Adresa : </label><small hidden> (obavezno)</small>
+                                        <?php echo "<input name='address' type='text' class='form-control' readonly value='" . $res[0]->adresa . "'> \n"; ?>
                                     </div>
-                                    <div id="sifra2" class="form-group sifra">
-                                        <label>Potvrdi lozinku : <small hidden> (obavezno)</small></label>
-                                        <input type="password" id="confirm_password" class="form-control" required readonly>
-
-                                        <span id='message'></span>
+                                    <div class="form-group">
+                                        <label for="tel">Telefon</label><small hidden> (obavezno)</small>
+                                        <div class="input-group">
+                                            <span class="input-group-addon" style="border-radius: 0;">+381</span>  
+                                            <?php echo "<input name='tel' type='text' class='form-control' readonly value='" . substr($res[0]->telefon, 4) . "'> \n"; ?>                                  
+                                        </div>
                                     </div>
+                                    
                                 </div>  
 
                             </div>
@@ -232,31 +252,29 @@
                                 <br>
 
                                 <br>
-                                <div class="col-sm-5 col-sm-offset-1">
+                                <div class="col-sm-10 col-sm-offset-1">
                                     <div class="form-group">
                                         <label>Korisničko ime : <small hidden> (obavezno)</small></label>
                                         <?php echo "<input name='username' type='text' class='form-control' required readonly value='" . $res[0]->korisnicko_ime . "'> \n"; ?>
                                     </div>
-                                    <div class="form-group">
-                                        <label>JMBG : <small hidden> (obavezno)</small></label>
-                                        <?php echo "<input name='jmbg' type='number' class='form-control' required readonly value='" . $res[0]->jmbg . "'> \n"; ?>
-                                    </div>
+                                    
+                                </div>
+                                <div class="col-sm-5 col-sm-offset-1">
+                                    
 
+                                    <div id="sifra1" class="form-group sifra">
+                                        <label>Lozinka : <small hidden> (obavezno)</small></label>
+                                        <input name="password" id="password" type="password" class="form-control" required readonly>
+                                    </div>
                                 </div>  
 
                                 <div class="col-sm-5">
-                                    <div class="form-group">
-                                        <label>Telefon : </label>
-                                        <!-- <div class="input-group">
-                                         <span class="input-group-addon" style="border-radius: 0;">+381</span> -->
+                                    <div id="sifra2" class="form-group sifra">
+                                        <label>Potvrdi lozinku : <small hidden> (obavezno)</small></label>
+                                        <input type="password" id="confirm_password" class="form-control" required readonly>
 
-                                        <?php echo "<input name='tel' type='text' class='form-control' readonly value='" . $res[0]->telefon . "'> \n"; ?>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Adresa : </label>
-                                        <?php echo "<input name='address' type='text' class='form-control' readonly value='" . $res[0]->adresa . "'> \n"; ?>
-                                    </div>
+                                        <span id='message'></span>
+                                    </div>                                                                                                            
 
                                 </div>
 

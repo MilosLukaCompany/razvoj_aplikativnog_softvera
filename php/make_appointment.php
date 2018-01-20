@@ -8,7 +8,7 @@ $prep = $db->prepare("INSERT INTO gledanje_nekretnine (vreme, id_kupac, id_nekre
 $prep->execute([$date, $user_id, $property_id]);
 
 if ($prep) {
-    echo "Uspesno ste zakazali termin za datum: " . $date . ".<br />\n";
-    echo "Bicete naknadno kontaktirani putem telefona.<br />\n";
-    echo "Hvala na poverenju!\n";
+    echo "<b>Uspesno ste zakazali termin za datum: " . $date . ".</b><br />\n";
+    echo "<b>Bicete naknadno kontaktirani putem telefona.</b><br />\n";
+    echo "<b>Hvala na poverenju!</b>\n";
 }
