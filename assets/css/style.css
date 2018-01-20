@@ -709,7 +709,7 @@ label small{
 .navbar-default .navbar-nav > li > a.active:after{
 
     background-color: #FDC600;
-    bottom: -24px;
+    bottom: -25px;
     content: "";
     height: 5px;
     left: 0;
@@ -719,7 +719,7 @@ label small{
 }
 .navbar-default .navbar-nav > li > a::after {
     background-color: #FDC600;
-    bottom: -24px;
+    bottom: -25px;
     content: "";
     height: 5px;
     left: 0;

@@ -88,7 +88,7 @@
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse yamm" id="navigation">
+                <div class="collapse navbar-collapse yamm" id="navigation" style="background-color: #fff;">
                     <div class="button navbar-right">
                         <?php
                         if (!isset($_SESSION['username'])) {
@@ -118,7 +118,7 @@
                                 <?php
                             } else if ($_SESSION['user_type'] === "agent") {
                                 ?>
-                                <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointment.php">Termini gledanja</a></li>
+                                <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointments.php">Termini gledanja</a></li>
                                 <li class="wow fadeInDown dropdown ymm-sw " data-wow-delay="0.6s">
                                     <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Opcije <b class="caret"></b></a>
                                     <ul class="dropdown-menu navbar-nav">
@@ -150,7 +150,7 @@
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
-                        <h1 class="page-title">Početna / Izmeni profil</h1>               
+                        <h1 class="page-title">Početna / <span class="orange strong"><?php echo $res[0]->ime . " " . $res[0]->prezime ?></span></h1>               
                     </div>
                 </div>
             </div>
@@ -169,7 +169,7 @@
                                     <b>PREGLED&nbsp; </b>PROFILA  <br>
                                     <?php
                                     if ($_SESSION['user_type'] === "kupac") {
-                                        echo "<small>Navedene informacije se mogu koristiti u svrhe sastavljanja ugovora o kupoprodaji.</small>";
+                                        echo "<small>Navedene informacije se mogu koristiti u svrhe sastavljanja ugovora o kupoprodaji</small>";
                                     }
                                     ?>
                                 </h3>   
@@ -183,8 +183,15 @@
                                 echo "</div>\n";
                             }
                             ?> 
+                            <?php
+                            if (isset($_GET["msg"]) && $_GET["msg"] == 'not_pic') {
+                                echo "<div id='not_pic' class='alert alert-danger' role='alert' style='margin:10px 30px;'>\n";
+                                echo "<span class='danger'>Slika morabiti u .jpg / .png / .gif formatu<br />\n";
+                                echo "</div>\n";
+                            }
+                            ?> 
                             <div class="clear">
-                                <div class="col-sm-4 col-sm-offset-1" style="margin-top: 22px;">
+                                <div class="col-md-4 col-md-offset-1" style="margin-top: 22px;">
                                     <div class="picture-container">
                                         <div class="picture">
                                             <?php
@@ -210,7 +217,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-sm-3 padding-top-25">
+                                <div class="col-md-3 padding-top-25">
 
                                     <div class="form-group">
                                         <label>Ime : <small hidden> (obavezno)</small></label>
@@ -227,7 +234,7 @@
                                     </div> 
                                     
                                 </div>
-                                <div class="col-sm-3 padding-top-25">
+                                <div class="col-md-3 padding-top-25">
                                     <div class="form-group">
                                         <label>Prezime : <small hidden> (obavezno)</small></label>
                                         <?php echo " <input name='lastname' type='text' class='form-control' required readonly value='" . $res[0]->prezime . "'> \n"; ?>

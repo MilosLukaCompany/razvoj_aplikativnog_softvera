@@ -58,7 +58,7 @@ session_start();
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse yamm" id="navigation">
+                <div class="collapse navbar-collapse yamm" id="navigation" style="background-color: #fff;">
                     <div class="button navbar-right">
 
                         <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('php/logout.php', '_self');" data-wow-delay="0.48s">Izloguj se</button>
@@ -68,7 +68,7 @@ session_start();
 
                         <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="navbar_link" href="index.php">Početna</a></li>
                         <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="property_list.php">Nekretnine</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointment.php">Termini gledanja</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointments.php">Termini gledanja</a></li>
                         <li class="wow fadeInDown dropdown ymm-sw " data-wow-delay="0.6s">
                             <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Opcije <b class="caret"></b></a>
                             <ul class="dropdown-menu navbar-nav">
@@ -108,6 +108,13 @@ session_start();
                             if (isset($_GET["msg"]) && $_GET["msg"] == 'property_has_been_successfully_added') {
                                 echo "<div class='alert alert-success' role='alert'>\n";
                                 echo "<span class='success'>Uspesno ste dodali novu nekretninu!<br />\n";
+                                echo "</div>\n";
+                            }
+                            ?>
+                            <?php
+                            if (isset($_GET["msg"]) && $_GET["msg"] == 'not_pic') {
+                                echo "<div id='not_pic' class='alert alert-danger' role='alert' style='margin:10px 30px;'>\n";
+                                echo "<span class='danger'>Slika mora biti u .jpg / .png / .gif formatu<br />\n";
                                 echo "</div>\n";
                             }
                             ?> 
@@ -224,6 +231,7 @@ session_start();
                                         <span id="add_pic_input" class="glyphicon glyphicon-plus" style="margin-left: 10px; cursor: pointer; color: #FDC600" data-toggle="tooltip" data-placement="top" title="Dodaj polje za unos slike"></span>
                                         <input class="form-control-file" type="file" name="file[]">
                                     </div>
+                                        <span class="help-block">Klknite na plus ukoliko zelite da upload-ujete više slika</span>
                                     <div class="form-group">                                                               
                                         <div class="text-center">
                                             <button type="submit" name="submit" class="btn btn-default btn-block">Unesi <span class="glyphicon glyphicon-home" aria-hidden="true"> </button>
@@ -325,6 +333,9 @@ session_start();
         <script>
             $(document).ready(function() {
                 $('.alert-success').delay(3000).slideUp();
+            });
+            $(document).ready(function() {
+                $('#not_pic').delay(3500).slideUp();
             });
         </script>
 

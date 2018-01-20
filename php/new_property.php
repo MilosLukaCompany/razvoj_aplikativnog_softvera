@@ -61,10 +61,7 @@ if (isset($_POST['submit'])) {
     $res = $prep->fetchAll(PDO::FETCH_OBJ);
     
     $curdir = getcwd();
-    mkdir($curdir . "/../assets/img/property_images/" . $res[0]->AUTO_INCREMENT, 0777);
-
-    $prep2 = $db->prepare('INSERT INTO nekretnina (adresa, latitude, longitude, povrsina, struktura, parking, grejanje, namestenost, sprat, spratnost, cena, id_opstina, id_tip_nekretnine) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);');
-    $prep2->execute([$address, $latitude, $longitude, $quadrature, $structure, $parking, $heat, $accommodation, $floor, $building_floors, $price, $municipalities, $property_type]);
+    mkdir($curdir . "/../assets/img/property_images/" . $res[0]->AUTO_INCREMENT, 0777);   
     
     for ($i = 0; $i < count($_FILES["file"]["name"]); $i++) {
         $file_tmp = $_FILES["file"]["tmp_name"][$i];
@@ -72,11 +69,22 @@ if (isset($_POST['submit'])) {
         $file_type = $_FILES["file"]["type"][$i];
         $file_path = "assets/img/property_images/" . $res[0]->AUTO_INCREMENT . "/" . $file_name;
         
-        move_uploaded_file($file_tmp, "C:/xampp/htdocs/razvoj_aplikativnog_softvera/assets/img/property_images/" . $res[0]->AUTO_INCREMENT . "/" . $file_name);            
+        $exploded_file_name = explode(".", $file_name);
+        $file_ext = end($exploded_file_name);
+
+        if (!preg_match("/\.(gif|jpg|png)$/i", $file_name)) {
+            die (header('Location: ../agent_new_property.php?msg=not_pic'));
+            break 2;
+        }
+        
+        move_uploaded_file($file_tmp, "../assets/img/property_images/" . $res[0]->AUTO_INCREMENT . "/" . $file_name);            
                                 
         $prep3 = $db->prepare('INSERT INTO slika (id_nekretnina, ime_slike, putanja_slike, tip_slike) VALUES (?, ?, ?, ?);');
         $prep3->execute([$res[0]->AUTO_INCREMENT, $file_name, $file_path, $file_type]);        
     }
+    
+    $prep2 = $db->prepare('INSERT INTO nekretnina (adresa, latitude, longitude, povrsina, struktura, parking, grejanje, namestenost, sprat, spratnost, cena, id_opstina, id_tip_nekretnine) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);');
+    $prep2->execute([$address, $latitude, $longitude, $quadrature, $structure, $parking, $heat, $accommodation, $floor, $building_floors, $price, $municipalities, $property_type]);
 
     die (header('Location: ../agent_new_property.php?msg=property_has_been_successfully_added'));
 }

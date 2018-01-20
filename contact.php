@@ -56,7 +56,7 @@
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse yamm" id="navigation">
+                <div class="collapse navbar-collapse yamm" id="navigation" style="background-color: #fff;">
                     <div class="button navbar-right">
                         <?php
                         session_start();

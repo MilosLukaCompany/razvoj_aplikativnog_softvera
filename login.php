@@ -41,7 +41,7 @@
         </div>
         <!-- Body content -->
 
-        <nav class="navbar navbar-default">
+        <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -55,7 +55,7 @@
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse yamm" id="navigation">
+                <div class="collapse navbar-collapse yamm" id="navigation" style="background-color: #fff;">
                     <div class="button navbar-right">
                         
                         <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('register.php', '_self');" data-wow-delay="0.48s">Registruj se</button>
@@ -71,7 +71,7 @@
               
         <!-- End of nav bar -->
 
-        <div class="page-head"> 
+        <div class="page-head" style="margin-top: 99px;"> 
             <div class="container">
                 <div class="row">
                     <div class="page-head-content">
@@ -94,7 +94,7 @@
                             if (isset($_GET["msg"]) && $_GET["msg"] == 'failed') {
                                 echo "<div class='alert alert-danger' role='alert'>\n";
                                 echo "<span class='warning'><b>Greška!</b> Korisničko ime ili šifra su neispravni.</span><br />\n";
-                                echo "<a class='alert-link' href='#'>Zaboravljena lozinka?</a>\n";
+                                echo "<a class='alert-link' href='forgot_password.php' style='text-decoration: underline;'>Zaboravljena lozinka?</a>\n";
                                 echo "</div>\n";
                             }
                             ?>

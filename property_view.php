@@ -58,7 +58,7 @@
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse yamm" id="navigation">
+                <div class="collapse navbar-collapse yamm" id="navigation" style="background-color: #fff;">
                     <div class="button navbar-right">
                         <?php
                         session_start();
@@ -84,11 +84,12 @@
                         if (isset($_SESSION['username'])) {
                             if ($_SESSION['user_type'] === "kupac") {
                                 ?>                        
-                                <li class="wow fadeInDown" data-wow-delay="0.6s" style="font-family: 'Open Sans', sans-serif;"><a class="" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
+                                <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="navbar_link" href="favourites.php">Lista želja</a></li>
+                                <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
                                 <?php
                             } else if ($_SESSION['user_type'] === "agent") {
                                 ?>
-                                <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointment.php">Termini gledanja</a></li>
+                                <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointments.php">Termini gledanja</a></li>
                                 <li class="wow fadeInDown dropdown ymm-sw " data-wow-delay="0.6s">
                                     <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Opcije <b class="caret"></b></a>
                                     <ul class="dropdown-menu navbar-nav">
@@ -96,10 +97,10 @@
                                             <a class="navbar_link" href="agent_new_property.php">Dodaj nekretninu</a>
                                         </li>                                
                                         <li>
-                                            <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
+                                            <a class="navbar_link" href="customers.php">Lista kupaca</a>
                                         </li>
                                         <li>
-                                            <a class="navbar_link" href="customers.php">Lista kupaca</a>
+                                            <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
                                         </li>
                                     </ul>
                                 </li>

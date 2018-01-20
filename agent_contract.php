@@ -84,7 +84,7 @@ else if (!isset($_SESSION['user_id'])) {
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse yamm" id="navigation">
+                <div class="collapse navbar-collapse yamm" id="navigation" style="background-color: #fff;">
                     <div class="button navbar-right">
 
                         <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('php/logout.php', '_self');" data-wow-delay="0.48s">Izloguj se</button>
@@ -93,8 +93,8 @@ else if (!isset($_SESSION['user_id'])) {
                     <ul class="main-nav nav navbar-nav navbar-right">
 
                         <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="navbar_link" href="index.php">Početna</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="properties.php">Nekretnine</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointment.php">Termini gledanja</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="property_list.php">Nekretnine</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointments.php">Termini gledanja</a></li>
                         <li class="wow fadeInDown dropdown ymm-sw " data-wow-delay="0.6s">
                             <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Opcije <b class="caret"></b></a>
                             <ul class="dropdown-menu navbar-nav">
@@ -128,8 +128,22 @@ else if (!isset($_SESSION['user_id'])) {
                 </div>
             </div>
         </div>
-        <div class="content-area user-profiel" style="background-color: #fff;">&nbsp;
+        <div class="content-area user-profiel" style="background-color: #fff; padding-bottom: 150px;">&nbsp;
             <div class="container">
+                <?php
+                if (isset($_GET["msg"]) && $_GET["msg"] == 'not_pdf') {
+                    echo "<div class='alert alert-danger' role='alert' style='margin:10px 30px;'>\n";
+                    echo "<span class='danger'>Prilozeni ugovor mora biti u .pdf formatu<br />\n";
+                    echo "</div>\n";
+                }
+                ?> 
+                <?php
+                if (isset($_GET["msg"]) && $_GET["msg"] == 'no_file_included') {
+                    echo "<div class='alert alert-danger' role='alert' style='margin:10px 30px;'>\n";
+                    echo "<span class='danger'>Morate priloziti ugovor u formu<br />\n";
+                    echo "</div>\n";
+                }
+                ?> 
                 <div class="row">
                     <div class="col-md-2">
 
@@ -139,9 +153,7 @@ else if (!isset($_SESSION['user_id'])) {
 
                     </div>
                     <div class="col-md-2">
-                        <a href="assets/img/tf-4-er.pdf" class="btn btn-default btn_table"><span class="glyphicon glyphicon-file"></span> Novi igovor</a>
-
-
+                        <button class="btn btn-default btn_table" data-toggle="modal" data-target="#new_contract_modal"><span class="glyphicon glyphicon-file"></span> Novi igovor</button>
                     </div>
                     <?php
                     if (isset($_GET["msg"]) && $_GET["msg"] == 'add_success') {
@@ -196,7 +208,7 @@ else if (!isset($_SESSION['user_id'])) {
                                 echo "<td>{$r->cena}</td> \n";
                                 echo "<td>{$r->ime}&nbsp;{$r->prezime}</td> \n";
                                 echo "<td>{$r->datum}</td> \n";
-                                echo "<td><a href='{$r->putanja_ugovora}' target='_blank' style='font-weight: normal;color: #73B1FC;'><span style='color:#000;'class='glyphicon glyphicon-file'></span>&nbsp; Pogledaj ugovor</a></td> \n";
+                                echo "<td><a href='{$r->putanja_ugovora}' target='_blank' style='font-weight: normal;color: #73B1FC;' download><span style='color:#000;'class='glyphicon glyphicon-download-alt'></span>&nbsp; Pogledaj ugovor</a></td> \n";
                            echo "</tr> \n";
                            $br=$br+1;
         
@@ -207,11 +219,92 @@ else if (!isset($_SESSION['user_id'])) {
                 </div>
             </div>
 
-        </div>
-
+        </div>                
         <!-- end of content-->
+        
         <!--modal-->
+        <div class="modal fade" id="new_contract_modal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="border-bottom: 1px solid #e5e5e5">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 id="contract_modal_title" class="modal-title text-center" style="color: orange;">Novi ugovor</h4>                        
+                    </div>
+                    <div class="modal-body" id="contract_modal_body" style="border: none;">
+                        <div class="col-md-12 col-xs-12 register-blocks">
 
+                            <form action="php/new_contract.php" method="POST" id="new_contract_form" enctype="multipart/form-data">
+                                <input type="hidden" name="id" <?php echo "value='" . $res[0]->id . "'"; ?> />
+                                <div class="col-md-12" id="new_property_form">                                                                        
+                                    
+                                    <div class="form-group">
+                                        <label>Ime i prezime kupca</label>
+                                        <br>
+                                        <select class="form-control selectpicker show-tick" name="user_id"  title="Kupac" data-live-search="true" data-live-search-style="begins" required>                                            
+                                            <?php                                            
+                                            $prep_user = $db->prepare('SELECT * FROM kupac ORDER BY prezime ASC;');
+                                            $prep_user->execute();
+                                            $res_user = $prep_user->fetchAll(PDO::FETCH_OBJ);                                                                                        
+                                            
+                                            foreach ($res_user as $user) {
+                                                echo "<option value='" . $user->id . "'>" . $user->ime . " " . $user->prezime . "</option>\n";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Nekretnina</label>
+                                        <br>
+                                        <select class="form-control selectpicker show-tick" name="property_id" title="Nekretnina" data-live-search="true" data-live-search-style="begins" required>
+                                            <?php                                            
+                                            $prep_property = $db->prepare('SELECT nekretnina.id, nekretnina.adresa, opstina.naziv, tip_nekretnine.tip FROM '
+                                                    . 'opstina INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id) ON opstina.id = nekretnina.id_opstina ORDER BY tip_nekretnine.tip DESC;');
+                                            $prep_property->execute();
+                                            $res_property = $prep_property->fetchAll(PDO::FETCH_OBJ);                                                                                        
+                                            
+                                            foreach ($res_property as $property) {
+                                                echo "<option value='" . $property->id . "'>" . $property->tip . ", " . $property->adresa . ", " . $property->naziv . "</option>\n";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>
+                                                                       
+                                    <div class="form-group">
+                                        <label>Ime i prezime agenta</label>
+                                        <br>
+                                        <select class="form-control selectpicker show-tick" name="agent_id"  title="Agent" data-live-search="true" data-live-search-style="begins" required>                                            
+                                            <?php                                            
+                                            $prep_agent= $db->prepare('SELECT * FROM agent ORDER BY prezime ASC;');
+                                            $prep_agent->execute();
+                                            $res_agent = $prep_agent->fetchAll(PDO::FETCH_OBJ);                                                                                        
+                                            
+                                            foreach ($res_agent as $agent) {
+                                                echo "<option value='" . $agent->id . "'>" . $agent->ime . " " . $agent->prezime . "</option>\n";
+                                            }
+                                            ?>
+                                        </select>
+                                    </div>                                                                                                                                                                                           
+                                    <div class="form-group" id="parking">
+                                        <label>Datum</label>
+                                        <br>
+                                        <input class="form-control" type="date" name="date" /> 
+                                    </div>
+                                    
+                                    <div class="form-group" id="multiple_pics_div" style="margin-top: 15px;">
+                                        <label for="property-images">Ugovor</label>                                        
+                                        <input class="form-control-file" type="file" name="file" required />
+                                    </div>
+                                </div>                                
+                            </form>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Nazad</button>
+                        <button type="submit" name="submit" id="subtmit_new_contract_modal" class="btn btn-default">Potvrdi <span class="glyphicon glyphicon-file" aria-hidden="true"></span></button>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <!-- Footer area-->
         <div class="footer-area">
@@ -238,7 +331,7 @@ else if (!isset($_SESSION['user_id'])) {
                                 <div class="footer-title-line"></div>
                                 <ul class="footer-menu">
                                     <li><a href="index.php">Početna</a>  </li>
-                                    <li><a href="properties.php">Nekretnine</a>  </li> 
+                                    <li><a href="property_list.php">Nekretnine</a>  </li> 
                                     <li><a href="contact.php">Kontakt </a></li> 
                                 </ul>
                             </div>
@@ -259,8 +352,6 @@ else if (!isset($_SESSION['user_id'])) {
                                     </div>
                                     <!-- /input-group -->
                                 </form> 
-
-
                             </div>
                         </div>
 
@@ -300,23 +391,23 @@ else if (!isset($_SESSION['user_id'])) {
         <script src="assets/js/main.js"></script>
         <script src="assets/js/navbar.js" type="text/javascript"></script>
         <script>
-                            function myFunction() {
-                                var input, filter, table, tr, td, i;
-                                input = document.getElementById("pretrazi_kupca");
-                                filter = input.value.toUpperCase();
-                                table = document.getElementById("tabela_kupci");
-                                tr = table.getElementsByTagName("tr");
-                                for (i = 0; i < tr.length; i++) {
-                                    td = tr[i].getElementsByTagName("td")[1];
-                                    if (td) {
-                                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                                            tr[i].style.display = "";
-                                        } else {
-                                            tr[i].style.display = "none";
-                                        }
-                                    }
-                                }
-                            }
+            function myFunction() {
+                var input, filter, table, tr, td, i;
+                input = document.getElementById("pretrazi_kupca");
+                filter = input.value.toUpperCase();
+                table = document.getElementById("tabela_kupci");
+                tr = table.getElementsByTagName("tr");
+                for (i = 0; i < tr.length; i++) {
+                    td = tr[i].getElementsByTagName("td")[3];
+                    if (td) {
+                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                            tr[i].style.display = "";
+                        } else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+            }
         </script>
         <script>
             $(document).ready(function () {
@@ -330,7 +421,38 @@ else if (!isset($_SESSION['user_id'])) {
             echo "</script>";
         }
         ?>
-
+        <script>
+            $(document).ready(function() {
+                $('.alert-danger').delay(3500).slideUp();
+                $('#new_contract_form').on("submit", function() {
+//                    var post_data = new FormData;
+//                    post_data.append('file', file);                    
+//                    post_data.append('other_data', 'foo bar');                    
+                    var form_url = $(this).attr("action");
+                    
+                    $.ajax({
+                        url: form_url,
+                        type: "POST",
+                        data: new FormData(this),
+                        contentType: false,
+                        processData: false,                        
+                        success: function(data, textStatus, jqXHR) {
+                            $('#contract_modal_title').html("Rezultat");
+                            $('#contract_modal_body').html(data);
+                            $('#subtmit_new_contract_modal').remove();
+                        },
+                        error: function(jqXHR, status, error) {
+                            console.log(status + ": " + error);
+                        }
+                    });
+                    e.preventDefault();
+                });
+                
+                $('#subtmit_new_contract_modal').on("click", function() {                    
+                    $('#new_contract_form').submit();
+                });
+            });
+        </script>
 
     </body>
 </html>    

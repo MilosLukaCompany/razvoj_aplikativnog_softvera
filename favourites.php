@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse yamm" id="navigation">
+                <div class="collapse navbar-collapse yamm" id="navigation" style="background-color: #fff;">
                     <div class="button navbar-right">
                         <?php
                         session_start();
@@ -88,7 +88,7 @@
                                 <?php
                             } else if ($_SESSION['user_type'] === "agent") {
                                 ?>
-                                <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointment.php">Termini gledanja</a></li>
+                                <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointments.php">Termini gledanja</a></li>
                                 <li class="wow fadeInDown dropdown ymm-sw " data-wow-delay="0.6s">
                                     <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Opcije <b class="caret"></b></a>
                                     <ul class="dropdown-menu navbar-nav">
@@ -251,7 +251,7 @@
                                     echo "<div class='content-area error-page' style='background-color: #FCFCFC; padding-bottom: 55px;'>\n";
                                     echo "<div class='text-center page-title'>\n";
                                     echo "<h2 class='error-title'>Trenutno nemate nekretnina u listi želja</h2>\n";
-                                    echo "<p>Mozete pogledati nasu ponudu <a href='property_list.php'>OVDE</a></p>\n";
+                                    echo "<p>Mozete pogledati kompletnu ponudu <a href='property_list.php'>OVDE</a></p>\n";
                                     echo "</div>\n";
                                     echo "</div>\n";
                                     

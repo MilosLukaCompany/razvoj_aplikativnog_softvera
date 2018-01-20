@@ -293,6 +293,19 @@
 
 
 @media (min-width: 480px) and (max-width: 767px){
+    
+    button.navbar-toggle {
+        margin-top: 20px;
+    }
+    
+    #big_logo {
+        margin-top: 15px;
+    }
+    
+    #small_logo_pic {
+        width: 40px;
+        height: 40px;
+    }
 
     .welcome_text .page-title h2 {
         color: #9B9B9B;
@@ -567,6 +580,15 @@
 }
 
 @media (min-width: 768px) and (max-width: 979px){
+    
+    #small_logo_pic {
+        width: 40px;
+        height: 40px;
+    }
+    
+    #big_logo {
+        margin-top: 10px;
+    }
 
     .header-call p span {
         margin-right: 10px;
@@ -580,9 +602,6 @@
     }
     .header-social ul li a {
         font-size: 12px;
-    }
-    .navbar {
-        min-height: 85px;
     }
     .navbar-brand img {
         width: 110px;

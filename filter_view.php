@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse yamm" id="navigation">
+                <div class="collapse navbar-collapse yamm" id="navigation" style="background-color: #fff;">
                     <div class="button navbar-right">
                         <?php
                         session_start();
@@ -87,7 +87,7 @@
                                 <?php
                             } else if ($_SESSION['user_type'] === "agent") {
                                 ?>
-                                <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointment.php">Termini gledanja</a></li>
+                                <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointments.php">Termini gledanja</a></li>
                                 <li class="wow fadeInDown dropdown ymm-sw " data-wow-delay="0.6s">
                                     <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Opcije <b class="caret"></b></a>
                                     <ul class="dropdown-menu navbar-nav">
@@ -95,10 +95,10 @@
                                             <a class="navbar_link" href="agent_new_property.php">Dodaj nekretninu</a>
                                         </li>                                
                                         <li>
-                                            <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
+                                            <a class="navbar_link" href="customers.php">Lista kupaca</a>
                                         </li>
                                         <li>
-                                            <a class="navbar_link" href="customers.php">Lista kupaca</a>
+                                            <a class="navbar_link" href="agent_contract.php">Novi ugovor</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -694,39 +694,49 @@
                                         
                                         $prep_filter_2 = $db->prepare($query);
                                         $prep_filter_2->execute([$start_limit, $items_per_page]);
-                                        $res_filter_2 = $prep_filter_2->fetchAll(PDO::FETCH_OBJ);
                                         
-                                        foreach ($res_filter_2 as $property) {
-                                            $prep_img = $db->prepare('SELECT putanja_slike FROM slika WHERE id_nekretnina = ? LIMIT 1;');
-                                            $prep_img->execute([$property->id]);
-                                            $res_img = $prep_img->fetchAll(PDO::FETCH_OBJ);
+                                        if ($prep_filter_2->rowCount() > 0) {
+                                            $res_filter_2 = $prep_filter_2->fetchAll(PDO::FETCH_OBJ);
+                                            
+                                            foreach ($res_filter_2 as $property) {
+                                                $prep_img = $db->prepare('SELECT putanja_slike FROM slika WHERE id_nekretnina = ? LIMIT 1;');
+                                                $prep_img->execute([$property->id]);
+                                                $res_img = $prep_img->fetchAll(PDO::FETCH_OBJ);
 
-                                            $property_address = "";
-                                            if (strlen($property->adresa) > 20) {
-                                                $property_address = substr($property->adresa, 0, 19) . "...";
-                                            } else {
-                                                $property_address = $property->adresa;
-                                            }
+                                                $property_address = "";
+                                                if (strlen($property->adresa) > 20) {
+                                                    $property_address = substr($property->adresa, 0, 19) . "...";
+                                                } else {
+                                                    $property_address = $property->adresa;
+                                                }
 
-                                            echo "<div class='col-sm-6 col-md-4 p0'>\n";
-                                            echo "<div class='box-two proerty-item'>\n";
-                                            echo "<div class='item-thumb'>\n";
-                                            echo "<a href='property_view.php?id=" . $property->id ."'><img src='" . $res_img[0]->putanja_slike . "' /></a>\n";
+                                                echo "<div class='col-sm-6 col-md-4 p0'>\n";
+                                                echo "<div class='box-two proerty-item'>\n";
+                                                echo "<div class='item-thumb'>\n";
+                                                echo "<a href='property_view.php?id=" . $property->id ."'><img src='" . $res_img[0]->putanja_slike . "' onerror='this.src=\"assets/img/default_image.png\";' alt='Slike stana' /></a>\n";
+                                                echo "</div>\n";
+                                                echo "<div class='item-entry overflow'>\n";
+                                                echo "<h5><a href='property_view.php?id=" . $property->id . "'>" . $property_address . "</a></h5>\n";
+                                                echo "<div class='dot-hr'></div>\n";
+                                                echo "<span class='pull-left'><b> Tip nekretnine: </b>" . $property->tip . "</span><br />\n";
+                                                echo "<span class='pull-left'><b> Opština: </b>" . $property->naziv . "</span><br />\n";
+                                                echo "<div class='list_properties' style='display: none;'>\n";
+                                                echo "<span class='pull-left'><b> Površina: </b>" . $property->povrsina . "<sup>2</sup></span><br />\n";
+                                                echo "<span class='pull-left'><b> Struktura: </b>" . $property->struktura . "</span><br />\n";
+                                                echo "</div>\n";
+                                                echo "<span class='proerty-price pull-left'>" . $property->cena . " €</span>\n";
+                                                echo "</div>\n";
+                                                echo "</div>\n";
+                                                echo "</div>\n";
+                                            }        
+                                        } else {
+                                            echo "<div class='content-area error-page' style='background-color: #FCFCFC; padding-bottom: 55px;'>\n";
+                                            echo "<div class='text-center page-title'>\n";
+                                            echo "<h2 class='error-title'>Na žalost u našoj bazi nemamo nekretnina koji odgovaraju datim kriterijumima</h2>\n";
+                                            echo "<p>Mozete pogledati kompletnu ponudu <a href='property_list.php'>OVDE</a></p>\n";
                                             echo "</div>\n";
-                                            echo "<div class='item-entry overflow'>\n";
-                                            echo "<h5><a href='property_view.php?id=" . $property->id . "'>" . $property_address . "</a></h5>\n";
-                                            echo "<div class='dot-hr'></div>\n";
-                                            echo "<span class='pull-left'><b> Tip nekretnine: </b>" . $property->tip . "</span><br />\n";
-                                            echo "<span class='pull-left'><b> Opština: </b>" . $property->naziv . "</span><br />\n";
-                                            echo "<div class='list_properties' style='display: none;'>\n";
-                                            echo "<span class='pull-left'><b> Površina: </b>" . $property->povrsina . "<sup>2</sup></span><br />\n";
-                                            echo "<span class='pull-left'><b> Struktura: </b>" . $property->struktura . "</span><br />\n";
                                             echo "</div>\n";
-                                            echo "<span class='proerty-price pull-left'>" . $property->cena . " €</span>\n";
-                                            echo "</div>\n";
-                                            echo "</div>\n";
-                                            echo "</div>\n";
-                                        }                                        
+                                        }
                                     } 
                                 }
                                 ?>                                    

@@ -196,3 +196,7 @@ a .link_table{
     color: #000;
     
 }
+
+table {
+    margin-bottom: 0px !important;    
+}
