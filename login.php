@@ -104,6 +104,13 @@
                                 echo "<span class='success'>Uspesno ste se registrovali!</span><br />\n";
                                 echo "</div>\n";
                             }
+                            ?>
+                            <?php
+                            if (isset($_GET["msg"]) && $_GET["msg"] == 'pass_email_sent') {
+                                echo "<div class='alert alert-success' role='alert'>\n";
+                                echo "<span class='success'>Proverite Vaš inbox, poruka sa vašim podacima vam je poslata na e-mail<br />\n";
+                                echo "</div>\n";
+                            }                        
                             ?> 
                             <h2>Uloguj se : </h2> 
                             <form action="php/login_user.php" method="POST">
@@ -221,7 +228,7 @@
         <script src="assets/js/main.js"></script>
         <script>
             $(document).ready(function() {
-                $('.alert-success').delay(3000).slideUp();
+                $('.alert-success').delay(4000).slideUp();
             });
         </script>
 

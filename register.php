@@ -98,9 +98,9 @@
                                 echo "<span class='warning'>Korisničko ime je več zauzeto. Probajte ponovo sa drugim korisnčkim imenom.</span><br />\n";                                
                                 echo "</div>\n";
                             }
-                            ?>
+                            ?>                            
                             <h2>Registruj se : </h2> 
-                            <form action="php/register_user.php" method="post" onsubmit="return check_fields()">
+                            <form action="php/register_user.php" method="post">
                                 <div class="form-group">
                                     <label for="name">Ime</label>
                                     <input type="text" class="form-control" id="name" name="name" required>
