@@ -144,6 +144,13 @@ else if (!isset($_SESSION['user_id'])) {
                     echo "</div>\n";
                 }
                 ?> 
+                <?php
+                if (isset($_GET["msg"]) && $_GET["msg"] == 'success') {
+                    echo "<div class='alert alert-success' role='alert' style='margin:10px 30px;'>\n";
+                    echo "<span class='danger'>Ugovor je kreiran!<br />\n";
+                    echo "</div>\n";
+                }
+                ?> 
                 <div class="row">
                     <div class="col-md-2">
 
@@ -197,7 +204,7 @@ else if (!isset($_SESSION['user_id'])) {
                             <?php
                             require 'php/database_connection.php';
                             
-                            $prep = $db->prepare('SELECT ugovor.datum, ugovor.putanja_ugovora, nekretnina.id, nekretnina.cena, kupac.ime, kupac.prezime FROM agent INNER JOIN ((ugovor INNER JOIN kupac ON ugovor.id_kupac = kupac.id) INNER JOIN nekretnina ON ugovor.id_nekretnina = nekretnina.id) ON agent.id = ugovor.id_agent WHERE agent.korisnicko_ime = ?');
+                            $prep = $db->prepare('SELECT ugovor.id, ugovor.datum, ugovor.putanja_ugovora, nekretnina.id, nekretnina.cena, kupac.ime, kupac.prezime FROM agent INNER JOIN ((ugovor INNER JOIN kupac ON ugovor.id_kupac = kupac.id) INNER JOIN nekretnina ON ugovor.id_nekretnina = nekretnina.id) ON agent.id = ugovor.id_agent WHERE agent.korisnicko_ime = ? ORDER BY ugovor.id ASC;');
                             $prep->execute([$_SESSION['username']]);
                             $res = $prep->fetchAll(PDO::FETCH_OBJ);
                             $br = 1;
@@ -208,7 +215,7 @@ else if (!isset($_SESSION['user_id'])) {
                                 echo "<td>{$r->cena}</td> \n";
                                 echo "<td>{$r->ime}&nbsp;{$r->prezime}</td> \n";
                                 echo "<td>{$r->datum}</td> \n";
-                                echo "<td><a href='{$r->putanja_ugovora}' target='_blank' style='font-weight: normal;color: #73B1FC;' download><span style='color:#000;'class='glyphicon glyphicon-download-alt'></span>&nbsp; Pogledaj ugovor</a></td> \n";
+                                echo "<td><a href='{$r->putanja_ugovora}' target='_blank' style='font-weight: normal;color: #73B1FC;'><span style='color:#000;'class='glyphicon glyphicon-download-alt'></span>&nbsp; Pogledaj ugovor</a></td> \n";
                            echo "</tr> \n";
                            $br=$br+1;
         
@@ -234,7 +241,7 @@ else if (!isset($_SESSION['user_id'])) {
                         <div class="col-md-12 col-xs-12 register-blocks">
 
                             <form action="php/new_contract.php" method="POST" id="new_contract_form" enctype="multipart/form-data">
-                                <input type="hidden" name="id" <?php echo "value='" . $res[0]->id . "'"; ?> />
+                                
                                 <div class="col-md-12" id="new_property_form">                                                                        
                                     
                                     <div class="form-group">
@@ -267,23 +274,7 @@ else if (!isset($_SESSION['user_id'])) {
                                             }
                                             ?>
                                         </select>
-                                    </div>
-                                                                       
-                                    <div class="form-group">
-                                        <label>Ime i prezime agenta</label>
-                                        <br>
-                                        <select class="form-control selectpicker show-tick" name="agent_id"  title="Agent" data-live-search="true" data-live-search-style="begins" required>                                            
-                                            <?php                                            
-                                            $prep_agent= $db->prepare('SELECT * FROM agent ORDER BY prezime ASC;');
-                                            $prep_agent->execute();
-                                            $res_agent = $prep_agent->fetchAll(PDO::FETCH_OBJ);                                                                                        
-                                            
-                                            foreach ($res_agent as $agent) {
-                                                echo "<option value='" . $agent->id . "'>" . $agent->ime . " " . $agent->prezime . "</option>\n";
-                                            }
-                                            ?>
-                                        </select>
-                                    </div>                                                                                                                                                                                           
+                                    </div>                                                                                                                                                                                                                                                                                               
                                     <div class="form-group" id="parking">
                                         <label>Datum</label>
                                         <br>
@@ -424,6 +415,7 @@ else if (!isset($_SESSION['user_id'])) {
         <script>
             $(document).ready(function() {
                 $('.alert-danger').delay(3500).slideUp();
+                $('.alert-success').delay(3000).slideUp();
                 $('#new_contract_form').on("submit", function() {
 //                    var post_data = new FormData;
 //                    post_data.append('file', file);                    
@@ -438,14 +430,13 @@ else if (!isset($_SESSION['user_id'])) {
                         processData: false,                        
                         success: function(data, textStatus, jqXHR) {
                             $('#contract_modal_title').html("Rezultat");
-                            $('#contract_modal_body').html(data);
+                            $('#contract_modal_body').html("Molimo sačekajte...");
                             $('#subtmit_new_contract_modal').remove();
                         },
                         error: function(jqXHR, status, error) {
                             console.log(status + ": " + error);
                         }
-                    });
-                    e.preventDefault();
+                    });                    
                 });
                 
                 $('#subtmit_new_contract_modal').on("click", function() {                    

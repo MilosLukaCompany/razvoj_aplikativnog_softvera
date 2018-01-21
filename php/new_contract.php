@@ -1,7 +1,6 @@
 <?php
-
+session_start();
 $user_id = $_POST['user_id'];
-$agent_id = $_POST['agent_id'];
 $property_id = $_POST['property_id'];
 $date = $_POST['date'];
 
@@ -23,12 +22,15 @@ if ($_FILES['file']['name'] != "") {
     }
     
     require 'database_connection.php';
+    $prep_agent = $db->prepare("SELECT agent.id FROM agent WHERE korisnicko_ime = ?;");
+    $prep_agent->execute([$_SESSION['username']]);
+    $res_agent = $prep_agent->fetchAll(PDO::FETCH_OBJ);
     
     $prep_contract = $db->prepare("INSERT INTO ugovor (datum, putanja_ugovora, id_agent, id_kupac, id_nekretnina) VALUES (?, ?, ?, ?, ?);");            
-    $prep_contract->execute([$date, $file_path, $agent_id, $user_id, $property_id]);
+    $prep_contract->execute([$date, $file_path, $res_agent[0]->id, $user_id, $property_id]);
     
     echo "<b>Ugovor je kreiran!</b>";
-     
+    die (header('Location: ../agent_contract.php'));
 } else {
     die (header('Location: ../agent_contract.php?msg=no_file_included'));
     exit();

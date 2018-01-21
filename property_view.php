@@ -568,7 +568,7 @@
                             } 
                             if (isset($_SESSION['username']) && $_SESSION['user_type'] === "agent") {
                                 echo "<button class='btn btn-default pull-right' data-toggle='modal' data-target='#update_property_modal' onclick='check_property_type()'>IZMENI</button>";
-                                echo "<button class='btn btn-default pull-right' id='delete_button' onclick='window.open(\"php/delete_property.php?id={$res[0]->id}\", \"_self\");'>IZBRISI</button>";
+                                echo "<button class='btn btn-default pull-right' id='delete_button' onclick='if(confirm(\"Da li ste sigurni da želite da obrišete nekretninu?\")){window.open(\"php/delete_property.php?id={$res[0]->id}\", \"_self\")};''>IZBRISI</button>";
                             }
                             ?>
                         </div>
