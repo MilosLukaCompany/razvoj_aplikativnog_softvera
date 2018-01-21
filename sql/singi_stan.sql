@@ -21,7 +21,7 @@ CREATE TABLE nekretnina (
     sprat INT NULL,
     spratnost INT NULL,
     cena INT NOT NULL,
-    prodato INT DEFAULT 0,
+    prodato INT NOT NULL DEFAULT 0,
     id_opstina INT NOT NULL,
     id_tip_nekretnine INT NOT NULL,
     CONSTRAINT fk_nekretnina_opstina FOREIGN KEY (id_opstina) REFERENCES opstina (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
