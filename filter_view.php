@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>GARO ESTATE | Properties  page</title>
+        <title>Singi Stan | Pregled nekretnina</title>
         <meta name="description" content="GARO is a real-estate template">
         <meta name="author" content="Kimarotec">
         <meta name="keyword" content="html5, css, bootstrap, property, real-estate theme , bootstrap template">
@@ -724,7 +724,7 @@
                                                 echo "<span class='pull-left'><b> Površina: </b>" . $property->povrsina . "<sup>2</sup></span><br />\n";
                                                 echo "<span class='pull-left'><b> Struktura: </b>" . $property->struktura . "</span><br />\n";
                                                 echo "</div>\n";
-                                                echo "<span class='proerty-price pull-left'>" . $property->cena . " €</span>\n";
+                                                echo "<span class='proerty-price pull-left'>" . number_format($property->cena) . " €</span>\n";
                                                 echo "</div>\n";
                                                 echo "</div>\n";
                                                 echo "</div>\n";
