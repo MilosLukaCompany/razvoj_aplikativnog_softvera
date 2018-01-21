@@ -21,7 +21,7 @@ CREATE TABLE nekretnina (
     sprat INT NULL,
     spratnost INT NULL,
     cena INT NOT NULL,
-    prodato INT NOT NULL DEFAULT 0,
+    status INT NOT NULL DEFAULT 0,
     id_opstina INT NOT NULL,
     id_tip_nekretnine INT NOT NULL,
     CONSTRAINT fk_nekretnina_opstina FOREIGN KEY (id_opstina) REFERENCES opstina (id) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -38,7 +38,8 @@ CREATE TABLE agent (
     korisnicko_ime VARCHAR(20) NOT NULL,
     sifra VARCHAR(50) NOT NULL,
     email VARCHAR(50) NOT NULL,
-    putanja_slike VARCHAR(255) NULL
+    putanja_slike VARCHAR(255) NULL,
+    notifikacija INT NOT NULL DEFAULT 0
 );
 
 CREATE TABLE kupac (

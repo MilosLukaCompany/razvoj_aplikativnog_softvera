@@ -29,8 +29,10 @@ if ($_FILES['file']['name'] != "") {
     $prep_contract = $db->prepare("INSERT INTO ugovor (datum, putanja_ugovora, id_agent, id_kupac, id_nekretnina) VALUES (?, ?, ?, ?, ?);");            
     $prep_contract->execute([$date, $file_path, $res_agent[0]->id, $user_id, $property_id]);
     
-    echo "<b>Ugovor je kreiran!</b>";
-    die (header('Location: ../agent_contract.php'));
+    $prep_property_status = $db->prepare("UPDATE nekretnina SET status = ? WHERE id = ?;");
+    $prep_property_status->execute([1, $property_id]);
+    
+    echo "<b>Ugovor je kreiran, osvežite stranicu!</b>";
 } else {
     die (header('Location: ../agent_contract.php?msg=no_file_included'));
     exit();

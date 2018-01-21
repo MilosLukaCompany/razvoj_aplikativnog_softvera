@@ -87,8 +87,17 @@
                                 <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="navbar_link" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
                                 <?php
                             } else if ($_SESSION['user_type'] === "agent") {
-                                ?>
-                                <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointments.php">Termini gledanja</a></li>
+                                require 'php/database_connection.php';
+                                $prep_notification = $db->prepare("SELECT agent.notifikacija FROM agent WHERE korisnicko_ime = ?;");
+                                $prep_notification->execute([$_SESSION['username']]);
+                                $res_notification = $prep_notification->fetchAll(PDO::FETCH_OBJ);
+                                if ($res_notification[0]->notifikacija > 0) {
+                                    
+                                    echo "<li class='wow fadeInDown' data-wow-delay='0.5s'><a class='navbar_link' href='agent_appointments.php'>Termini gledanja <sup style='color: #f00;'>" . $res_notification[0]->notifikacija . "</sup></a></li>\n";
+                                } else {
+                                    echo "<li class='wow fadeInDown' data-wow-delay='0.5s'><a class='navbar_link' href='agent_appointments.php'>Termini gledanja</a></li>\n";
+                                }
+                                ?>                                                                
                                 <li class="wow fadeInDown dropdown ymm-sw " data-wow-delay="0.6s">
                                     <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Opcije <b class="caret"></b></a>
                                     <ul class="dropdown-menu navbar-nav">
@@ -393,7 +402,7 @@
 
                                 $prep_property = $db->prepare("SELECT nekretnina.*, opstina.naziv, tip_nekretnine.tip FROM
                                                     opstina INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id)
-                                                    ON opstina.id = nekretnina.id_opstina ORDER BY id DESC LIMIT ?, ?;");
+                                                    ON opstina.id = nekretnina.id_opstina WHERE nekretnina.status = 0 ORDER BY id DESC LIMIT ?, ?;");
                                 $prep_property->execute([$start_limit, $items_per_page]);
                                 $res_property = $prep_property->fetchAll(PDO::FETCH_OBJ);
 

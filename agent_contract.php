@@ -94,7 +94,18 @@ else if (!isset($_SESSION['user_id'])) {
 
                         <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="navbar_link" href="index.php">Početna</a></li>
                         <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="property_list.php">Nekretnine</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="agent_appointments.php">Termini gledanja</a></li>
+                        <?php
+                        require 'php/database_connection.php';
+                        $prep_notification = $db->prepare("SELECT agent.notifikacija FROM agent WHERE korisnicko_ime = ?;");
+                        $prep_notification->execute([$_SESSION['username']]);
+                        $res_notification = $prep_notification->fetchAll(PDO::FETCH_OBJ);
+                        if ($res_notification[0]->notifikacija > 0) {
+
+                            echo "<li class='wow fadeInDown' data-wow-delay='0.5s'><a class='navbar_link' href='agent_appointments.php'>Termini gledanja <sup style='color: #f00;'>" . $res_notification[0]->notifikacija . "</sup></a></li>\n";
+                        } else {
+                            echo "<li class='wow fadeInDown' data-wow-delay='0.5s'><a class='navbar_link' href='agent_appointments.php'>Termini gledanja</a></li>\n";
+                        }
+                        ?>
                         <li class="wow fadeInDown dropdown ymm-sw " data-wow-delay="0.6s">
                             <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" data-hover="dropdown" data-delay="200">Opcije <b class="caret"></b></a>
                             <ul class="dropdown-menu navbar-nav">
@@ -265,7 +276,7 @@ else if (!isset($_SESSION['user_id'])) {
                                         <select class="form-control selectpicker show-tick" name="property_id" title="Nekretnina" data-live-search="true" data-live-search-style="begins" required>
                                             <?php                                            
                                             $prep_property = $db->prepare('SELECT nekretnina.id, nekretnina.adresa, opstina.naziv, tip_nekretnine.tip FROM '
-                                                    . 'opstina INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id) ON opstina.id = nekretnina.id_opstina ORDER BY tip_nekretnine.tip DESC;');
+                                                    . 'opstina INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id) ON opstina.id = nekretnina.id_opstina WHERE nekretnina.status = 0 ORDER BY tip_nekretnine.tip DESC;');
                                             $prep_property->execute();
                                             $res_property = $prep_property->fetchAll(PDO::FETCH_OBJ);                                                                                        
                                             
@@ -422,6 +433,7 @@ else if (!isset($_SESSION['user_id'])) {
 //                    post_data.append('other_data', 'foo bar');                    
                     var form_url = $(this).attr("action");
                     
+                    $('#contract_modal_body').html("Molimo sačekajte..."),
                     $.ajax({
                         url: form_url,
                         type: "POST",
@@ -430,13 +442,14 @@ else if (!isset($_SESSION['user_id'])) {
                         processData: false,                        
                         success: function(data, textStatus, jqXHR) {
                             $('#contract_modal_title').html("Rezultat");
-                            $('#contract_modal_body').html("Molimo sačekajte...");
+                            $('#contract_modal_body').html(data),
                             $('#subtmit_new_contract_modal').remove();
                         },
                         error: function(jqXHR, status, error) {
                             console.log(status + ": " + error);
                         }
-                    });                    
+                    });
+                    e.preventDefault();
                 });
                 
                 $('#subtmit_new_contract_modal').on("click", function() {                    

@@ -629,7 +629,7 @@
                                     if (count($conditions) > 0) {
                                         $query .= " WHERE " . implode(" AND ", $conditions);
                                     }
-                                    $query .= " ORDER BY id DESC;";
+                                    $query .= " AND nekretnina.status = 0 ORDER BY id DESC;";
                                     
                                     $prep_filter = $db->prepare($query);
                                     $prep_filter->execute();

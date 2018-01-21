@@ -664,7 +664,7 @@
                         <h4 id="appointment_modal_title" class="modal-title text-center" style="color: orange;">Zakazi gledanje</h4>                        
                     </div>
                     <div class="modal-body" id="appointment_modal_body">
-                        <form action="php/make_appointment.php" method="POST" id='make_appointment_form'>
+                        <form action="php/new_appointment.php" method="POST" id='make_appointment_form'>
                             <input type='hidden' name='property_id' <?php echo "value='" . $res_2[0]->id . "'"; ?> />
                             <input type='hidden' name='user_id' <?php echo "value='" . $res_user[0]->id . "'"; ?> />
                             <div class="card text-center" style="width: 30%; border: 1px solid #e5e5e5; float: left; margin-bottom: 15px;">
