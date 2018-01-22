@@ -223,7 +223,7 @@ else if (!isset($_SESSION['user_id'])) {
                                 echo "<tr> \n";
                                 echo "<td>{$br}</td> \n";
                                 echo "<td><a href='property_view.php?id={$r->id}' style='font-weight: normal;color: #73B1FC;'><span style='color:#000;'class='glyphicon glyphicon-home'></span>&nbsp; Pogledaj nekretninu</a></td> \n";
-                                echo "<td>{$r->cena}</td> \n";
+                                echo "<td>" . number_format($r->cena) . "</td> \n";
                                 echo "<td>{$r->ime}&nbsp;{$r->prezime}</td> \n";
                                 echo "<td>{$r->datum}</td> \n";
                                 echo "<td><a href='{$r->putanja_ugovora}' target='_blank' style='font-weight: normal;color: #73B1FC;'><span style='color:#000;'class='glyphicon glyphicon-download-alt'></span>&nbsp; Pogledaj ugovor</a></td> \n";

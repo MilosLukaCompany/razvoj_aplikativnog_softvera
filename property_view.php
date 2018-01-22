@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>GARO ESTATE | Properties  page</title>
+        <title>Singi Stan | Pregled nekretnine</title>
         <meta name="description" content="GARO is a real-estate template">
         <meta name="author" content="Kimarotec">
         <meta name="keyword" content="html5, css, bootstrap, property, real-estate theme , bootstrap template">
@@ -448,7 +448,7 @@
                                 $res_2 = $prep_2->fetchAll(PDO::FETCH_OBJ);                                
                                 ?>
                                 <h1 class="property-title pull-left"><?php echo $res[0]->adresa . ", " . $res_2[0]->tip; ?></h1>
-                                <span class="property-price pull-right"><?php echo $res[0]->cena; ?> €</span>                                
+                                <span class="property-price pull-right"><?php echo number_format($res[0]->cena); ?> €</span>                                
                             </div>
                             <?php 
                             if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {

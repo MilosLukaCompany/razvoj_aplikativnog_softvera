@@ -6,7 +6,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>Singi Stan | Registruj se</title>
+        <title>Singi Stan | Zaboravljena lozinka</title>
         <meta name="description" content="Singi Stan je agencija koja se bavi prometom nekretnina u Beogradu.">
         <meta name="author" content="Luka Kovacevic & Milos Ratkovic">
         <meta name="keyword" content="nekretnine, beograd">
