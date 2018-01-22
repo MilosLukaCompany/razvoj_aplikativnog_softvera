@@ -40,7 +40,14 @@
             <div id="status">&nbsp;</div>
         </div>
         <!-- Body content -->
+<?php
+session_start();
+ if ($_SESSION['username'] == "gazda") {
+        header("Location:ceo_contracts.php");
+        exit(); // Quit the script.
+    }
 
+?>
 
         <!--Nav bar -->
 
@@ -63,7 +70,7 @@
                 <div class="collapse navbar-collapse yamm" id="navigation" style="background-color: #fff;">
                     <div class="button navbar-right">
                         <?php
-                        session_start();
+                        
                         if (!isset($_SESSION['username'])) {
                             ?>
                             <button class="navbar-btn nav-button wow bounceInRight login" onclick="window.open('login.php', '_self');" data-wow-delay="0.45s">Uloguj se</button>

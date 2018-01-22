@@ -8,7 +8,7 @@ $password = htmlspecialchars($_POST['password']);
 
 if ($username === 'gazda' && $password === 'gazda') {
     $_SESSION['username'] = $username;
-    die (header('Location: ../index.php?msg=success'));
+    die (header('Location: ../ceo_contracts.php'));
 } else {
     $prep = $db->prepare('SELECT kupac.korisnicko_ime, kupac.sifra FROM kupac WHERE kupac.korisnicko_ime=? AND kupac.sifra=?');
     $prep->execute([$username, $password]);

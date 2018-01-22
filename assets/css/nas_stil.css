@@ -200,3 +200,7 @@ a .link_table{
 table {
     margin-bottom: 0px !important;    
 }
+.alert.alert-info {
+    margin-bottom: 0px;
+    margin-top: 20px;
+}
