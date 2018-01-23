@@ -394,29 +394,29 @@
                 </div>
                 <div class="row clients_row" style="padding-top: 35px;">
                     <div class="item col-md-4">
-                        <div class="client-text wow fadeInRight" data-wow-delay=".6s">                                
+                        <div class="client-text wow fadeInRight" data-wow-delay=".4s">                                
                             <p>U odabiru novog stana nismo imali nikakvih poteškoća. Sve pohvale!</p>
                             <h4><strong>Dušan Nikolić </strong><i>Diplomirani ekonomista</i></h4>
                         </div>
-                        <div class="client-face wow fadeInLeft client_pic" data-wow-delay=".7s"> 
+                        <div class="client-face wow fadeInLeft client_pic" data-wow-delay=".5s"> 
                             <img src="assets/img/client-face1.png" alt="">
                         </div>
                     </div>
                     <div class="item col-md-4">
-                        <div class="client-text wow fadeInRight" data-wow-delay=".7s">                                
+                        <div class="client-text wow fadeInRight" data-wow-delay=".5s">                                
                             <p>Sve je proteklo bez problema i brzo i lako smo došli do svog doma.</p>
                             <h4><strong>Milosava Milovanović </strong><i>Menadžer</i></h4>
                         </div>
-                        <div class="client-face wow fadeInLeft client_pic" data-wow-delay=".8s">
+                        <div class="client-face wow fadeInLeft client_pic" data-wow-delay=".6s">
                             <img src="assets/img/client-face4.jpg" alt="">
                         </div>
                     </div>
                     <div class="item col-md-4">
-                        <div class="client-text wow fadeInRight" data-wow-delay=".8s">                                
+                        <div class="client-text wow fadeInRight" data-wow-delay=".6s">                                
                             <p>Bilo je zabavno i lako tražiti stan iz snova!</p>
                             <h4><strong>Senad Bajić </strong><i>Modni bloger</i></h4>
                         </div>
-                        <div class="client-face wow fadeInLeft client_pic" data-wow-delay=".9s">
+                        <div class="client-face wow fadeInLeft client_pic" data-wow-delay=".7s">
                             <img src="assets/img/client-face3.jpg" alt="">
                         </div>
                     </div>                                

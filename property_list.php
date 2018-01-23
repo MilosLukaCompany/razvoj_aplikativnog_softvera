@@ -405,8 +405,7 @@
 
                                 foreach ($res_property as $property) {
                                     $prep_img = $db->prepare('SELECT putanja_slike FROM slika WHERE id_nekretnina = ? LIMIT 1;');
-                                    $prep_img->execute([$property->id]);
-                                    $res_img = $prep_img->fetchAll(PDO::FETCH_OBJ);
+                                    $prep_img->execute([$property->id]);                                    
 
                                     $property_address = "";
                                     if (strlen($property->adresa) > 20) {
@@ -418,7 +417,16 @@
                                     echo "<div class='col-sm-6 col-md-4 p0'>\n";
                                     echo "<div class='box-two proerty-item'>\n";
                                     echo "<div class='item-thumb'>\n";
-                                    echo "<a href='property_view.php?id=" . $property->id ."'><img src='" . $res_img[0]->putanja_slike . "' onerror='this.src=\"assets/img/default_image.png\";' alt='Slike stana' /></a>\n";
+                                    if ($prep_img->rowCount() > 0) {
+                                        $res_img = $prep_img->fetchAll(PDO::FETCH_OBJ);
+                                        if ($res_img[0]->putanja_slike != null) {
+                                            echo "<a href='property_view.php?id=" . $property->id ."'><img src='" . $res_img[0]->putanja_slike . "' alt='Slike stana' /></a>\n";                                        
+                                        } else {
+                                            echo "<a href='property_view.php?id=" . $property->id ."'><img src='assets/img/default_image.png' alt='Slike stana' /></a>\n";
+                                        }
+                                    } else {
+                                        echo "<a href='property_view.php?id=" . $property->id ."'><img src='assets/img/default_image.png' alt='Slike stana' /></a>\n";
+                                    }
                                     echo "</div>\n";
                                     echo "<div class='item-entry overflow'>\n";
                                     echo "<h5><a href='property_view.php?id=" . $property->id . "'>" . $property_address . "</a></h5>\n";

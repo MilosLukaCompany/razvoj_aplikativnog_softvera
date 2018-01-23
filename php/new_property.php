@@ -56,10 +56,11 @@ if (isset($_POST['submit'])) {
     $longitude = $output->results[0]->geometry->location->lng;
     
     require 'database_connection.php';
+    echo $database_name;
     $prep = $db->prepare('SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?;');
-    $prep->execute(['singi_stan', 'nekretnina']);
+    $prep->execute([$database_name, 'nekretnina']);
     $res = $prep->fetchAll(PDO::FETCH_OBJ);
-    
+    echo $res[0]->AUTO_INCREMENT;
     $curdir = getcwd();
     mkdir($curdir . "/../assets/img/property_images/" . $res[0]->AUTO_INCREMENT, 0777);   
     
@@ -83,8 +84,8 @@ if (isset($_POST['submit'])) {
         $prep3->execute([$res[0]->AUTO_INCREMENT, $file_name, $file_path, $file_type]);        
     }
     
-    $prep2 = $db->prepare('INSERT INTO nekretnina (adresa, latitude, longitude, povrsina, struktura, parking, grejanje, namestenost, sprat, spratnost, cena, id_opstina, id_tip_nekretnine) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);');
-    $prep2->execute([$address, $latitude, $longitude, $quadrature, $structure, $parking, $heat, $accommodation, $floor, $building_floors, $price, $municipalities, $property_type]);
+    $prep2 = $db->prepare('INSERT INTO nekretnina (adresa, latitude, longitude, povrsina, struktura, parking, grejanje, namestenost, sprat, spratnost, cena, status, id_opstina, id_tip_nekretnine) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);');
+    $prep2->execute([$address, $latitude, $longitude, $quadrature, $structure, $parking, $heat, $accommodation, $floor, $building_floors, $price, 0, $municipalities, $property_type]);
 
     die (header('Location: ../agent_new_property.php?msg=property_has_been_successfully_added'));
 }

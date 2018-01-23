@@ -114,7 +114,7 @@
         require 'php/database_connection.php';
         
         if (isset($_GET['id'])) {
-            $prep = $db->prepare("SELECT slika.putanja_slike, nekretnina.* FROM nekretnina INNER JOIN slika ON nekretnina.id = slika.id_nekretnina WHERE nekretnina.id = ?");
+            $prep = $db->prepare("SELECT nekretnina.* FROM nekretnina WHERE nekretnina.id = ?");
             $prep->execute([$_GET['id']]);
             
             $res = $prep->fetchAll(PDO::FETCH_OBJ);
@@ -423,10 +423,24 @@
 
                                     <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
                                         <?php 
-                                        
-                                        foreach ($res as $pic) {
-                                            echo "<li data-thumb='" . $pic->putanja_slike . "' >\n";
-                                            echo "<img src='" . $pic->putanja_slike . "' onerror='this.src=\"assets/img/default_image.png\";' alt='Slike stana'  />";
+                                        $prep_picture = $db->prepare("SELECT slika.putanja_slike FROM slika WHERE id_nekretnina = ?;");
+                                        $prep_picture->execute([$res[0]->id]);
+                                        if ($prep_picture->rowCount() > 0) {
+                                            $res_picture = $prep_picture->fetchAll(PDO::FETCH_OBJ);                                            
+                                            foreach ($res_picture as $pic) {
+                                                if ($pic->putanja_slike != null) {
+                                                    echo "<li data-thumb='" . $pic->putanja_slike . "' >\n";
+                                                    echo "<img src='" . $pic->putanja_slike . "' alt='Slike stana'  />";
+                                                    echo "</li>\n";
+                                                } else {
+                                                    echo "<li data-thumb='assets/img/default_image.png' >\n";
+                                                    echo "<img src='assets/img/default_image.png' alt='Slike stana'  />";
+                                                    echo "</li>\n";
+                                                }
+                                            }
+                                        } else {
+                                            echo "<li data-thumb='assets/img/default_image.png' >\n";
+                                            echo "<img src='assets/img/default_image.png' alt='Slike stana'  />";
                                             echo "</li>\n";
                                         }
                                         ?>                                                                                                                       
