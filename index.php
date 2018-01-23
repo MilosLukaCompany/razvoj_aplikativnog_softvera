@@ -40,14 +40,14 @@
             <div id="status">&nbsp;</div>
         </div>
         <!-- Body content -->
-<?php
-session_start();
- if ($_SESSION['username'] == "gazda") {
-        header("Location:ceo_contracts.php");
-        exit(); // Quit the script.
-    }
+        <?php
+        session_start();
+         if (isset($_SESSION['username']) && $_SESSION['username'] == "gazda") {
+                header("Location:ceo_contracts.php");
+                exit(); // Quit the script.
+            }
 
-?>
+        ?>
 
         <!--Nav bar -->
 
