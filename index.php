@@ -51,7 +51,7 @@
         <!--Nav bar -->
 
 
-        <nav class="navbar navbar-default navbar-fixed-top  ">
+        <nav class="navbar navbar-default navbar-fixed-top  " id="top_of_the_page">
             <div class="container" id="nav_div">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -330,7 +330,6 @@
             <div class="container">
                 <div class="row">
                     <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
-                        <!-- /.feature title -->
                         <h2>Imajte poverenja u nas</h2> 
                     </div>
                 </div>
@@ -388,63 +387,44 @@
             </div>
         </div>
 
-        <!--TESTIMONIALS -->
-        <div class="testimonial-area recent-property" style="background-color: #FCFCFC; padding-bottom: 15px;">
+        <div style="background-color: #FCFCFC; padding-bottom: 15px; margin-bottom: 60px;">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">
-                        <!-- /.feature title -->
+                    <div class="col-md-10 col-md-offset-1 col-sm-12 text-center page-title">                         
                         <h2>Klijenti o nama</h2> 
                     </div>
                 </div>
-
-                <div class="row">
-                    <div class="row testimonial">
-                        <div class="col-md-12">
-                            <div id="testimonial-slider">
-                                <div class="item">
-                                    <div class="client-text">                                
-                                        <p>U odabiru novog stana nismo imali nikakvih poteškoća i neprilika. Sve pohvale!</p>
-                                        <h4><strong>Dušan Nikolić </strong><i>Diplomirani ekonomista</i></h4>
-                                    </div>
-                                    <div class="client-face wow fadeInLeft" data-wow-delay=".9s"> 
-                                        <img src="assets/img/client-face1.png" alt="">
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="client-text">                                
-                                        <p>Sve je proteklo bez problema i brzo i lako smo došli do svog doma.</p>
-                                        <h4><strong>Milosava Milovanović </strong><i>Menadžer</i></h4>
-                                    </div>
-                                    <div class="client-face wow fadeInLeft" data-wow-delay=".9s">
-                                        <img src="assets/img/client-face4.jpg" alt="">
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="client-text">                                
-                                        <p>Bilo je zabavno i lako tražiti stan iz snova!</p>
-                                        <h4><strong>Senad Bajić </strong><i>Modni bloger</i></h4>
-                                    </div>
-                                    <div class="client-face wow fadeInLeft" data-wow-delay=".9s">
-                                        <img src="assets/img/client-face3.jpg" alt="">
-                                    </div>
-                                </div>
-                                <div class="item">
-                                    <div class="client-text">                                
-                                        <p>Iznenađen sam lakoćom procesa pronalaska novog stana.</p>
-                                        <h4><strong>Petar Jovanović, </strong><i>Mašinski inženjer</i></h4>
-                                    </div>
-                                    <div class="client-face wow fadeInLeft" data-wow-delay=".9s"> 
-                                        <img src="assets/img/client-face2.png" alt="">
-                                    </div>
-                                </div>
-                            </div>
+                <div class="row clients_row" style="padding-top: 35px;">
+                    <div class="item col-md-4">
+                        <div class="client-text wow fadeInRight" data-wow-delay=".6s">                                
+                            <p>U odabiru novog stana nismo imali nikakvih poteškoća. Sve pohvale!</p>
+                            <h4><strong>Dušan Nikolić </strong><i>Diplomirani ekonomista</i></h4>
+                        </div>
+                        <div class="client-face wow fadeInLeft client_pic" data-wow-delay=".7s"> 
+                            <img src="assets/img/client-face1.png" alt="">
                         </div>
                     </div>
-
-                </div>
+                    <div class="item col-md-4">
+                        <div class="client-text wow fadeInRight" data-wow-delay=".7s">                                
+                            <p>Sve je proteklo bez problema i brzo i lako smo došli do svog doma.</p>
+                            <h4><strong>Milosava Milovanović </strong><i>Menadžer</i></h4>
+                        </div>
+                        <div class="client-face wow fadeInLeft client_pic" data-wow-delay=".8s">
+                            <img src="assets/img/client-face4.jpg" alt="">
+                        </div>
+                    </div>
+                    <div class="item col-md-4">
+                        <div class="client-text wow fadeInRight" data-wow-delay=".8s">                                
+                            <p>Bilo je zabavno i lako tražiti stan iz snova!</p>
+                            <h4><strong>Senad Bajić </strong><i>Modni bloger</i></h4>
+                        </div>
+                        <div class="client-face wow fadeInLeft client_pic" data-wow-delay=".9s">
+                            <img src="assets/img/client-face3.jpg" alt="">
+                        </div>
+                    </div>                                
+                </div>                               
             </div>
-        </div>
+        </div>      
 
         <!--Welcome area -->
         <div class="Welcome-area">
@@ -615,11 +595,6 @@
                         <div class="pull-left">
                             <span> (C) <b>MilosLukaCompany</b> , All rights reserved 2018  </span> 
                         </div> 
-                        <div class="bottom-menu pull-right"> 
-                            <!-- Return to Top -->
-                            <a href="javascript:" id="return-to-top" data-toggle="tooltip" data-placement="top" title="Idi na vrh"><p class="i">/\</p></a>
-
-                        </div>
                     </div>
                 </div>
             </div>

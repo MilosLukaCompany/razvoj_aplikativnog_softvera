@@ -215,3 +215,28 @@ table {
     margin-bottom: 0px;
     margin-top: 20px;
 }
+@media (max-width: 450px) {
+    #small_logo_pic {
+        width: 40px;
+        height: 40px;
+    }
+    #small_logo_pic {
+        width: 40px;
+        height: 40px;
+    }
+    button.navbar-toggle {
+        margin-top: 20px;
+        margin-right: 20px;
+    }
+}
+@media (max-width: 991px) {
+    .client_pic {
+        
+        right: 0;
+        padding: 0 !important;
+    }     
+}
+.client_pic {
+    padding: 0 36% 0 36%; 
+    margin-top: -37px;
+}

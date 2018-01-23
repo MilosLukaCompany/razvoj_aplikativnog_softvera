@@ -51,7 +51,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="index.php" id="big_logo"><img src="assets/img/logo.png" alt="logo"></a>
-                    <a class="navbar-brand" href="index.php" id="small_logo"><img src="assets/img/favicon.png" alt="logo"></a>
+                    <a class="navbar-brand" href="index.php" id="small_logo"><img src="assets/img/favicon.png" alt="logo" id="small_logo_pic"></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -265,7 +265,6 @@
                         <div class="pull-left">
                             <span> (C) <b>MilosLukaCompany</b> , All rights reserved 2018  </span> 
                         </div> 
-
                     </div>
                 </div>
             </div>

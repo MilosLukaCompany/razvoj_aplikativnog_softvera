@@ -41,7 +41,7 @@
         <!-- Body content -->
 
         <nav class="navbar navbar-default navbar-fixed-top">
-            <div class="container">
+            <div class="container" id="nav_div">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navigation">
@@ -50,7 +50,8 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="index.php"><img src="assets/img/logo.png" alt=""></a>
+                    <a class="navbar-brand" href="index.php" id="big_logo"><img src="assets/img/logo.png" alt="logo"></a>
+                    <a class="navbar-brand" href="index.php" id="small_logo"><img src="assets/img/favicon.png" alt="logo" id="small_logo_pic"></a>
                 </div>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
@@ -225,6 +226,7 @@
         <script src="assets/js/price-range.js"></script>
 
         <script src="assets/js/main.js"></script>
+        <script src="assets/js/navbar.js" type="text/javascript"></script>
         <script>
             $(document).ready(function() {
                 $('.alert-success').delay(4000).slideUp();
