@@ -8,9 +8,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Singi Stan | Pregled nekretnine</title>
-        <meta name="description" content="GARO is a real-estate template">
-        <meta name="author" content="Kimarotec">
-        <meta name="keyword" content="html5, css, bootstrap, property, real-estate theme , bootstrap template">
+        <meta name="description" content="GARO is a real-estate template">        
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
@@ -35,7 +33,7 @@
         <link rel="stylesheet" href="assets/css/responsive.css">
         <link rel="stylesheet" href="assets/css/nas_stil.css">   
     </head>
-    <body>
+    <body id="top_of_the_page">
 
         <div id="preloader">
             <div id="status">&nbsp;</div>
@@ -640,8 +638,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="pull-left">
-                            <span> (C) <b>MilosLukaCompany</b> , All rights reserved 2018  </span> 
-                        </div> 
+                            <span> (C) <b>SingiCompany</b> , All rights reserved 2018  </span> 
+                        </div>
+                        <a href="#top_of_the_page" class="pull-right">
+                            <span class="up_arrow" data-toggle="tooltip" data-placement="top" title="Back on top" style="margin-bottom: 30px; font-size: 20px;"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                        </a> 
                     </div>
                 </div>
             </div>

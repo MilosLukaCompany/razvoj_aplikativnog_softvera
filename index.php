@@ -7,9 +7,7 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Singi Stan | Početna</title>
-        <meta name="description" content="Singi Stan je agencija koja se bavi prometom nekretnina u Beogradu.">
-        <meta name="author" content="Luka Kovacevic & Milos Ratkovic">
-        <meta name="keyword" content="nekretnine, beograd">
+        <meta name="description" content="Singi Stan je agencija koja se bavi prometom nekretnina u Beogradu.">        
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
         <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,700,800' rel='stylesheet' type='text/css'>
@@ -33,7 +31,7 @@
         <link rel="stylesheet" href="assets/css/responsive.css">
         <link rel="stylesheet" href="assets/css/nas_stil.css">
     </head>
-    <body>
+    <body id="top_of_the_page">
 
         <div id="preloader">
             <div id="status">&nbsp;</div>
@@ -51,7 +49,7 @@
         <!--Nav bar -->
 
 
-        <nav class="navbar navbar-default navbar-fixed-top  " id="top_of_the_page">
+        <nav class="navbar navbar-default navbar-fixed-top  ">
             <div class="container" id="nav_div">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
@@ -593,8 +591,11 @@
                 <div class="container">
                     <div class="row">
                         <div class="pull-left">
-                            <span> (C) <b>MilosLukaCompany</b> , All rights reserved 2018  </span> 
-                        </div> 
+                            <span> (C) <b>SingiCompany</b> , All rights reserved 2018  </span> 
+                        </div>                        
+                        <a href="#top_of_the_page" class="pull-right">
+                            <span class="up_arrow" data-toggle="tooltip" data-placement="top" title="Back on top" style="margin-bottom: 30px; font-size: 20px;"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                        </a>    
                     </div>
                 </div>
             </div>

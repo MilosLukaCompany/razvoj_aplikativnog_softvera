@@ -4,6 +4,18 @@ $(window).load(function () { // makes sure the whole site is loaded
     $('body').delay(350).css({'overflow': 'visible'});
 });
 $(document).ready(function () {
+    
+    $("a[href='#top_of_the_page']").on('click', function (event) {
+        if (this.hash !== "") {
+            event.preventDefault();
+            var hash = this.hash;
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 1000, function () {
+                window.location.hash = hash;
+            });
+        }
+    });
 
     $('#add_pic_input').tooltip();
     $('#back_arrow').tooltip();
@@ -11,6 +23,7 @@ $(document).ready(function () {
     $('.fa-star').tooltip();
     $('.fa-print').tooltip();
     $('.glyphicon-trash').tooltip();
+    $('.up_arrow').tooltip();
     
     $('#tel').focus(function() {
         $(this).prev('span').css({'border-top': '1px solid #9A9A9A', 'border-left': '1px solid #9A9A9A', 'border-bottom': '1px solid #9A9A9A'});

@@ -61,7 +61,7 @@ else if (!isset($_SESSION['user_id'])) {
         <link rel="stylesheet" href="assets/css/nas_stil.css">        
 
     </head>
-    <body>
+    <body id="top_of_the_page">
 
 <!--        <div id="preloader">
             <div id="status">&nbsp;</div>
@@ -231,9 +231,11 @@ else if (!isset($_SESSION['user_id'])) {
                 <div class="container">
                     <div class="row">
                         <div class="pull-left">
-                            <span> (C) <b>MilosLukaCompany</b> , All rights reserved 2018  </span> 
+                            <span> (C) <b>SingiCompany</b> , All rights reserved 2018  </span> 
                         </div> 
-
+                        <a href="#top_of_the_page" class="pull-right">
+                            <span class="up_arrow" data-toggle="tooltip" data-placement="top" title="Back on top" style="margin-bottom: 30px; font-size: 20px;"><i class="glyphicon glyphicon-chevron-up"></i></span>
+                        </a> 
                     </div>
                 </div>
             </div>
