@@ -113,7 +113,7 @@ session_start();
         <div class="content-area recent-property padding-top-40" style="background-color: #F4F4F4; padding-top: 60px; padding-bottom: 60px;">
             <div class="container">
                 <div class="row">
-                    <div class="box-for overflow col-md-8 col-xs-8 col-md-offset-2 col-xs-offset-2">
+                    <div class="box-for overflow col-md-8 col-xs-12 col-md-offset-2">
                         <div class="register-blocks col-md-12">
                             <?php
                             if (isset($_GET["msg"]) && $_GET["msg"] == 'property_has_been_successfully_added') {
