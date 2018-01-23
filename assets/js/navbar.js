@@ -35,7 +35,7 @@ $(document).ready(function() {
             } else {
                 $('.navbar').css({'height': '100px', 'border-bottom': 'none'});
                 $('#nav_div').css({'padding-top': '15px'});
-                $('.main-nav').css({'padding-top': '10px'});
+                $('.main-nav').css({'padding-top': '4px'});
                 $('.button.navbar-right').css({'padding-top': '10px'});
                 $('.navbar_link').removeClass('changed');
                 $('#big_logo').css({'margin-top': '0px', 'opacity': '1'});

@@ -732,7 +732,7 @@ label small{
 }
 .navbar-default .navbar-nav > li > a.changed.active:after{
     background-color: #FDC600;
-    bottom: -10px;
+    bottom: -10px !important;
     content: "";
     height: 5px;
     left: 0;
@@ -742,7 +742,7 @@ label small{
 }
 .navbar-default .navbar-nav > li > a.changed::after {
     background-color: #FDC600;
-    bottom: -10px;
+    bottom: -10px !important;
     content: "";
     height: 5px;
     left: 0;
