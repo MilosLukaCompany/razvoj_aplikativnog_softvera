@@ -55,8 +55,7 @@ if (isset($_POST['submit'])) {
     $latitude = $output->results[0]->geometry->location->lat;
     $longitude = $output->results[0]->geometry->location->lng;
     
-    require 'database_connection.php';
-    echo $database_name;
+    require 'database_connection.php';    
     $prep = $db->prepare('SELECT AUTO_INCREMENT FROM INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = ? AND TABLE_NAME = ?;');
     $prep->execute([$database_name, 'nekretnina']);
     $res = $prep->fetchAll(PDO::FETCH_OBJ);

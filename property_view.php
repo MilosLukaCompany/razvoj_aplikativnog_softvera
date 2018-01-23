@@ -676,23 +676,38 @@
                         <form action="php/new_appointment.php" method="POST" id='make_appointment_form'>
                             <input type='hidden' name='property_id' <?php echo "value='" . $res_2[0]->id . "'"; ?> />
                             <input type='hidden' name='user_id' <?php echo "value='" . $res_user[0]->id . "'"; ?> />
-                            <div class="card text-center" style="width: 30%; border: 1px solid #e5e5e5; float: left; margin-bottom: 15px;">
-                                <img class="card-img-top" src="assets/img/profile_blank.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <p class="card-text"><b><?php echo $res_user[0]->ime . " " . $res_user[0]->prezime ?></b></p>
-                                    <p class="card-text"><b><?php echo $res_user[0]->email ?></b></p>
-                                    <p class="card-text"><b><?php echo $res_user[0]->telefon ?></b></p>
-                                </div>
-                            </div>
-                            <div class="request" style="width: 60%; float: right;">
-                                <p style="padding: 0 15px 10px 15px;">Zelim da zakazem termin gledanja sledece nekretnine:<br /> <b><?php echo $res_2[0]->adresa . ", " . $res_2[0]->naziv ?></b></p>
-                                <div class='col-sm-12'>
-                                    <div class="form-group">                                    
-                                        <input type='datetime-local' name='date' class="form-control" id="modal_date" required/>
+                                <div class="row">
+                                    <div class="card text-center col-md-5" style="margin-bottom: 15px;">
+                                        <?php 
+                                        $prep_pic = $db->prepare("SELECT kupac.putanja_slike FROM kupac WHERE korisnicko_ime = ?;");
+                                        $prep_pic->execute([$_SESSION['username']]);
+                                        if ($prep_pic->rowCount() > 0) {
+                                            $res_pic = $prep_pic->fetchAll(PDO::FETCH_OBJ);
+                                            if ($res_pic[0]->putanja_slike != null) {
+                                                echo "<img class='card-img-top' src='" . $res_pic[0]->putanja_slike . "' alt='Card image cap' style='width: 200px; height: 200px;'>";                                                
+                                            } else {
+                                                echo "<img class='card-img-top' src='assests/img/profile_blank.jpg' alt='Card image cap' style='width: 200px; height: 200px;'>";
+                                            }
+                                        } else {
+                                            echo "<img class='card-img-top' src='assests/img/profile_blank.jpg' alt='Card image cap' style='width: 200px; height: 200px;'>";
+                                        }                                                                                     
+                                        ?>                                        
+                                        <div class="card-body">
+                                            <p class="card-text"><b><?php echo $res_user[0]->ime . " " . $res_user[0]->prezime ?></b></p>
+                                            <p class="card-text"><b><?php echo $res_user[0]->email ?></b></p>
+                                            <p class="card-text"><b><?php echo $res_user[0]->telefon ?></b></p>
+                                        </div>
                                     </div>
+                                    <div class="request pull-right col-md-7">
+                                        <p style="padding: 0 15px 10px 15px;">Zelim da zakazem termin gledanja sledece nekretnine:<br /> <b><?php echo $res_2[0]->adresa . ", " . $res_2[0]->naziv ?></b></p>
+                                        <div class='col-sm-12'>
+                                            <div class="form-group">                                    
+                                                <input type='datetime-local' name='date' class="form-control" id="modal_date" required/>
+                                            </div>
 
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer" style="clear: both;">
