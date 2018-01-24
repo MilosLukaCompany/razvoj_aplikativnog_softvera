@@ -80,8 +80,17 @@
                         }
                         if (isset($_SESSION['username'])) {
                             if ($_SESSION['user_type'] === "kupac") {
-                                ?>                        
-                                <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="navbar_link" href="favourites.php">Lista želja</a></li>
+                                require 'php/database_connection.php';
+                                $prep_notification = $db->prepare("SELECT agent.notifikacija FROM agent WHERE korisnicko_ime = ?;");
+                                $prep_notification->execute([$_SESSION['username']]);
+                                $res_notification = $prep_notification->fetchAll(PDO::FETCH_OBJ);
+                                if ($res_notification[0]->notifikacija > 0) {
+                                    
+                                    echo "<li class='wow fadeInDown' data-wow-delay='0.5s'><a class='navbar_link' href='agent_appointments.php'>Termini gledanja <sup style='color: #f00;'>" . $res_notification[0]->notifikacija . "</sup></a></li>\n";
+                                } else {
+                                    echo "<li class='wow fadeInDown' data-wow-delay='0.5s'><a class='navbar_link' href='agent_appointments.php'>Termini gledanja</a></li>\n";
+                                }
+                                ?>                                                               
                                 <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="navbar_link" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
                                 <?php
                             } else if ($_SESSION['user_type'] === "agent") {
@@ -175,6 +184,9 @@
                         echo "</div>\n";
                     }
                     ?>                                                           
+                      
+                    
+<!--                    <button class="btn btn-default" style="margin-left: 10px; position: fixed;">ZAKAZI GLEDANJE</button>                   -->
                     <div class="col-md-4 p0">
                         <aside class="sidebar sidebar-property blog-asside-right">
                             <div class="dealer-widget">
@@ -400,7 +412,8 @@
 
                         </aside>
                     </div>
-                    <div class="col-md-8 single-property-content ">
+
+<div class="col-md-8 single-property-content ">
                         <div class="row">
                             <div class="light-slide-item">            
                                 <div class="clearfix">
@@ -584,7 +597,6 @@
                             ?>
                         </div>
                     </div>
-<!--                    <button class="btn btn-default" style="margin-left: 10px; position: fixed;">ZAKAZI GLEDANJE</button>                   -->
                 </div>
 
             </div>
@@ -676,23 +688,38 @@
                         <form action="php/new_appointment.php" method="POST" id='make_appointment_form'>
                             <input type='hidden' name='property_id' <?php echo "value='" . $res_2[0]->id . "'"; ?> />
                             <input type='hidden' name='user_id' <?php echo "value='" . $res_user[0]->id . "'"; ?> />
-                            <div class="card text-center" style="width: 30%; border: 1px solid #e5e5e5; float: left; margin-bottom: 15px;">
-                                <img class="card-img-top" src="assets/img/profile_blank.jpg" alt="Card image cap">
-                                <div class="card-body">
-                                    <p class="card-text"><b><?php echo $res_user[0]->ime . " " . $res_user[0]->prezime ?></b></p>
-                                    <p class="card-text"><b><?php echo $res_user[0]->email ?></b></p>
-                                    <p class="card-text"><b><?php echo $res_user[0]->telefon ?></b></p>
-                                </div>
-                            </div>
-                            <div class="request" style="width: 60%; float: right;">
-                                <p style="padding: 0 15px 10px 15px;">Zelim da zakazem termin gledanja sledece nekretnine:<br /> <b><?php echo $res_2[0]->adresa . ", " . $res_2[0]->naziv ?></b></p>
-                                <div class='col-sm-12'>
-                                    <div class="form-group">                                    
-                                        <input type='datetime-local' name='date' class="form-control" id="modal_date" required/>
+                                <div class="row">
+                                    <div class="card text-center col-md-5" style="margin-bottom: 15px;">
+                                        <?php 
+                                        $prep_pic = $db->prepare("SELECT kupac.putanja_slike FROM kupac WHERE korisnicko_ime = ?;");
+                                        $prep_pic->execute([$_SESSION['username']]);
+                                        if ($prep_pic->rowCount() > 0) {
+                                            $res_pic = $prep_pic->fetchAll(PDO::FETCH_OBJ);
+                                            if ($res_pic[0]->putanja_slike != null) {
+                                                echo "<img class='card-img-top' src='" . $res_pic[0]->putanja_slike . "' alt='Card image cap' style='width: 200px; height: 200px;'>";                                                
+                                            } else {
+                                                echo "<img class='card-img-top' src='assests/img/profile_blank.jpg' alt='Card image cap' style='width: 200px; height: 200px;'>";
+                                            }
+                                        } else {
+                                            echo "<img class='card-img-top' src='assests/img/profile_blank.jpg' alt='Card image cap' style='width: 200px; height: 200px;'>";
+                                        }                                                                                     
+                                        ?>                                        
+                                        <div class="card-body">
+                                            <p class="card-text"><b><?php echo $res_user[0]->ime . " " . $res_user[0]->prezime ?></b></p>
+                                            <p class="card-text"><b><?php echo $res_user[0]->email ?></b></p>
+                                            <p class="card-text"><b><?php echo $res_user[0]->telefon ?></b></p>
+                                        </div>
                                     </div>
+                                    <div class="request pull-right col-md-7">
+                                        <p style="padding: 0 15px 10px 15px;">Zelim da zakazem termin gledanja sledece nekretnine:<br /> <b><?php echo $res_2[0]->adresa . ", " . $res_2[0]->naziv ?></b></p>
+                                        <div class='col-sm-12'>
+                                            <div class="form-group">                                    
+                                                <input type='datetime-local' name='date' class="form-control" id="modal_date" required/>
+                                            </div>
 
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
                         </form>
                     </div>
                     <div class="modal-footer" style="clear: both;">

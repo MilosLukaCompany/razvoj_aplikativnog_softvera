@@ -59,9 +59,9 @@
                         <button class="navbar-btn nav-button wow fadeInRight" onclick="window.open('register.php', '_self');" data-wow-delay="0.48s">Registruj se</button>
                     </div>
                     <ul class="main-nav nav navbar-nav navbar-right">
-                        <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="" href="index.php">Početna</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="" href="property_list.php">Nekretnine</a></li>
-                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="" href="contact.php">Kontakt</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.3s"><a class="navbar_link" href="index.php">Početna</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.4s"><a class="navbar_link" href="property_list.php">Nekretnine</a></li>
+                        <li class="wow fadeInDown" data-wow-delay="0.5s"><a class="navbar_link" href="contact.php">Kontakt</a></li>
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
