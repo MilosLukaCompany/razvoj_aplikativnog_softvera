@@ -240,8 +240,15 @@ else if (!isset($_SESSION['user_id'])) {
                         <h4 class="modal-title custom_align" id="Heading">Slika korisnika</h4>
                     </div>
                     <div class="modal-body">
-                        <div class="text-center">
-                            <img src="assets/img/profile_blank.jpg" alt="profilna" class="img_profile_lg"/>
+                        <div class="text-center"><?php
+                        
+                        if ($r->putanja_slike != null) {
+                                echo "<img src='{$r->putanja_slike}'alt='profilna' class='img_profile_lg'/> \n";
+                            } else {
+                                echo "<img src='assets/img/profile_blank.jpg' alt='profilna' class='img_profile_lg'/> \n";
+                            }
+                        ?>
+                            
                         </div>
                     </div>
 
