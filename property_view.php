@@ -80,8 +80,17 @@
                         }
                         if (isset($_SESSION['username'])) {
                             if ($_SESSION['user_type'] === "kupac") {
-                                ?>                        
-                                <li class="wow fadeInDown" data-wow-delay="0.6s"><a class="navbar_link" href="favourites.php">Lista želja</a></li>
+                                require 'php/database_connection.php';
+                                $prep_notification = $db->prepare("SELECT agent.notifikacija FROM agent WHERE korisnicko_ime = ?;");
+                                $prep_notification->execute([$_SESSION['username']]);
+                                $res_notification = $prep_notification->fetchAll(PDO::FETCH_OBJ);
+                                if ($res_notification[0]->notifikacija > 0) {
+                                    
+                                    echo "<li class='wow fadeInDown' data-wow-delay='0.5s'><a class='navbar_link' href='agent_appointments.php'>Termini gledanja <sup style='color: #f00;'>" . $res_notification[0]->notifikacija . "</sup></a></li>\n";
+                                } else {
+                                    echo "<li class='wow fadeInDown' data-wow-delay='0.5s'><a class='navbar_link' href='agent_appointments.php'>Termini gledanja</a></li>\n";
+                                }
+                                ?>                                                               
                                 <li class="wow fadeInDown" data-wow-delay="0.7s"><a class="navbar_link" href="profile.php"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span>&nbsp;<?php echo $_SESSION['username']; ?></a></li>
                                 <?php
                             } else if ($_SESSION['user_type'] === "agent") {
@@ -175,6 +184,192 @@
                         echo "</div>\n";
                     }
                     ?>                                                           
+                      
+                    <div class="col-md-8 single-property-content ">
+                        <div class="row">
+                            <div class="light-slide-item">            
+                                <div class="clearfix">
+                                    <div class="favorite-and-print">
+                                        <?php 
+                                        if (isset($_SESSION['username']) && $_SESSION['user_type'] == "kupac") {
+                                            $prep_user = $db->prepare("SELECT * FROM kupac WHERE korisnicko_ime = ?;");
+                                            $prep_user->execute([$_SESSION['username']]);
+                                            $res_user = $prep_user->fetchAll(PDO::FETCH_OBJ);
+                                            
+                                            echo "<a class='add-to-fav' href='#login-moda' data-toggle='modal'>\n";
+                                            echo "<i class='fa fa-star' data-toggle='tooltip' data-placement='bottom' title='Dodaj u listu zelja' onclick='window.open(\"php/add_favourite.php?user_id={$res_user[0]->id}&property_id={$res[0]->id}\", \"_self\");'></i>\n";
+                                            echo "</a>\n";
+                                        }
+                                        ?>                                      
+                                        <a class="printer-icon " href="javascript:window.print()">
+                                            <i class="fa fa-print" data-toggle="tooltip" data-placement="bottom" title="Štampaj"></i> 
+                                        </a>
+                                    </div> 
+
+                                    <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
+                                        <?php 
+                                        $prep_picture = $db->prepare("SELECT slika.putanja_slike FROM slika WHERE id_nekretnina = ?;");
+                                        $prep_picture->execute([$res[0]->id]);
+                                        if ($prep_picture->rowCount() > 0) {
+                                            $res_picture = $prep_picture->fetchAll(PDO::FETCH_OBJ);                                            
+                                            foreach ($res_picture as $pic) {
+                                                if ($pic->putanja_slike != null) {
+                                                    echo "<li data-thumb='" . $pic->putanja_slike . "' >\n";
+                                                    echo "<img src='" . $pic->putanja_slike . "' alt='Slike stana'  />";
+                                                    echo "</li>\n";
+                                                } else {
+                                                    echo "<li data-thumb='assets/img/default_image.png' >\n";
+                                                    echo "<img src='assets/img/default_image.png' alt='Slike stana'  />";
+                                                    echo "</li>\n";
+                                                }
+                                            }
+                                        } else {
+                                            echo "<li data-thumb='assets/img/default_image.png' >\n";
+                                            echo "<img src='assets/img/default_image.png' alt='Slike stana'  />";
+                                            echo "</li>\n";
+                                        }
+                                        ?>                                                                                                                       
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="single-property-wrapper">
+                            <div class="single-property-header">                                          
+                                <?php 
+                                $prep_2 = $db->prepare("SELECT nekretnina.*, opstina.naziv, tip_nekretnine.tip FROM
+                                                    opstina INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id)
+                                                    ON opstina.id = nekretnina.id_opstina WHERE nekretnina.id = ?;");
+                                $prep_2->execute([$_GET['id']]);
+                                $res_2 = $prep_2->fetchAll(PDO::FETCH_OBJ);                                
+                                ?>
+                                <h1 class="property-title pull-left"><?php echo $res[0]->adresa . ", " . $res_2[0]->tip; ?></h1>
+                                <span class="property-price pull-right"><?php echo number_format($res[0]->cena); ?> €</span>                                
+                            </div>
+                            <?php 
+                            if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
+                                echo "<button class='btn btn-default pull-right' data-toggle='modal' data-target='#contract_modal'>ZAKAZI GLEDANJE</button>";
+                            }                            
+                            ?>                            
+                            <div class="section additional-details">
+
+                                <h4 class="s-property-title">Additional Details</h4>
+
+                                <ul class="additional-details-list clearfix">
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Opština</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"><?php echo $res_2[0]->naziv ?></span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Adresa</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"><?php echo $res[0]->adresa ?></span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Struktura</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php 
+                                            if ($res[0]->struktura == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->struktura;                                                
+                                            }
+                                            ?>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Površina</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php
+                                            if ($res[0]->povrsina == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->povrsina; 
+                                            }
+                                            ?> 
+                                        m<sup>2</sup></span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Nameštenost</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php
+                                            if ($res[0]->namestenost == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->namestenost; 
+                                            }
+                                            ?>
+                                        </span>
+                                    </li>
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Parking</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php
+                                            if ($res[0]->parking == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->parking; 
+                                            }
+                                            ?>                                            
+                                        </span>
+                                    </li> 
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Vrsta grejanja</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php
+                                            if ($res[0]->grejanje == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->grejanje; 
+                                            }
+                                            ?>
+                                        </span>
+                                    </li> 
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Sprat</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
+                                            <?php
+                                            if ($res[0]->sprat == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->sprat; 
+                                            }
+                                            ?>                                            
+                                        </span>
+                                    </li> 
+                                    <li>
+                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Ukupno spratova</span>
+                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">                                            
+                                            <?php
+                                            if ($res[0]->spratnost == NULL) {
+                                                echo "/";
+                                            } else {
+                                                echo $res[0]->spratnost; 
+                                            }
+                                            ?>  
+                                        </span>
+                                    </li> 
+
+                                </ul>
+                            </div>                          
+                            
+                            <div class="section">
+                                <h4 class="s-property-title">Lokacija</h4>
+                                <!-- Google Map -->
+                                <div id="googleMap"></div>
+                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy70D14WJrMBJWZ6NemVDNnyVGsz1Vm1U&callback=initMap"></script>
+                            </div>
+                            <?php
+                            if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
+                                echo "<button class='btn btn-default pull-right' data-toggle='modal' data-target='#contract_modal'>ZAKAZI GLEDANJE</button>";
+                            } 
+                            if (isset($_SESSION['username']) && $_SESSION['user_type'] === "agent") {
+                                echo "<button class='btn btn-default pull-right' data-toggle='modal' data-target='#update_property_modal' onclick='check_property_type()'>IZMENI</button>";
+                                echo "<button class='btn btn-default pull-right' id='delete_button' onclick='if(confirm(\"Da li ste sigurni da želite da obrišete nekretninu?\")){window.open(\"php/delete_property.php?id={$res[0]->id}\", \"_self\")};''>IZBRISI</button>";
+                            }
+                            ?>
+                        </div>
+                    </div>
+<!--                    <button class="btn btn-default" style="margin-left: 10px; position: fixed;">ZAKAZI GLEDANJE</button>                   -->
                     <div class="col-md-4 p0">
                         <aside class="sidebar sidebar-property blog-asside-right">
                             <div class="dealer-widget">
@@ -400,191 +595,6 @@
 
                         </aside>
                     </div>
-                    <div class="col-md-8 single-property-content ">
-                        <div class="row">
-                            <div class="light-slide-item">            
-                                <div class="clearfix">
-                                    <div class="favorite-and-print">
-                                        <?php 
-                                        if (isset($_SESSION['username']) && $_SESSION['user_type'] == "kupac") {
-                                            $prep_user = $db->prepare("SELECT * FROM kupac WHERE korisnicko_ime = ?;");
-                                            $prep_user->execute([$_SESSION['username']]);
-                                            $res_user = $prep_user->fetchAll(PDO::FETCH_OBJ);
-                                            
-                                            echo "<a class='add-to-fav' href='#login-moda' data-toggle='modal'>\n";
-                                            echo "<i class='fa fa-star' data-toggle='tooltip' data-placement='bottom' title='Dodaj u listu zelja' onclick='window.open(\"php/add_favourite.php?user_id={$res_user[0]->id}&property_id={$res[0]->id}\", \"_self\");'></i>\n";
-                                            echo "</a>\n";
-                                        }
-                                        ?>                                      
-                                        <a class="printer-icon " href="javascript:window.print()">
-                                            <i class="fa fa-print" data-toggle="tooltip" data-placement="bottom" title="Štampaj"></i> 
-                                        </a>
-                                    </div> 
-
-                                    <ul id="image-gallery" class="gallery list-unstyled cS-hidden">
-                                        <?php 
-                                        $prep_picture = $db->prepare("SELECT slika.putanja_slike FROM slika WHERE id_nekretnina = ?;");
-                                        $prep_picture->execute([$res[0]->id]);
-                                        if ($prep_picture->rowCount() > 0) {
-                                            $res_picture = $prep_picture->fetchAll(PDO::FETCH_OBJ);                                            
-                                            foreach ($res_picture as $pic) {
-                                                if ($pic->putanja_slike != null) {
-                                                    echo "<li data-thumb='" . $pic->putanja_slike . "' >\n";
-                                                    echo "<img src='" . $pic->putanja_slike . "' alt='Slike stana'  />";
-                                                    echo "</li>\n";
-                                                } else {
-                                                    echo "<li data-thumb='assets/img/default_image.png' >\n";
-                                                    echo "<img src='assets/img/default_image.png' alt='Slike stana'  />";
-                                                    echo "</li>\n";
-                                                }
-                                            }
-                                        } else {
-                                            echo "<li data-thumb='assets/img/default_image.png' >\n";
-                                            echo "<img src='assets/img/default_image.png' alt='Slike stana'  />";
-                                            echo "</li>\n";
-                                        }
-                                        ?>                                                                                                                       
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="single-property-wrapper">
-                            <div class="single-property-header">                                          
-                                <?php 
-                                $prep_2 = $db->prepare("SELECT nekretnina.*, opstina.naziv, tip_nekretnine.tip FROM
-                                                    opstina INNER JOIN (nekretnina INNER JOIN tip_nekretnine ON nekretnina.id_tip_nekretnine = tip_nekretnine.id)
-                                                    ON opstina.id = nekretnina.id_opstina WHERE nekretnina.id = ?;");
-                                $prep_2->execute([$_GET['id']]);
-                                $res_2 = $prep_2->fetchAll(PDO::FETCH_OBJ);                                
-                                ?>
-                                <h1 class="property-title pull-left"><?php echo $res[0]->adresa . ", " . $res_2[0]->tip; ?></h1>
-                                <span class="property-price pull-right"><?php echo number_format($res[0]->cena); ?> €</span>                                
-                            </div>
-                            <?php 
-                            if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
-                                echo "<button class='btn btn-default pull-right' data-toggle='modal' data-target='#contract_modal'>ZAKAZI GLEDANJE</button>";
-                            }                            
-                            ?>                            
-                            <div class="section additional-details">
-
-                                <h4 class="s-property-title">Additional Details</h4>
-
-                                <ul class="additional-details-list clearfix">
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Opština</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"><?php echo $res_2[0]->naziv ?></span>
-                                    </li>
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Adresa</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry"><?php echo $res[0]->adresa ?></span>
-                                    </li>
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Struktura</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
-                                            <?php 
-                                            if ($res[0]->struktura == NULL) {
-                                                echo "/";
-                                            } else {
-                                                echo $res[0]->struktura;                                                
-                                            }
-                                            ?>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Površina</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
-                                            <?php
-                                            if ($res[0]->povrsina == NULL) {
-                                                echo "/";
-                                            } else {
-                                                echo $res[0]->povrsina; 
-                                            }
-                                            ?> 
-                                        m<sup>2</sup></span>
-                                    </li>
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Nameštenost</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
-                                            <?php
-                                            if ($res[0]->namestenost == NULL) {
-                                                echo "/";
-                                            } else {
-                                                echo $res[0]->namestenost; 
-                                            }
-                                            ?>
-                                        </span>
-                                    </li>
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Parking</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
-                                            <?php
-                                            if ($res[0]->parking == NULL) {
-                                                echo "/";
-                                            } else {
-                                                echo $res[0]->parking; 
-                                            }
-                                            ?>                                            
-                                        </span>
-                                    </li> 
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Vrsta grejanja</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
-                                            <?php
-                                            if ($res[0]->grejanje == NULL) {
-                                                echo "/";
-                                            } else {
-                                                echo $res[0]->grejanje; 
-                                            }
-                                            ?>
-                                        </span>
-                                    </li> 
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Sprat</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">
-                                            <?php
-                                            if ($res[0]->sprat == NULL) {
-                                                echo "/";
-                                            } else {
-                                                echo $res[0]->sprat; 
-                                            }
-                                            ?>                                            
-                                        </span>
-                                    </li> 
-                                    <li>
-                                        <span class="col-xs-6 col-sm-4 col-md-4 add-d-title">Ukupno spratova</span>
-                                        <span class="col-xs-6 col-sm-8 col-md-8 add-d-entry">                                            
-                                            <?php
-                                            if ($res[0]->spratnost == NULL) {
-                                                echo "/";
-                                            } else {
-                                                echo $res[0]->spratnost; 
-                                            }
-                                            ?>  
-                                        </span>
-                                    </li> 
-
-                                </ul>
-                            </div>                          
-                            
-                            <div class="section">
-                                <h4 class="s-property-title">Lokacija</h4>
-                                <!-- Google Map -->
-                                <div id="googleMap"></div>
-                                <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAy70D14WJrMBJWZ6NemVDNnyVGsz1Vm1U&callback=initMap"></script>
-                            </div>
-                            <?php
-                            if (!isset($_SESSION['username']) || (isset($_SESSION['username']) && ($_SESSION['user_type'] === "kupac"))) {
-                                echo "<button class='btn btn-default pull-right' data-toggle='modal' data-target='#contract_modal'>ZAKAZI GLEDANJE</button>";
-                            } 
-                            if (isset($_SESSION['username']) && $_SESSION['user_type'] === "agent") {
-                                echo "<button class='btn btn-default pull-right' data-toggle='modal' data-target='#update_property_modal' onclick='check_property_type()'>IZMENI</button>";
-                                echo "<button class='btn btn-default pull-right' id='delete_button' onclick='if(confirm(\"Da li ste sigurni da želite da obrišete nekretninu?\")){window.open(\"php/delete_property.php?id={$res[0]->id}\", \"_self\")};''>IZBRISI</button>";
-                            }
-                            ?>
-                        </div>
-                    </div>
-<!--                    <button class="btn btn-default" style="margin-left: 10px; position: fixed;">ZAKAZI GLEDANJE</button>                   -->
                 </div>
 
             </div>

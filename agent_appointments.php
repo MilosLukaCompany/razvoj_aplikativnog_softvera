@@ -176,7 +176,7 @@ if (isset($_SESSION['username'])) {
                         <tbody>
                             <?php
                                             require 'php/database_connection.php';
-                                            $prep = $db->prepare('SELECT gledanje_nekretnine.id AS nekretnina_id, gledanje_nekretnine.vreme, nekretnina.id, nekretnina.adresa, kupac.ime, kupac.prezime, kupac.telefon, kupac.email FROM (gledanje_nekretnine INNER JOIN kupac ON gledanje_nekretnine.id_kupac = kupac.id) INNER JOIN nekretnina ON gledanje_nekretnine.id_nekretnina = nekretnina.id ORDER BY kupac.ime ASC;');
+                                            $prep = $db->prepare('SELECT gledanje_nekretnine.id_nekretnina AS nekretnina_id, gledanje_nekretnine.vreme, nekretnina.id, nekretnina.adresa, kupac.ime, kupac.prezime, kupac.telefon, kupac.email FROM (gledanje_nekretnine INNER JOIN kupac ON gledanje_nekretnine.id_kupac = kupac.id) INNER JOIN nekretnina ON gledanje_nekretnine.id_nekretnina = nekretnina.id ORDER BY kupac.ime ASC;');
                                             $prep->execute();
                                             $res = $prep->fetchAll(PDO::FETCH_OBJ);
                                             $br=1;
